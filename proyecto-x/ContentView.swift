@@ -1,16 +1,81 @@
 //
 //  ContentView.swift
-//  proyecto-x
+//  Test03
 //
-//  Created by Delfina Fenocchio on 14/09/2021.
+//  Created by Rodolfo.Iribarren on 14/09/2021.
 //
 
 import SwiftUI
 
 struct ContentView: View {
+    
+   enum cellState {
+        case green
+        case red
+        case blue
+    }
+    
+    @State var pressed = []
+    @State var playerBlueTurn : Bool = true
+    
+    let winnerLines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ]
+    
+    let columns: [GridItem] = [GridItem(),
+                               GridItem(),
+                               GridItem()]
+    
     var body: some View {
-        Text("Proyecto X!")
+       
+        VStack{
+            
+            VStack {
+                Spacer()
+                
+                Text("Daltonic App")
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .font(.system(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/))
+                    .padding()
+                
+                Spacer()
+                
+                Text("Turno de: \(playerBlueTurn ? "Azul" : "Rojo" )")
+                    .padding()
+                
+                Spacer()
+            }
+            
+
+            
+            Spacer()
+            
+            
+            LazyVGrid(columns: columns) {
+                ForEach(0..<9) {index in
+                    Rectangle()
+                        .frame(width: 120, height: 120)
+                        .foregroundColor(pressed[index] == 0 ? .green : pressed[index] == 1 ? .red : .blue)
+                        .onTapGesture(count: 1, perform: {
+                            
+                            if (self.pressed[index] > 1) {
+                                self.pressed[index] = 0
+                            } else {
+                                self.pressed[index] = self.pressed[index] + 1
+                            }
+                            
+                        })
+                }
+            }
             .padding()
+        }
     }
 }
 
