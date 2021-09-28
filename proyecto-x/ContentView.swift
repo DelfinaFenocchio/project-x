@@ -7,15 +7,8 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    
-   enum cellState {
-        case green
-        case red
-        case blue
-    }
-    
-    @State var pressed = []
+struct ContentView: View {    
+    @State var pressed : [cellState] = [.green, .green, .green, .green, .green, .green, .green, .green, .green]
     @State var playerBlueTurn : Bool = true
     
     let winnerLines = [
@@ -40,7 +33,7 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 
-                Text("Daltonic App")
+                Text("Nubi Tic Tac Toe")
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .font(.system(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/))
                     .padding()
@@ -60,18 +53,7 @@ struct ContentView: View {
             
             LazyVGrid(columns: columns) {
                 ForEach(0..<9) {index in
-                    Rectangle()
-                        .frame(width: 120, height: 120)
-                        .foregroundColor(pressed[index] == 0 ? .green : pressed[index] == 1 ? .red : .blue)
-                        .onTapGesture(count: 1, perform: {
-                            
-                            if (self.pressed[index] > 1) {
-                                self.pressed[index] = 0
-                            } else {
-                                self.pressed[index] = self.pressed[index] + 1
-                            }
-                            
-                        })
+                    Cell()
                 }
             }
             .padding()

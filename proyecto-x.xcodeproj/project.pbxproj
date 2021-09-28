@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2132D5172703B3B400C5039D /* CellState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2132D5162703B3B400C5039D /* CellState.swift */; };
+		2132D51F2703B5D700C5039D /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2132D51E2703B5D700C5039D /* Cell.swift */; };
 		5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82982626F142E900FAC491 /* proyecto_xApp.swift */; };
 		5F82982926F142E900FAC491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82982826F142E900FAC491 /* ContentView.swift */; };
 		5F82982B26F142EA00FAC491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F82982A26F142EA00FAC491 /* Assets.xcassets */; };
@@ -33,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2132D5162703B3B400C5039D /* CellState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellState.swift; sourceTree = "<group>"; };
+		2132D51E2703B5D700C5039D /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		5F82982326F142E900FAC491 /* proyecto-x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "proyecto-x.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F82982626F142E900FAC491 /* proyecto_xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proyecto_xApp.swift; sourceTree = "<group>"; };
 		5F82982826F142E900FAC491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 				5F82982A26F142EA00FAC491 /* Assets.xcassets */,
 				5F82982F26F142EA00FAC491 /* Info.plist */,
 				5F82982C26F142EA00FAC491 /* Preview Content */,
+				2132D5162703B3B400C5039D /* CellState.swift */,
+				2132D51E2703B5D700C5039D /* Cell.swift */,
 			);
 			path = "proyecto-x";
 			sourceTree = "<group>";
@@ -260,7 +266,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F82982926F142E900FAC491 /* ContentView.swift in Sources */,
+				2132D51F2703B5D700C5039D /* Cell.swift in Sources */,
 				5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */,
+				2132D5172703B3B400C5039D /* CellState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
