@@ -9,9 +9,8 @@ import SwiftUI
 
 struct Cell: View {
     @State private var playability : cellState = cellState.green
-    
-    //To do: use ContentView state instead
-    @State private var playerBlueTurn : Bool = true
+    @Binding var playerBlueTurn : Bool
+    @Binding var winnerLines : [[Int]]
     
     var body: some View {
         Rectangle()
@@ -20,8 +19,8 @@ struct Cell: View {
             .onTapGesture(count: 1, perform: {
                 if(self.playability == cellState.green){
                     setPlayability(newPlayabilityValue: self.playerBlueTurn ? cellState.blue : cellState.red)
+                    self.toggleTurn()
                 }
-                //To do: alter turn state?
             })
     }
     
@@ -36,7 +35,7 @@ struct Cell: View {
 
 struct Cell_Previews: PreviewProvider {
     static var previews: some View {
-        Cell()
+        ContentView()
     }
 }
 
