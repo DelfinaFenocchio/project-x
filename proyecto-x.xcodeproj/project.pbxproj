@@ -15,6 +15,7 @@
 		5F82982E26F142EA00FAC491 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F82982D26F142EA00FAC491 /* Preview Assets.xcassets */; };
 		5F82983926F142EA00FAC491 /* proyecto_xTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82983826F142EA00FAC491 /* proyecto_xTests.swift */; };
 		5F82984426F142EA00FAC491 /* proyecto_xUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82984326F142EA00FAC491 /* proyecto_xUITests.swift */; };
+		6A42581C2708F4EE006C1F14 /* RetoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A42581B2708F4EE006C1F14 /* RetoScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		5F82983F26F142EA00FAC491 /* proyecto-xUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "proyecto-xUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F82984326F142EA00FAC491 /* proyecto_xUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proyecto_xUITests.swift; sourceTree = "<group>"; };
 		5F82984526F142EA00FAC491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A42581B2708F4EE006C1F14 /* RetoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetoScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				5F82982C26F142EA00FAC491 /* Preview Content */,
 				2132D5162703B3B400C5039D /* CellState.swift */,
 				2132D51E2703B5D700C5039D /* Cell.swift */,
+				6A42581B2708F4EE006C1F14 /* RetoScreen.swift */,
 			);
 			path = "proyecto-x";
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				2132D51F2703B5D700C5039D /* Cell.swift in Sources */,
 				5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */,
 				2132D5172703B3B400C5039D /* CellState.swift in Sources */,
+				6A42581C2708F4EE006C1F14 /* RetoScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

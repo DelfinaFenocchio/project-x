@@ -10,8 +10,8 @@ import SwiftUI
 struct ContentView: View {    
     @State var pressed : [cellState] = [.green, .green, .green, .green, .green, .green, .green, .green, .green]
     @State var playerBlueTurn : Bool = true
-    
-    @State var winnerLines = [
+        
+    let winnerLines : [[Int]] = [
         [0, 1, 2],
         [3, 4, 5],
         [6, 7, 8],
@@ -40,20 +40,27 @@ struct ContentView: View {
                 
                 Spacer()
                 
+                Image(systemName: "xmark")
+                
                 Text("Turno de: \(playerBlueTurn ? "Azul" : "Rojo" )")
                     .padding()
                 
                 Spacer()
             }
-            
-
-            
             Spacer()
-            
             
             LazyVGrid(columns: columns) {
                 ForEach(0..<9) {index in
-                    Cell(playerBlueTurn: $playerBlueTurn, winnerLines: $winnerLines)
+                    Cell(playerBlueTurn: $playerBlueTurn, pressed: $pressed, index: index)
+                        .onChange(of: pressed, perform: { value in
+                            print("El array pressed es: \(value)")
+                            for (_, winnerArray) in winnerLines.enumerated() {
+                                if (pressed[winnerArray[0]] == pressed[winnerArray[1]] && pressed[winnerArray[0]] == pressed[winnerArray[2]])
+                                {
+                                    print("WIIIIINNNNNNN")
+                                }
+                            }
+                        })
                 }
             }
             .padding()

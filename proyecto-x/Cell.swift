@@ -10,7 +10,8 @@ import SwiftUI
 struct Cell: View {
     @State private var playability : cellState = cellState.green
     @Binding var playerBlueTurn : Bool
-    @Binding var winnerLines : [[Int]]
+    @Binding var pressed : [cellState]
+    var index : Int
     
     var body: some View {
         Rectangle()
@@ -19,6 +20,7 @@ struct Cell: View {
             .onTapGesture(count: 1, perform: {
                 if(self.playability == cellState.green){
                     setPlayability(newPlayabilityValue: self.playerBlueTurn ? cellState.blue : cellState.red)
+                    pressed[index] = self.playerBlueTurn ? cellState.blue : cellState.red
                     self.toggleTurn()
                 }
             })
