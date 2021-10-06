@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {    
     @State var pressed : [cellState] = [.green, .green, .green, .green, .green, .green, .green, .green, .green]
     @State var playerBlueTurn : Bool = true
+    @State var GameStateProperty : GameState = GameState.active
         
     let winnerLines : [[Int]] = [
         [0, 1, 2],
@@ -40,10 +41,11 @@ struct ContentView: View {
                 
                 Spacer()
                 
+                GameOverView(GameStateProperty: GameStateProperty)
+                
                 Image(systemName: "xmark")
                 
-                Text("Turno de: \(playerBlueTurn ? "Azul" : "Rojo" )")
-                    .padding()
+                TurnView(playerBlueTurn: playerBlueTurn, GameStateProperty: GameStateProperty)
                 
                 Spacer()
             }
@@ -51,13 +53,16 @@ struct ContentView: View {
             
             LazyVGrid(columns: columns) {
                 ForEach(0..<9) {index in
-                    Cell(playerBlueTurn: $playerBlueTurn, pressed: $pressed, index: index)
+                    Cell(playerBlueTurn: $playerBlueTurn, pressed: $pressed, index: index, GameStateProperty: GameStateProperty)
                         .onChange(of: pressed, perform: { value in
                             print("El array pressed es: \(value)")
                             for (_, winnerArray) in winnerLines.enumerated() {
-                                if (pressed[winnerArray[0]] == pressed[winnerArray[1]] && pressed[winnerArray[0]] == pressed[winnerArray[2]])
+                                if (pressed[winnerArray[0]] == pressed[winnerArray[1]] && pressed[winnerArray[0]] == pressed[winnerArray[2]] && pressed[winnerArray[0]] != cellState.green)
                                 {
+                                    GameStateProperty = playerBlueTurn ? GameState.redWin : GameState.blueWin
+                                    // Investigar como interrumpir este loop.
                                     print("WIIIIINNNNNNN")
+                                    break
                                 }
                             }
                         })

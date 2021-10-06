@@ -12,13 +12,15 @@ struct Cell: View {
     @Binding var playerBlueTurn : Bool
     @Binding var pressed : [cellState]
     var index : Int
+    let GameStateProperty : GameState
     
     var body: some View {
         Rectangle()
             .frame(width: 90, height: 90)
             .foregroundColor(playability == cellState.green ? Color.green : playability == cellState.red ? Color.red : Color.blue)
             .onTapGesture(count: 1, perform: {
-                if(self.playability == cellState.green){
+                if(self.playability == cellState.green && GameStateProperty == GameState.active)
+                {
                     setPlayability(newPlayabilityValue: self.playerBlueTurn ? cellState.blue : cellState.red)
                     pressed[index] = self.playerBlueTurn ? cellState.blue : cellState.red
                     self.toggleTurn()
