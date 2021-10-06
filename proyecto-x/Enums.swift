@@ -7,15 +7,15 @@
 
 import Foundation
 
-enum cellState {
-     case green
-     case red
-     case blue
+enum CellState {
+     case empty
+     case playerX
+     case playerO
  }
 
 enum GameState {
      case active
      case draw
-     case redWin
-     case blueWin
+     case playerOWin
+     case playerXWin
  }

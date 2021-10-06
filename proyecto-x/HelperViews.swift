@@ -15,10 +15,10 @@ struct GameOverView: View {
         {
         case .draw:
             Text("The game is tie")
-        case .redWin:
-            Text("Red Win!")
-        case .blueWin:
-            Text("Blue Win!")
+        case .playerOWin:
+            Text("Player O Win!")
+        case .playerXWin:
+            Text("Player X Win!")
         default:
             EmptyView()
         }
@@ -26,13 +26,13 @@ struct GameOverView: View {
 }
 
 struct TurnView: View {
-    let playerBlueTurn : Bool
+    let playerXTurn : Bool
     let GameStateProperty : GameState
     
     var body: some View {
         if GameStateProperty == GameState.active
         {
-            Text("Turno de: \(playerBlueTurn ? "Azul" : "Rojo")")
+            Text("Turno de: \(playerXTurn ? "Player X" : "Player O")")
                 .padding()
         }
         else

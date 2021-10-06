@@ -7,11 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View {    
-    @State var pressed : [cellState] = [.green, .green, .green, .green, .green, .green, .green, .green, .green]
-    @State var playerBlueTurn : Bool = true
+let initialBoard : [CellState] = [.empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty]
+
+struct TicTacToeIndex: View {
+
+    @State var pressed : [CellState] = initialBoard
+    @State var playerXTurn : Bool = true
     @State var GameStateProperty : GameState = GameState.active
-        
+    
     let winnerLines : [[Int]] = [
         [0, 1, 2],
         [3, 4, 5],
@@ -43,9 +46,18 @@ struct ContentView: View {
                 
                 GameOverView(GameStateProperty: GameStateProperty)
                 
-                Image(systemName: "xmark")
+                if GameStateProperty == GameState.active
+                {
+                    playerXTurn ? Image(systemName: "xmark") : Image(systemName: "circle")
+                }
+                else
+                {
+                    Button("Reiniciar el juego") {
+                        resetGame()
+                    }
+                }
                 
-                TurnView(playerBlueTurn: playerBlueTurn, GameStateProperty: GameStateProperty)
+                TurnView(playerXTurn: playerXTurn, GameStateProperty: GameStateProperty)
                 
                 Spacer()
             }
@@ -53,28 +65,43 @@ struct ContentView: View {
             
             LazyVGrid(columns: columns) {
                 ForEach(0..<9) {index in
-                    Cell(playerBlueTurn: $playerBlueTurn, pressed: $pressed, index: index, GameStateProperty: GameStateProperty)
+                    Cell(playerXTurn: $playerXTurn, pressed: $pressed, index: index, GameStateProperty: GameStateProperty)
                         .onChange(of: pressed, perform: { value in
                             print("El array pressed es: \(value)")
                             for (_, winnerArray) in winnerLines.enumerated() {
-                                if (pressed[winnerArray[0]] == pressed[winnerArray[1]] && pressed[winnerArray[0]] == pressed[winnerArray[2]] && pressed[winnerArray[0]] != cellState.green)
+                                if (pressed[winnerArray[0]] == pressed[winnerArray[1]] && pressed[winnerArray[0]] == pressed[winnerArray[2]] && pressed[winnerArray[0]] != CellState.empty)
                                 {
-                                    GameStateProperty = playerBlueTurn ? GameState.redWin : GameState.blueWin
+                                    GameStateProperty = playerXTurn ? GameState.playerOWin :
+                                        GameState.playerXWin
                                     // Investigar como interrumpir este loop.
                                     print("WIIIIINNNNNNN")
                                     break
+                                }
+                                else if (!pressed.contains(CellState.empty)){
+                                    GameStateProperty = GameState.draw
+                                    
                                 }
                             }
                         })
                 }
             }
             .padding()
+            
         }
+    }
+ 
+    func resetGame() -> Void {
+        print("antes: \(pressed)")
+        pressed = initialBoard
+        print("despues: \(pressed)")
+        playerXTurn = true
+        GameStateProperty = GameState.active
+        //TODO: ver como re renderizar la grilla
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        TicTacToeIndex()
     }
 }

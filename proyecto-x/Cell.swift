@@ -8,39 +8,34 @@
 import SwiftUI
 
 struct Cell: View {
-    @State private var playability : cellState = cellState.green
-    @Binding var playerBlueTurn : Bool
-    @Binding var pressed : [cellState]
+    @State private var playability : CellState = CellState.empty
+    @Binding var playerXTurn : Bool
+    @Binding var pressed : [CellState]
     var index : Int
     let GameStateProperty : GameState
     
     var body: some View {
         Rectangle()
             .frame(width: 90, height: 90)
-            .foregroundColor(playability == cellState.green ? Color.green : playability == cellState.red ? Color.red : Color.blue)
+            .foregroundColor(playability == CellState.empty ? Color.green : playability == CellState.playerO ? Color.red : Color.blue)
             .onTapGesture(count: 1, perform: {
-                if(self.playability == cellState.green && GameStateProperty == GameState.active)
+                if(self.playability == CellState.empty && GameStateProperty == GameState.active)
                 {
-                    setPlayability(newPlayabilityValue: self.playerBlueTurn ? cellState.blue : cellState.red)
-                    pressed[index] = self.playerBlueTurn ? cellState.blue : cellState.red
+                    setPlayability(newPlayabilityValue: self.playerXTurn ? CellState.playerX : CellState.playerO)
+                    pressed[index] = self.playerXTurn ? CellState.playerX : CellState.playerO
                     self.toggleTurn()
                 }
             })
     }
     
     public func toggleTurn() -> Void {
-        self.playerBlueTurn = !self.playerBlueTurn
+        self.playerXTurn = !self.playerXTurn
     }
     
-    public func setPlayability(newPlayabilityValue: cellState) -> Void {
+    public func setPlayability(newPlayabilityValue: CellState) -> Void {
         self.playability = newPlayabilityValue
     }
 }
 
-struct Cell_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
 
 

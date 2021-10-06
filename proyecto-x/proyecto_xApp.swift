@@ -11,7 +11,7 @@ import SwiftUI
 struct proyecto_xApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TicTacToeIndex()
         }
     }
 }
