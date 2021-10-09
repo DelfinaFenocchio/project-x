@@ -14,6 +14,7 @@ struct TicTacToeIndex: View {
     @State var pressed : [CellState] = initialBoard
     @State var playerXTurn : Bool = true
     @State var GameStateProperty : GameState = GameState.active
+    @State private var viewId : Int = 0
     
     let winnerLines : [[Int]] = [
         [0, 1, 2],
@@ -83,6 +84,7 @@ struct TicTacToeIndex: View {
                                 }
                             }
                         })
+                        .id(viewId + index)
                 }
             }
             .padding()
@@ -93,6 +95,7 @@ struct TicTacToeIndex: View {
     func resetGame() -> Void {
         print("antes: \(pressed)")
         pressed = initialBoard
+        viewId += 10
         print("despues: \(pressed)")
         playerXTurn = true
         GameStateProperty = GameState.active
