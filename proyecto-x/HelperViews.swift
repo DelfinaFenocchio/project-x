@@ -14,11 +14,11 @@ struct GameOverView: View {
         switch (GameStateProperty)
         {
         case .draw:
-            Text("The game is tie")
+            Text("The game is Tie!")
         case .playerOWin:
-            Text("Player O Win!")
+            Text("Player \(Image(systemName: "circle")) Win!")
         case .playerXWin:
-            Text("Player X Win!")
+            Text("Player \(Image(systemName: "xmark")) Win!")
         default:
             EmptyView()
         }
@@ -32,7 +32,7 @@ struct TurnView: View {
     var body: some View {
         if GameStateProperty == GameState.active
         {
-            Text("Turno de: \(playerXTurn ? "Player X" : "Player O")")
+            Text("Turno de: \(playerXTurn ? Image(systemName: "xmark") : Image(systemName: "circle"))")
                 .padding()
         }
         else

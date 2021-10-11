@@ -8,32 +8,41 @@
 import SwiftUI
 
 struct Cell: View {
-    @State private var playability : CellState = CellState.empty
+    @Binding var playability : CellState
     @Binding var playerXTurn : Bool
     @Binding var pressed : [CellState]
-    var index : Int
+    let index : Int
     let GameStateProperty : GameState
     
     var body: some View {
-        Rectangle()
-            .frame(width: 90, height: 90)
-            .foregroundColor(playability == CellState.empty ? Color.green : playability == CellState.playerO ? Color.red : Color.blue)
-            .onTapGesture(count: 1, perform: {
-                if(self.playability == CellState.empty && GameStateProperty == GameState.active)
-                {
-                    setPlayability(newPlayabilityValue: self.playerXTurn ? CellState.playerX : CellState.playerO)
-                    pressed[index] = self.playerXTurn ? CellState.playerX : CellState.playerO
-                    self.toggleTurn()
-                }
+        ZStack {
+            Rectangle()
+                .frame(width: 90, height: 90)
+                .foregroundColor(playability == CellState.empty ? Color.green : playability == CellState.playerO ? Color.red : Color.blue)
+                .onTapGesture(count: 1, perform: {
+                    if(playability == CellState.empty && GameStateProperty == GameState.active)
+                    {
+                        onTapGestureHandler()
+                    }
             })
+            
+            if(playability != CellState.empty) {
+                if playability == CellState.playerX {
+                    Image(systemName: "xmark").resizable().frame(width: 50, height: 50)
+                } else {
+                    Image(systemName: "circle").resizable().frame(width: 50, height: 50)
+                }
+            }
+        }
     }
     
-    public func toggleTurn() -> Void {
-        self.playerXTurn = !self.playerXTurn
-    }
-    
-    public func setPlayability(newPlayabilityValue: CellState) -> Void {
-        self.playability = newPlayabilityValue
+    public func onTapGestureHandler() {
+        if(playerXTurn) {
+            pressed[index] = CellState.playerX
+        } else {
+            pressed[index] = CellState.playerO
+        }
+        playerXTurn.toggle()
     }
 }
 
