@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum CellState {
+enum CellState : String {
      case empty
      case playerX
      case playerO
  }
 
-enum GameState {
+enum GameState : String {
      case active
      case draw
      case playerOWin
