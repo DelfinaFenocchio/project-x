@@ -64,7 +64,6 @@ struct MainView: View {
             }
             Spacer()
             
-            ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns) {
                     ForEach(0..<9) {index in
                         Cell(playability : $mainViewState.pressed[index], index: index)
@@ -85,8 +84,9 @@ struct MainView: View {
                             })
                     }
                 }
+                .frame(width: 400, height: 400)
+                .background(Color(red: 93/255, green: 44/255, blue: 148/255))
                 .padding()
-            }
         }
         .environmentObject(mainViewState)
     }

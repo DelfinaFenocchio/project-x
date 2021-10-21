@@ -14,9 +14,9 @@ struct Cell: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
+            RoundedRectangle(cornerRadius: 25, style: .continuous)
                 .frame(width: 90, height: 90)
-                .foregroundColor(playability == CellState.empty ? Color.green : playability == CellState.playerO ? Color.red : Color.blue)
+                .foregroundColor(playability == CellState.empty ? Color(red: 54/255, green: 7/255, blue: 109/255) : playability == CellState.playerO ? Color.red : Color.blue)
                 .onTapGesture(count: 1, perform: {
                     if(playability == CellState.empty && globalState.GameStateProperty == GameState.active)
                     {
@@ -24,6 +24,7 @@ struct Cell: View {
                     }
                 })
                 .padding(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
+            
             
             if(playability != CellState.empty) {
                 if (playability == CellState.playerX) {
