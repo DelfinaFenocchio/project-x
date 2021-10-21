@@ -9,10 +9,14 @@ import SwiftUI
 
 let initialBoard : [CellState] = [.empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty]
 
+class TicTacToeState : ObservableObject {
+    @Published var pressed : [CellState] = initialBoard
+    @Published var playerXTurn : Bool = true
+    @Published var GameStateProperty : GameState = GameState.active
+}
+
 struct MainView: View {
-    @State private var pressed : [CellState] = initialBoard
-    @State private var playerXTurn : Bool = true
-    @State private var GameStateProperty : GameState = GameState.active
+    @StateObject var mainViewState : TicTacToeState = TicTacToeState()
     
     let winnerLines : [[Int]] = [
         [0, 1, 2],
@@ -43,18 +47,18 @@ struct MainView: View {
                 
                 Spacer()
                 
-                GameOverView(GameStateProperty: GameStateProperty)
+                GameOverView(GameStateProperty : mainViewState.GameStateProperty)
                 
-                if GameStateProperty != GameState.active
+                if mainViewState.GameStateProperty != GameState.active
                 {
                     Spacer()
                     
                     Button("Reiniciar el juego") {
-                        resetGame()
+                        self.resetGame()
                     }
                 }
                 
-                TurnView(playerXTurn: playerXTurn, GameStateProperty: GameStateProperty)
+                TurnView(playerXTurn : mainViewState.playerXTurn, GameStateProperty: mainViewState.GameStateProperty)
                 
                 Spacer()
             }
@@ -63,19 +67,19 @@ struct MainView: View {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns) {
                     ForEach(0..<9) {index in
-                        Cell(playability: $pressed[index], playerXTurn: $playerXTurn, pressed: $pressed, index: index, GameStateProperty: GameStateProperty)
-                            .onChange(of: pressed, perform: { value in
+                        Cell(playability : $mainViewState.pressed[index], index: index)
+                            .onChange(of: mainViewState.pressed, perform: { value in
                                 for (winnerArray) in winnerLines {
-                                    if (pressed[winnerArray[0]] == pressed[winnerArray[1]] && pressed[winnerArray[0]] == pressed[winnerArray[2]] && pressed[winnerArray[0]] != CellState.empty)
+                                    if (mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[1]] && mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[2]] && mainViewState.pressed[winnerArray[0]] != CellState.empty)
                                     {
-                                        GameStateProperty = playerXTurn ? GameState.playerOWin :
+                                        mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
                                             GameState.playerXWin
                                         // Investigar como interrumpir este loop.
                                         print("WIIIIINNNNNNN \(index)")
                                         break
                                     }
-                                    else if (!pressed.contains(CellState.empty)){
-                                        GameStateProperty = GameState.draw
+                                    else if (!mainViewState.pressed.contains(CellState.empty)){
+                                        mainViewState.GameStateProperty = GameState.draw
                                     }
                                 }
                             })
@@ -84,12 +88,13 @@ struct MainView: View {
                 .padding()
             }
         }
+        .environmentObject(mainViewState)
     }
     
     func resetGame() -> Void {
-        pressed = initialBoard
-        playerXTurn = true
-        GameStateProperty = GameState.active
+        mainViewState.pressed = initialBoard
+        mainViewState.playerXTurn = true
+        mainViewState.GameStateProperty = GameState.active
     }
 }
 
