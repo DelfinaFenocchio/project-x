@@ -15,22 +15,20 @@ struct Cell: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .frame(width: 90, height: 90)
-                .foregroundColor(playability == CellState.empty ? Color(red: 54/255, green: 7/255, blue: 109/255) : playability == CellState.playerO ? Color.red : Color.blue)
+                .customCellStyle()
                 .onTapGesture(count: 1, perform: {
                     if(playability == CellState.empty && globalState.GameStateProperty == GameState.active)
                     {
                         onTapGestureHandler()
                     }
                 })
-                .padding(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
             
             
             if(playability != CellState.empty) {
                 if (playability == CellState.playerX) {
-                    Image(systemName: "xmark").resizable().frame(width: 50, height: 50)
+                    Image(systemName: "xmark").resizable().frame(width: 50, height: 50).foregroundColor(.white)
                 } else {
-                    Image(systemName: "circle").resizable().frame(width: 50, height: 50)
+                    Image(systemName: "circle").resizable().frame(width: 50, height: 50).foregroundColor(.white)
                 }
             }
         }

@@ -29,66 +29,70 @@ struct MainView: View {
         [2, 4, 6]
     ]
     
-    let columns: [GridItem] = [GridItem(),
-                               GridItem(),
-                               GridItem()]
+    let columns: [GridItem] = [GridItem(.flexible()),
+                               GridItem(.flexible()),
+                               GridItem(.flexible())]
     
     var body: some View {
         
-        VStack {
-            
+        ZStack {
+            Color(red: 111/255, green: 156/255, blue: 235/255)
+                .ignoresSafeArea()
+       // Image("wallpapertictactoe").resizable().ignoresSafeArea()
             VStack {
-                Spacer()
                 
-                Text("Tic Tac Toe")
-                    .fontWeight(.bold)
-                    .font(.system(.title))
-                    .padding()
-                
-                Spacer()
-                
-                GameOverView(GameStateProperty : mainViewState.GameStateProperty)
-                
-                if mainViewState.GameStateProperty != GameState.active
-                {
+                VStack {
                     Spacer()
                     
-                    Button("Reiniciar el juego") {
-                        self.resetGame()
+                    Text("Tic Tac Toe")
+                        .fontWeight(.bold)
+                        .font(.system(.title))
+                        .padding()
+                        .customTextStyle()
+                    
+                    Spacer()
+                    
+                    GameOverView(GameStateProperty : mainViewState.GameStateProperty)
+                    
+                    if mainViewState.GameStateProperty != GameState.active
+                    {
+                        Spacer()
+                        
+                        Button("Reiniciar el juego") {
+                            self.resetGame()
+                        }
                     }
+                    
+                    TurnView(playerXTurn : mainViewState.playerXTurn, GameStateProperty: mainViewState.GameStateProperty)
+                    
+                    Spacer()
                 }
-                
-                TurnView(playerXTurn : mainViewState.playerXTurn, GameStateProperty: mainViewState.GameStateProperty)
-                
                 Spacer()
-            }
-            Spacer()
-            
-                LazyVGrid(columns: columns) {
-                    ForEach(0..<9) {index in
-                        Cell(playability : $mainViewState.pressed[index], index: index)
-                            .onChange(of: mainViewState.pressed, perform: { value in
-                                for (winnerArray) in winnerLines {
-                                    if (mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[1]] && mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[2]] && mainViewState.pressed[winnerArray[0]] != CellState.empty)
-                                    {
-                                        mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
-                                            GameState.playerXWin
-                                        // Investigar como interrumpir este loop.
-                                        print("WIIIIINNNNNNN \(index)")
-                                        break
+                
+                LazyVGrid(columns: columns, spacing: 5) {
+                        ForEach(0..<9) {index in
+                            Cell(playability : $mainViewState.pressed[index], index: index)
+                                .onChange(of: mainViewState.pressed, perform: { value in
+                                    for (winnerArray) in winnerLines {
+                                        if (mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[1]] && mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[2]] && mainViewState.pressed[winnerArray[0]] != CellState.empty)
+                                        {
+                                            mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
+                                                GameState.playerXWin
+                                            // Investigar como interrumpir este loop.
+                                            print("WIIIIINNNNNNN \(index)")
+                                            break
+                                        }
+                                        else if (!mainViewState.pressed.contains(CellState.empty)){
+                                            mainViewState.GameStateProperty = GameState.draw
+                                        }
                                     }
-                                    else if (!mainViewState.pressed.contains(CellState.empty)){
-                                        mainViewState.GameStateProperty = GameState.draw
-                                    }
-                                }
-                            })
+                                })
+                        }
                     }
-                }
-                .frame(width: 400, height: 400)
-                .background(Color(red: 93/255, green: 44/255, blue: 148/255))
-                .padding()
+                .customCellContainerStyle()
+            }
+            .environmentObject(mainViewState)
         }
-        .environmentObject(mainViewState)
     }
     
     func resetGame() -> Void {

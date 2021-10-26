@@ -14,11 +14,11 @@ struct GameOverView: View {
         switch (GameStateProperty)
         {
         case .draw:
-            Text("The game is Tie!")
+            Text("The game is Tie!").customTextStyle()
         case .playerOWin:
-            Text("Player \(Image(systemName: "circle")) Win!")
+            Text("Player \(Image(systemName: "circle")) Win!").customTextStyle()
         case .playerXWin:
-            Text("Player \(Image(systemName: "xmark")) Win!")
+            Text("Player \(Image(systemName: "xmark")) Win!").customTextStyle()
         default:
             EmptyView()
         }
@@ -34,6 +34,7 @@ struct TurnView: View {
         {
             Text("Turno de: \(playerXTurn ? Image(systemName: "xmark") : Image(systemName: "circle"))")
                 .padding()
+                .customTextStyle()
         }
         else
         {
