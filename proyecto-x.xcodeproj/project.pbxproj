@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2132D51F2703B5D700C5039D /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2132D51E2703B5D700C5039D /* Cell.swift */; };
+		21398748272B3E03000A96E8 /* CustomModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21398747272B3E03000A96E8 /* CustomModifiers.swift */; };
 		5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82982626F142E900FAC491 /* proyecto_xApp.swift */; };
 		5F82982926F142E900FAC491 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82982826F142E900FAC491 /* MainView.swift */; };
 		5F82982B26F142EA00FAC491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F82982A26F142EA00FAC491 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		2132D51E2703B5D700C5039D /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		21398747272B3E03000A96E8 /* CustomModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifiers.swift; sourceTree = "<group>"; };
 		5F82982326F142E900FAC491 /* proyecto-x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "proyecto-x.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F82982626F142E900FAC491 /* proyecto_xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proyecto_xApp.swift; sourceTree = "<group>"; };
 		5F82982826F142E900FAC491 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		5F82982526F142E900FAC491 /* proyecto-x */ = {
 			isa = PBXGroup;
 			children = (
+				21398747272B3E03000A96E8 /* CustomModifiers.swift */,
 				5F82982626F142E900FAC491 /* proyecto_xApp.swift */,
 				5F82982826F142E900FAC491 /* MainView.swift */,
 				6A42583B270CFCC7006C1F14 /* HelperViews.swift */,
@@ -276,6 +279,7 @@
 				5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */,
 				6A42583C270CFCC7006C1F14 /* HelperViews.swift in Sources */,
 				6A425831270CFA58006C1F14 /* Enums.swift in Sources */,
+				21398748272B3E03000A96E8 /* CustomModifiers.swift in Sources */,
 				6A42581C2708F4EE006C1F14 /* RetoScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

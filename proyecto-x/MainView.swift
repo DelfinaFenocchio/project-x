@@ -69,27 +69,39 @@ struct MainView: View {
                 }
                 Spacer()
                 
-                LazyVGrid(columns: columns, spacing: 5) {
-                        ForEach(0..<9) {index in
-                            Cell(playability : $mainViewState.pressed[index], index: index)
-                                .onChange(of: mainViewState.pressed, perform: { value in
-                                    for (winnerArray) in winnerLines {
-                                        if (mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[1]] && mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[2]] && mainViewState.pressed[winnerArray[0]] != CellState.empty)
-                                        {
-                                            mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
-                                                GameState.playerXWin
-                                            // Investigar como interrumpir este loop.
-                                            print("WIIIIINNNNNNN \(index)")
-                                            break
+                ZStack {
+                    LazyVGrid(columns: columns, spacing: 5) {
+                            ForEach(0..<9) {index in
+                                Cell(playability : $mainViewState.pressed[index], index: index)
+                                    .onChange(of: mainViewState.pressed, perform: { value in
+                                        for (winnerArray) in winnerLines {
+                                            if (mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[1]] && mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[2]] && mainViewState.pressed[winnerArray[0]] != CellState.empty)
+                                            {
+                                                //TODO: Calculate coordinates of first and last cells in winnerArray
+                                                mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
+                                                    GameState.playerXWin
+                                                // Investigar como interrumpir este loop.
+                                                print("WIIIIINNNNNNN \(index)")
+                                                break
+                                            }
+                                            else if (!mainViewState.pressed.contains(CellState.empty)){
+                                                mainViewState.GameStateProperty = GameState.draw
+                                            }
                                         }
-                                        else if (!mainViewState.pressed.contains(CellState.empty)){
-                                            mainViewState.GameStateProperty = GameState.draw
-                                        }
-                                    }
-                                })
+                                    })
+                            }
                         }
+                    .customCellContainerStyle()
+                    
+                    if mainViewState.GameStateProperty == GameState.playerXWin || mainViewState.GameStateProperty == GameState.playerOWin{
+                        //TODO: show correct line
+                        Path(){ path in
+                                      path.move(to: CGPoint(x: 75, y: 90))
+                                      path.addLine(to: CGPoint(x: 360, y: 350))
+                        }
+                        .stroke(Color.red, lineWidth: 8)
                     }
-                .customCellContainerStyle()
+                }
             }
             .environmentObject(mainViewState)
         }
