@@ -7,10 +7,20 @@
 
 import SwiftUI
 
-let initialBoard : [CellState] = [.empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty]
+let initialBoardPlayability : [CellState] = [.empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty]
+
+struct BoardStruct {
+    var pressed = initialBoardPlayability
+    
+    var coords : [CGPoint] = [CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0)]
+    
+    mutating func setCoords(index : Int, point: CGPoint){
+        coords[index] = point
+    }
+}
 
 class TicTacToeState : ObservableObject {
-    @Published var pressed : [CellState] = initialBoard
+    @Published var board : BoardStruct = BoardStruct()
     @Published var playerXTurn : Bool = true
     @Published var GameStateProperty : GameState = GameState.active
 }
@@ -18,7 +28,7 @@ class TicTacToeState : ObservableObject {
 struct MainView: View {
     @StateObject var mainViewState : TicTacToeState = TicTacToeState()
     
-    let winnerLines : [[Int]] = [
+    let possibleWinnerLines : [[Int]] = [
         [0, 1, 2],
         [3, 4, 5],
         [6, 7, 8],
@@ -28,6 +38,8 @@ struct MainView: View {
         [0, 4, 8],
         [2, 4, 6]
     ]
+    
+    @State var winnerLine : [Int] = []
     
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
@@ -72,34 +84,49 @@ struct MainView: View {
                 ZStack {
                     LazyVGrid(columns: columns, spacing: 5) {
                             ForEach(0..<9) {index in
-                                Cell(playability : $mainViewState.pressed[index], index: index)
-                                    .onChange(of: mainViewState.pressed, perform: { value in
-                                        for (winnerArray) in winnerLines {
-                                            if (mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[1]] && mainViewState.pressed[winnerArray[0]] == mainViewState.pressed[winnerArray[2]] && mainViewState.pressed[winnerArray[0]] != CellState.empty)
-                                            {
-                                                //TODO: Calculate coordinates of first and last cells in winnerArray
-                                                mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
-                                                    GameState.playerXWin
-                                                // Investigar como interrumpir este loop.
-                                                print("WIIIIINNNNNNN \(index)")
-                                                break
+                                
+                                Cell(playability : $mainViewState.board.pressed[index], index: index)
+                                    .onChange(of: mainViewState.board.pressed, perform: { value in
+                                            for (possibleWinnerLine) in possibleWinnerLines {
+                                                                                                
+                                                if isVictory(possibleWinnerLine) {
+                                                    mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
+                                                        GameState.playerXWin
+                                                    
+                                                    winnerLine = possibleWinnerLine
+                                                    
+                                                    // Investigar como interrumpir este loop.
+                                                    print("WIIIIINNNNNNN \(index)")
+                                                    break
+                                                }
+                                                else if (!mainViewState.board.pressed.contains(CellState.empty)){
+                                                    mainViewState.GameStateProperty = GameState.draw
+                                                }
                                             }
-                                            else if (!mainViewState.pressed.contains(CellState.empty)){
-                                                mainViewState.GameStateProperty = GameState.draw
+                                        })
+                                        .overlay(
+                                            GeometryReader { geometry in
+                                                Color.clear
+                                                    .onAppear{
+                                                        //TODO: Save prettier coordinates
+                                                        let frame = geometry.frame(in: .named("board"))
+                                                        let point = CGPoint(x: frame.midX, y: frame.midY)
+                                                        mainViewState.board.setCoords(index: index, point: point)
+                                                    }
                                             }
-                                        }
-                                    })
+                                        )
                             }
-                        }
+                    }
                     .customCellContainerStyle()
+                    .coordinateSpace(name: "board")
+                    
                     
                     if mainViewState.GameStateProperty == GameState.playerXWin || mainViewState.GameStateProperty == GameState.playerOWin{
-                        //TODO: show correct line
                         Path(){ path in
-                                      path.move(to: CGPoint(x: 75, y: 90))
-                                      path.addLine(to: CGPoint(x: 360, y: 350))
+                            path.move(to: mainViewState.board.coords[winnerLine[0]])
+                            path.addLine(to: mainViewState.board.coords[winnerLine[2]])
                         }
-                        .stroke(Color.red, lineWidth: 8)
+                        .stroke(Color.purple, lineWidth: 8)
                     }
                 }
             }
@@ -107,15 +134,20 @@ struct MainView: View {
         }
     }
     
+    
     func resetGame() -> Void {
-        mainViewState.pressed = initialBoard
+        mainViewState.board.pressed = initialBoardPlayability
         mainViewState.playerXTurn = true
         mainViewState.GameStateProperty = GameState.active
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
+    
+    func isVictory(_ winnerLine: [Int]) -> Bool {
+        return mainViewState.board.pressed[winnerLine[0]] == mainViewState.board.pressed[winnerLine[1]] && mainViewState.board.pressed[winnerLine[0]] == mainViewState.board.pressed[winnerLine[2]] && mainViewState.board.pressed[winnerLine[0]] != CellState.empty
     }
 }
+
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainView()
+//    }
+//}

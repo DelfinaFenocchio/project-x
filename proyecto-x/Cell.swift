@@ -36,9 +36,9 @@ struct Cell: View {
     
     public func onTapGestureHandler() {
         if(globalState.playerXTurn) {
-            globalState.pressed[index] = CellState.playerX
+            globalState.board.pressed[index] = CellState.playerX
         } else {
-            globalState.pressed[index] = CellState.playerO
+            globalState.board.pressed[index] = CellState.playerO
         }
         globalState.playerXTurn.toggle()
     }
