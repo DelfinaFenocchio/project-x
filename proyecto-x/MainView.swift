@@ -27,6 +27,7 @@ class TicTacToeState : ObservableObject {
 
 struct MainView: View {
     @StateObject var mainViewState : TicTacToeState = TicTacToeState()
+    @State private var percentage: CGFloat = .zero
     
     let possibleWinnerLines : [[Int]] = [
         [0, 1, 2],
@@ -122,11 +123,7 @@ struct MainView: View {
                     
                     
                     if mainViewState.GameStateProperty == GameState.playerXWin || mainViewState.GameStateProperty == GameState.playerOWin{
-                        Path(){ path in
-                            path.move(to: mainViewState.board.coords[winnerLine[0]])
-                            path.addLine(to: mainViewState.board.coords[winnerLine[2]])
-                        }
-                        .stroke(Color.purple, lineWidth: 8)
+                        VictoryAnimatedLine(percentage: $percentage, winnerLine: winnerLine)
                     }
                 }
             }
@@ -139,6 +136,7 @@ struct MainView: View {
         mainViewState.board.pressed = initialBoardPlayability
         mainViewState.playerXTurn = true
         mainViewState.GameStateProperty = GameState.active
+        percentage = .zero
     }
     
     func isVictory(_ winnerLine: [Int]) -> Bool {
