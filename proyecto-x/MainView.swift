@@ -104,6 +104,11 @@ struct MainView: View {
                                                     mainViewState.GameStateProperty = GameState.draw
                                                 }
                                             }
+                                            if(!mainViewState.playerXTurn){
+                                                print("antes: \(mainViewState.playerXTurn)")
+                                                automaticPlay()
+                                                print("despues: \(mainViewState.playerXTurn)")
+                                            }
                                         })
                                         .overlay(
                                             GeometryReader { geometry in
@@ -131,6 +136,15 @@ struct MainView: View {
         }
     }
     
+    func automaticPlay() -> Void {
+        for (index, cell) in mainViewState.board.pressed.enumerated() {
+            if cell == CellState.empty {
+                mainViewState.board.pressed[index] = CellState.playerO
+                mainViewState.playerXTurn.toggle()
+                break
+            }
+        }
+    }
     
     func resetGame() -> Void {
         mainViewState.board.pressed = initialBoardPlayability
