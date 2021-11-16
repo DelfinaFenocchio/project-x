@@ -105,6 +105,7 @@ struct MainView: View {
                                                 }
                                             }
                                             if(!mainViewState.playerXTurn){
+                                                //TO DO: Choose to play PvP or PvC
                                                 print("antes: \(mainViewState.playerXTurn)")
                                                 automaticPlay()
                                                 print("despues: \(mainViewState.playerXTurn)")
@@ -137,12 +138,19 @@ struct MainView: View {
     }
     
     func automaticPlay() -> Void {
+        //TO DO: Select difficulty
+        var emptyCellIndexes : [Int] = []
+        
         for (index, cell) in mainViewState.board.pressed.enumerated() {
             if cell == CellState.empty {
-                mainViewState.board.pressed[index] = CellState.playerO
+                emptyCellIndexes.append(index)
+          }
+        }
+
+        if let randomEmptyCellIndex = emptyCellIndexes.randomElement() {
+            //TO DO: delay this action and prevent user from playing while it's the computer's turn
+                mainViewState.board.pressed[randomEmptyCellIndex] = CellState.playerO
                 mainViewState.playerXTurn.toggle()
-                break
-            }
         }
     }
     
