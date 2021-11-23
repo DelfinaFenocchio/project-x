@@ -28,8 +28,7 @@ class TicTacToeState : ObservableObject {
 struct MainView: View {
     @StateObject var mainViewState : TicTacToeState = TicTacToeState()
     @State private var percentage: CGFloat = .zero
-    @State var gameMode : GameMode = .notSelectedMode
-    @State var index : Int = .zero
+    let gameMode : GameMode
     
     let possibleWinnerLines : [[Int]] = [
         [0, 1, 2],
@@ -76,38 +75,23 @@ struct MainView: View {
                         Button("Reiniciar el juego") {
                             self.resetGame()
                         }
+                        .customButtonStyle()
                     }
                     
                     TurnView(playerXTurn : mainViewState.playerXTurn, GameStateProperty: mainViewState.GameStateProperty)
                     
                     Spacer()
                     
-                    if(gameMode == .notSelectedMode) {
-                        Text("Elegí el modo de juego")
-                            .fontWeight(.bold)
-                            .font(.system(.title))
-                            .padding()
-                            .customTextStyle()
-
-                        Button("1 jugador") {
-                            setGameMode(mode: .singlePlayer)
-                        }
-                        Button("2 jugadores") {
-                            setGameMode(mode: .multiPlayer)
-                        }
-                    }
                 }
                 Spacer()
                 
                 ZStack {
                     LazyVGrid(columns: columns, spacing: 5) {
-                            while(index<9) {
-                                index+=1
+                        ForEach(0..<9) {index in
                                 
                                 Cell(playability : $mainViewState.board.pressed[index], index: index)
-                                    .onChange(of: mainViewState.board.pressed, perform: { value in
-                                        inner: for (possibleWinnerLine) in possibleWinnerLines {
-                                                                                                
+                                    .onChange(of: mainViewState.board.pressed,perform:{ value in
+                                        for (possibleWinnerLine) in possibleWinnerLines {
                                                 if isVictory(possibleWinnerLine) {
                                                     mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
                                                         GameState.playerXWin
@@ -158,8 +142,10 @@ struct MainView: View {
         }
     }
     
-    func automaticPlay() -> Void {
+    func automaticPlay()  -> Void {
         //TO DO: Select difficulty
+        //await Task.sleep(1 * 1_000_000_000)
+    
         var emptyCellIndexes : [Int] = []
         
         for (index, cell) in mainViewState.board.pressed.enumerated() {
@@ -180,17 +166,12 @@ struct MainView: View {
         mainViewState.playerXTurn = true
         mainViewState.GameStateProperty = GameState.active
         percentage = .zero
-        gameMode = .notSelectedMode
     }
     
     func isVictory(_ winnerLine: [Int]) -> Bool {
         return mainViewState.board.pressed[winnerLine[0]] == mainViewState.board.pressed[winnerLine[1]] && mainViewState.board.pressed[winnerLine[0]] == mainViewState.board.pressed[winnerLine[2]] && mainViewState.board.pressed[winnerLine[0]] != CellState.empty
     }
     
-    func setGameMode(mode : GameMode) -> Void {
-        gameMode = mode
-        print("game mode: \(gameMode)")
-    }
 }
 
 //struct ContentView_Previews: PreviewProvider {

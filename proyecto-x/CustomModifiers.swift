@@ -6,6 +6,15 @@
 //
 import SwiftUI
 
+struct CustomButton: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .clipShape(Capsule())
+    }
+}
 
 struct CustomText: ViewModifier {
     func body(content: Content) -> some View {
@@ -49,5 +58,8 @@ extension View {
     }
     func customCellContainerStyle() -> some View {
         modifier(CustomCellContainer())
+    }
+    func customButtonStyle() -> some View {
+        modifier(CustomButton())
     }
 }
