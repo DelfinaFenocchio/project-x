@@ -19,3 +19,9 @@ enum GameState : String {
      case playerOWin
      case playerXWin
  }
+
+enum GameMode : String {
+    case singlePlayer
+    case multiPlayer
+    case notSelectedMode
+ }

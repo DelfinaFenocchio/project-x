@@ -28,6 +28,8 @@ class TicTacToeState : ObservableObject {
 struct MainView: View {
     @StateObject var mainViewState : TicTacToeState = TicTacToeState()
     @State private var percentage: CGFloat = .zero
+    @State var gameMode : GameMode = .notSelectedMode
+    @State var index : Int = .zero
     
     let possibleWinnerLines : [[Int]] = [
         [0, 1, 2],
@@ -79,16 +81,32 @@ struct MainView: View {
                     TurnView(playerXTurn : mainViewState.playerXTurn, GameStateProperty: mainViewState.GameStateProperty)
                     
                     Spacer()
+                    
+                    if(gameMode == .notSelectedMode) {
+                        Text("Elegí el modo de juego")
+                            .fontWeight(.bold)
+                            .font(.system(.title))
+                            .padding()
+                            .customTextStyle()
+
+                        Button("1 jugador") {
+                            setGameMode(mode: .singlePlayer)
+                        }
+                        Button("2 jugadores") {
+                            setGameMode(mode: .multiPlayer)
+                        }
+                    }
                 }
                 Spacer()
                 
                 ZStack {
                     LazyVGrid(columns: columns, spacing: 5) {
-                            ForEach(0..<9) {index in
+                            while(index<9) {
+                                index+=1
                                 
                                 Cell(playability : $mainViewState.board.pressed[index], index: index)
                                     .onChange(of: mainViewState.board.pressed, perform: { value in
-                                            for (possibleWinnerLine) in possibleWinnerLines {
+                                        inner: for (possibleWinnerLine) in possibleWinnerLines {
                                                                                                 
                                                 if isVictory(possibleWinnerLine) {
                                                     mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
@@ -100,15 +118,18 @@ struct MainView: View {
                                                     print("WIIIIINNNNNNN \(index)")
                                                     break
                                                 }
-                                                else if (!mainViewState.board.pressed.contains(CellState.empty)){
-                                                    mainViewState.GameStateProperty = GameState.draw
+                                                else {
+                                                    if (!mainViewState.board.pressed.contains(CellState.empty)){
+                                                        mainViewState.GameStateProperty = GameState.draw
+                                                    } else {
+                                                        if(!mainViewState.playerXTurn && gameMode == .singlePlayer){
+                                                            //TO DO: Choose to play PvP or PvC
+                                                            print("antes: \(mainViewState.playerXTurn)")
+                                                            automaticPlay()
+                                                            print("despues: \(mainViewState.playerXTurn)")
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                            if(!mainViewState.playerXTurn){
-                                                //TO DO: Choose to play PvP or PvC
-                                                print("antes: \(mainViewState.playerXTurn)")
-                                                automaticPlay()
-                                                print("despues: \(mainViewState.playerXTurn)")
                                             }
                                         })
                                         .overlay(
@@ -159,10 +180,16 @@ struct MainView: View {
         mainViewState.playerXTurn = true
         mainViewState.GameStateProperty = GameState.active
         percentage = .zero
+        gameMode = .notSelectedMode
     }
     
     func isVictory(_ winnerLine: [Int]) -> Bool {
         return mainViewState.board.pressed[winnerLine[0]] == mainViewState.board.pressed[winnerLine[1]] && mainViewState.board.pressed[winnerLine[0]] == mainViewState.board.pressed[winnerLine[2]] && mainViewState.board.pressed[winnerLine[0]] != CellState.empty
+    }
+    
+    func setGameMode(mode : GameMode) -> Void {
+        gameMode = mode
+        print("game mode: \(gameMode)")
     }
 }
 
