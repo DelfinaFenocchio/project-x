@@ -29,6 +29,7 @@ struct MainView: View {
     @StateObject var mainViewState : TicTacToeState = TicTacToeState()
     @State private var percentage: CGFloat = .zero
     let gameMode : GameMode
+
     
     let possibleWinnerLines : [[Int]] = [
         [0, 1, 2],
@@ -54,6 +55,7 @@ struct MainView: View {
                 .ignoresSafeArea()
        // Image("wallpapertictactoe").resizable().ignoresSafeArea()
             VStack {
+                BEComunication()
                 
                 VStack {
                     Spacer()
