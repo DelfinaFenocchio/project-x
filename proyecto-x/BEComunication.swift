@@ -7,32 +7,29 @@
 
 import SwiftUI
 
-struct Response: Codable {
-    var results: [Result]
+struct WelcomeElement: Codable, Hashable {
+    let type: TypeEnum
+    let name: String
+    let files: [WelcomeElement]?
 }
 
-struct Result: Codable {
-    var name: String
+enum TypeEnum: String, Codable {
+    case directory = "directory"
+    case file = "file"
 }
 
-struct GroceryProduct: Codable {
-    var name: String
-    var points: Int
-    var description: String?
-}
-
-let array : [String] = ["Hola", "Chao"]
+typealias Welcome = [WelcomeElement]
 
 struct BEComunication: View {
-    @State private var results = [Result]()
+    @State private var results = Welcome()
 
         var body: some View {
             if #available(iOS 15.0, *) {
                 Text("Resultado")
 
-                List(array, id: \.self) { item in
+                List(results, id: \.self) { item in
                     VStack(alignment: .leading) {
-                        Text("Elemento: \(item)")
+                        Text("Element: \(item.name)")
 //                        Text(item.name)
 //                            .font(.headline)
 //                        Text(item.type)
@@ -49,9 +46,25 @@ struct BEComunication: View {
             }
         }
     
+    func newJSONDecoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
+            decoder.dateDecodingStrategy = .iso8601
+        }
+        return decoder
+    }
+
+    func newJSONEncoder() -> JSONEncoder {
+        let encoder = JSONEncoder()
+        if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
+            encoder.dateEncodingStrategy = .iso8601
+        }
+        return encoder
+    }
+    
     @available(iOS 15.0.0, *)
     func loadData() async {
-        guard let url = URL(string: "https://run.mocky.io/v3/bc690c54-210f-4587-a9d0-fdedf1d5e048") else {
+        guard let url = URL(string: "https://run.mocky.io/v3/e5ad3239-41ad-4615-ba5f-51afc1262191") else {
             print("Invalid URL")
             return
         }
@@ -62,29 +75,13 @@ struct BEComunication: View {
             print("Antes: \(data)")
             
 
-//            let decodedResponse = try JSONDecoder().decode([Result].self, from: data)
-//            results = decodedResponse
-//            print("Después: \(decodedResponse)")
-//            print("Después con result: \(decodedResponse)")
-            
-            
-            let json = """
-            {
-                "name": "Durian",
-                "points": 600,
-                "description": "A fruit with a distinctive scent."
+            if let welcome = try? JSONDecoder().decode(Welcome.self, from: data) {
+                results = welcome
+                print("Después: \(welcome)")
+                print("Después con result: \(welcome)")
             }
-            """.data(using: .utf8)!
-            
-            print("json: \(json)")
-
-            let decoder = JSONDecoder()
-            let product = try decoder.decode(GroceryProduct.self, from: json)
-            print("product: \(product)")
-            
-            
+    
             print("Después y afuera del if")
-            
         } catch {
             print("Invalid data")
         }
