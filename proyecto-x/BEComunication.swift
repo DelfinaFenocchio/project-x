@@ -39,6 +39,7 @@ struct BEComunication: View {
                     print("Entro al task")
                     await loadData()
                 }
+                
             } else {
                 Text("Fallback on earlier versions").onAppear {
                     print("Else available 15.0")
@@ -64,7 +65,7 @@ struct BEComunication: View {
     
     @available(iOS 15.0.0, *)
     func loadData() async {
-        guard let url = URL(string: "https://run.mocky.io/v3/e5ad3239-41ad-4615-ba5f-51afc1262191") else {
+        guard let url = URL(string: "https://images.unsplash.com/photo-1555679427-1f6dfcce943b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODAxNzN8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MDk1MjM&ixlib=rb-1.2.1&q=80&w=400") else {
             print("Invalid URL")
             return
         }
@@ -75,11 +76,12 @@ struct BEComunication: View {
             print("Antes: \(data)")
             
 
-            if let welcome = try? JSONDecoder().decode(Welcome.self, from: data) {
-                results = welcome
-                print("Después: \(welcome)")
-                print("Después con result: \(welcome)")
-            }
+//            if let welcome = try? JSONDecoder().decode(Welcome.self, from: data) {
+//                results = welcome
+//                print("Después: \(welcome)")
+//                print("Después con result: \(welcome)")
+//            }
+            
     
             print("Después y afuera del if")
         } catch {

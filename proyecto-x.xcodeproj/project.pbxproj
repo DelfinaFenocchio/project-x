@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212E1E6F2762A83B0025270C /* BackgroundAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E1E6E2762A83B0025270C /* BackgroundAsyncImage.swift */; };
 		2132D51F2703B5D700C5039D /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2132D51E2703B5D700C5039D /* Cell.swift */; };
 		21398748272B3E03000A96E8 /* CustomModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21398747272B3E03000A96E8 /* CustomModifiers.swift */; };
 		5F6EF39E2735BFCB00D0A72C /* VictoryAnimatedLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6EF39D2735BFCB00D0A72C /* VictoryAnimatedLine.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		212E1E6E2762A83B0025270C /* BackgroundAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAsyncImage.swift; sourceTree = "<group>"; };
 		2132D51E2703B5D700C5039D /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		21398747272B3E03000A96E8 /* CustomModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifiers.swift; sourceTree = "<group>"; };
 		5F6EF39D2735BFCB00D0A72C /* VictoryAnimatedLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoryAnimatedLine.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		5F82981A26F142E900FAC491 = {
 			isa = PBXGroup;
 			children = (
+				212E1E6E2762A83B0025270C /* BackgroundAsyncImage.swift */,
 				5F82982526F142E900FAC491 /* proyecto-x */,
 				5F82983726F142EA00FAC491 /* proyecto-xTests */,
 				5F82984226F142EA00FAC491 /* proyecto-xUITests */,
@@ -289,6 +292,7 @@
 				6A42583C270CFCC7006C1F14 /* HelperViews.swift in Sources */,
 				6A425831270CFA58006C1F14 /* Enums.swift in Sources */,
 				CE5035352750305600D93889 /* mainMenu.swift in Sources */,
+				212E1E6F2762A83B0025270C /* BackgroundAsyncImage.swift in Sources */,
 				21398748272B3E03000A96E8 /* CustomModifiers.swift in Sources */,
 				6A42581C2708F4EE006C1F14 /* RetoScreen.swift in Sources */,
 				5F6EF39E2735BFCB00D0A72C /* VictoryAnimatedLine.swift in Sources */,

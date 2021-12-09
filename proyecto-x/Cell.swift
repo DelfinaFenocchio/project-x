@@ -11,11 +11,11 @@ struct Cell: View {
     @EnvironmentObject var globalState : TicTacToeState
     @Binding var playability : CellState
     let index : Int
-    
+    let screenGeometry : GeometryProxy
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .customCellStyle()
+                .customCellStyle(width: screenGeometry.size.width / 3.5)
                 .onTapGesture(count: 1, perform: {
                     if(playability == CellState.empty && globalState.GameStateProperty == GameState.active)
                     {

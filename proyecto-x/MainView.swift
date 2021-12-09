@@ -49,99 +49,99 @@ struct MainView: View {
                                GridItem(.flexible())]
     
     var body: some View {
-        
-        ZStack {
-            Color(red: 111/255, green: 156/255, blue: 235/255)
-                .ignoresSafeArea()
-       // Image("wallpapertictactoe").resizable().ignoresSafeArea()
-            VStack {
-                BEComunication()
+        GeometryReader{ screenGeometry in
+            ZStack {
+                BackgroundAsyncImage(screenGeometry: screenGeometry)
                 
                 VStack {
-                    Spacer()
+    //                BEComunication()
                     
-                    Text("Tic Tac Toe")
-                        .fontWeight(.bold)
-                        .font(.system(.title))
-                        .padding()
-                        .customTextStyle()
-                    
-                    Spacer()
-                    
-                    GameOverView(GameStateProperty : mainViewState.GameStateProperty)
-                    
-                    if mainViewState.GameStateProperty != GameState.active
-                    {
+                    VStack {
                         Spacer()
                         
-                        Button("Reiniciar el juego") {
-                            self.resetGame()
+                        Text("Tic Tac Toe")
+                            .fontWeight(.bold)
+                            .font(.system(.title))
+                            .padding()
+                            .customTextStyle()
+                        
+                        Spacer()
+                        
+                        GameOverView(GameStateProperty : mainViewState.GameStateProperty)
+                        
+                        if mainViewState.GameStateProperty != GameState.active
+                        {
+                            Spacer()
+                            
+                            Button("Reiniciar el juego") {
+                                self.resetGame()
+                            }
+                            .customButtonStyle()
                         }
-                        .customButtonStyle()
+                        
+                        TurnView(playerXTurn : mainViewState.playerXTurn, GameStateProperty: mainViewState.GameStateProperty)
+                        
+                        Spacer()
+                        
                     }
-                    
-                    TurnView(playerXTurn : mainViewState.playerXTurn, GameStateProperty: mainViewState.GameStateProperty)
-                    
                     Spacer()
                     
-                }
-                Spacer()
-                
-                ZStack {
-                    LazyVGrid(columns: columns, spacing: 5) {
-                        ForEach(0..<9) {index in
-                                
-                                Cell(playability : $mainViewState.board.pressed[index], index: index)
-                                    .onChange(of: mainViewState.board.pressed,perform:{ value in
-                                        for (possibleWinnerLine) in possibleWinnerLines {
-                                                if isVictory(possibleWinnerLine) {
-                                                    mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
-                                                        GameState.playerXWin
-                                                    
-                                                    winnerLine = possibleWinnerLine
-                                                    
-                                                    // Investigar como interrumpir este loop.
-                                                    print("WIIIIINNNNNNN \(index)")
-                                                    break
-                                                }
-                                                else {
-                                                    if (!mainViewState.board.pressed.contains(CellState.empty)){
-                                                        mainViewState.GameStateProperty = GameState.draw
-                                                    } else {
-                                                        if(!mainViewState.playerXTurn && gameMode == .singlePlayer){
-                                                            //TO DO: Choose to play PvP or PvC
-                                                            print("antes: \(mainViewState.playerXTurn)")
-                                                            automaticPlay()
-                                                            print("despues: \(mainViewState.playerXTurn)")
+                    ZStack {
+                        LazyVGrid(columns: columns, spacing: 5) {
+                            ForEach(0..<9) {index in
+                                    
+                                Cell(playability : $mainViewState.board.pressed[index], index: index, screenGeometry: screenGeometry)
+                                        .onChange(of: mainViewState.board.pressed,perform:{ value in
+                                            for (possibleWinnerLine) in possibleWinnerLines {
+                                                    if isVictory(possibleWinnerLine) {
+                                                        mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
+                                                            GameState.playerXWin
+                                                        
+                                                        winnerLine = possibleWinnerLine
+                                                        
+                                                        // Investigar como interrumpir este loop.
+                                                        print("WIIIIINNNNNNN \(index)")
+                                                        break
+                                                    }
+                                                    else {
+                                                        if (!mainViewState.board.pressed.contains(CellState.empty)){
+                                                            mainViewState.GameStateProperty = GameState.draw
+                                                        } else {
+                                                            if(!mainViewState.playerXTurn && gameMode == .singlePlayer){
+                                                                //TO DO: Choose to play PvP or PvC
+                                                                print("antes: \(mainViewState.playerXTurn)")
+                                                                automaticPlay()
+                                                                print("despues: \(mainViewState.playerXTurn)")
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            }
-                                        })
-                                        .overlay(
-                                            GeometryReader { geometry in
-                                                Color.clear
-                                                    .onAppear{
-                                                        //TODO: Save prettier coordinates
-                                                        let frame = geometry.frame(in: .named("board"))
-                                                        let point = CGPoint(x: frame.midX, y: frame.midY)
-                                                        mainViewState.board.setCoords(index: index, point: point)
-                                                    }
-                                            }
-                                        )
-                            }
-                    }
-                    .customCellContainerStyle()
-                    .coordinateSpace(name: "board")
-                    
-                    
-                    if mainViewState.GameStateProperty == GameState.playerXWin || mainViewState.GameStateProperty == GameState.playerOWin{
-                        VictoryAnimatedLine(percentage: $percentage, winnerLine: winnerLine)
+                                            })
+                                            .overlay(
+                                                GeometryReader { geometry in
+                                                    Color.clear
+                                                        .onAppear{
+                                                            //TODO: Save prettier coordinates
+                                                            let frame = geometry.frame(in: .named("board"))
+                                                            let point = CGPoint(x: frame.midX, y: frame.midY)
+                                                            mainViewState.board.setCoords(index: index, point: point)
+                                                        }
+                                                }
+                                            )
+                                }
+                        }
+                        .customCellContainerStyle(width: screenGeometry.size.width)
+                        .coordinateSpace(name: "board")
+                        
+                        
+                        if mainViewState.GameStateProperty == GameState.playerXWin || mainViewState.GameStateProperty == GameState.playerOWin{
+                            VictoryAnimatedLine(percentage: $percentage, winnerLine: winnerLine)
+                        }
                     }
                 }
+                .environmentObject(mainViewState)
             }
-            .environmentObject(mainViewState)
-        }
+    }
     }
     
     func automaticPlay()  -> Void {

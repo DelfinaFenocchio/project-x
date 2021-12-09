@@ -19,24 +19,25 @@ struct CustomButton: ViewModifier {
 struct CustomText: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .foregroundColor(.white)
+            .foregroundColor(Color(red: 20/255, green: 27/255, blue: 65/255))
     }
 }
 
 struct CustomCell: ViewModifier {
+    let width : CGFloat
     func body(content: Content) -> some View {
         content
-            .frame(width: 120, height: 120)
+            .frame(width: width, height: width)
             .foregroundColor(Color(red: 20/255, green: 27/255, blue: 65/255))
     }
 }
 
 struct CustomCellContainer: ViewModifier {
+    let width : CGFloat
     func body(content: Content) -> some View {
         content
-            .frame(width: 400, height: 400)
-            .padding()
-            .background(Color(red: 152/255, green: 185/255, blue: 242/255))
+            .frame(width: width, height: 400)
+            .background(Color(red: 152/255, green: 185/255, blue: 242/255, opacity: 0.7))
     }
 }
 
@@ -53,11 +54,11 @@ extension View {
     func customTextStyle() -> some View {
         modifier(CustomText())
     }
-    func customCellStyle() -> some View {
-        modifier(CustomCell())
+    func customCellStyle(width: CGFloat) -> some View {
+        modifier(CustomCell(width: width))
     }
-    func customCellContainerStyle() -> some View {
-        modifier(CustomCellContainer())
+    func customCellContainerStyle(width: CGFloat) -> some View {
+        modifier(CustomCellContainer(width: width))
     }
     func customButtonStyle() -> some View {
         modifier(CustomButton())
