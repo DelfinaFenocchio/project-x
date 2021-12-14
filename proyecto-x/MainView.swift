@@ -90,33 +90,33 @@ struct MainView: View {
                         LazyVGrid(columns: columns, spacing: 5) {
                             ForEach(0..<9) {index in
                                     
-                                Cell(playability : $mainViewState.board.pressed[index], index: index, screenGeometry: screenGeometry)
-                                        .onChange(of: mainViewState.board.pressed,perform:{ value in
-                                            for (possibleWinnerLine) in possibleWinnerLines {
-                                                    if isVictory(possibleWinnerLine) {
-                                                        mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
-                                                            GameState.playerXWin
-                                                        
-                                                        winnerLine = possibleWinnerLine
-                                                        
-                                                        // Investigar como interrumpir este loop.
-                                                        print("WIIIIINNNNNNN \(index)")
-                                                        break
-                                                    }
-                                                    else {
-                                                        if (!mainViewState.board.pressed.contains(CellState.empty)){
-                                                            mainViewState.GameStateProperty = GameState.draw
-                                                        } else {
-                                                            if(!mainViewState.playerXTurn && gameMode == .singlePlayer){
-                                                                //TO DO: Choose to play PvP or PvC
-                                                                print("antes: \(mainViewState.playerXTurn)")
-                                                                automaticPlay()
-                                                                print("despues: \(mainViewState.playerXTurn)")
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            })
+                                Cell(playability : $mainViewState.board.pressed[index], index: index, screenGeometry: screenGeometry, possibleWinnerLines: possibleWinnerLines, winnerLine: $winnerLine,  gameMode: gameMode)
+//                                        .onChange(of: mainViewState.board.pressed,perform:{ value in
+//                                            for (possibleWinnerLine) in possibleWinnerLines {
+//                                                    if isVictory(possibleWinnerLine) {
+//                                                        mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
+//                                                            GameState.playerXWin
+//
+//                                                        winnerLine = possibleWinnerLine
+//
+//                                                        // Investigar como interrumpir este loop.
+//                                                        print("WIIIIINNNNNNN \(index)")
+//                                                        break
+//                                                    }
+//                                                    else {
+//                                                        if (!mainViewState.board.pressed.contains(CellState.empty)){
+//                                                            mainViewState.GameStateProperty = GameState.draw
+//                                                        } else {
+//                                                            if(!mainViewState.playerXTurn && gameMode == .singlePlayer){
+//                                                                //TO DO: Choose to play PvP or PvC
+//                                                                print("antes: \(mainViewState.playerXTurn)")
+//                                                                automaticPlay()
+//                                                                print("despues: \(mainViewState.playerXTurn)")
+//                                                            }
+//                                                        }
+//                                                    }
+//                                                }
+//                                            })
                                             .overlay(
                                                 GeometryReader { geometry in
                                                     Color.clear
