@@ -23,11 +23,16 @@ class TicTacToeState : ObservableObject {
     @Published var board : BoardStruct = BoardStruct()
     @Published var playerXTurn : Bool = true
     @Published var GameStateProperty : GameState = GameState.active
+    @Published var isGameboardDisabled = false
+    func isVictory(_ winnerLine: [Int]) -> Bool {
+        return board.pressed[winnerLine[0]] == board.pressed[winnerLine[1]] && board.pressed[winnerLine[0]] == board.pressed[winnerLine[2]] && board.pressed[winnerLine[0]] != CellState.empty
+    }
 }
 
 struct MainView: View {
     @StateObject var mainViewState : TicTacToeState = TicTacToeState()
     @State private var percentage: CGFloat = .zero
+    
     let gameMode : GameMode
 
     
@@ -91,32 +96,6 @@ struct MainView: View {
                             ForEach(0..<9) {index in
                                     
                                 Cell(playability : $mainViewState.board.pressed[index], index: index, screenGeometry: screenGeometry, possibleWinnerLines: possibleWinnerLines, winnerLine: $winnerLine,  gameMode: gameMode)
-//                                        .onChange(of: mainViewState.board.pressed,perform:{ value in
-//                                            for (possibleWinnerLine) in possibleWinnerLines {
-//                                                    if isVictory(possibleWinnerLine) {
-//                                                        mainViewState.GameStateProperty = mainViewState.playerXTurn ? GameState.playerOWin :
-//                                                            GameState.playerXWin
-//
-//                                                        winnerLine = possibleWinnerLine
-//
-//                                                        // Investigar como interrumpir este loop.
-//                                                        print("WIIIIINNNNNNN \(index)")
-//                                                        break
-//                                                    }
-//                                                    else {
-//                                                        if (!mainViewState.board.pressed.contains(CellState.empty)){
-//                                                            mainViewState.GameStateProperty = GameState.draw
-//                                                        } else {
-//                                                            if(!mainViewState.playerXTurn && gameMode == .singlePlayer){
-//                                                                //TO DO: Choose to play PvP or PvC
-//                                                                print("antes: \(mainViewState.playerXTurn)")
-//                                                                automaticPlay()
-//                                                                print("despues: \(mainViewState.playerXTurn)")
-//                                                            }
-//                                                        }
-//                                                    }
-//                                                }
-//                                            })
                                             .overlay(
                                                 GeometryReader { geometry in
                                                     Color.clear
@@ -168,6 +147,7 @@ struct MainView: View {
         mainViewState.playerXTurn = true
         mainViewState.GameStateProperty = GameState.active
         percentage = .zero
+        mainViewState.isGameboardDisabled = false
     }
     
     func isVictory(_ winnerLine: [Int]) -> Bool {
