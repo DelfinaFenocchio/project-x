@@ -125,7 +125,6 @@ struct MainView: View {
     
     func automaticPlay()  -> Void {
         //TO DO: Select difficulty
-        //await Task.sleep(1 * 1_000_000_000)
     
         var emptyCellIndexes : [Int] = []
         
@@ -136,7 +135,6 @@ struct MainView: View {
         }
 
         if let randomEmptyCellIndex = emptyCellIndexes.randomElement() {
-            //TO DO: delay this action and prevent user from playing while it's the computer's turn
                 mainViewState.board.pressed[randomEmptyCellIndex] = CellState.playerO
                 mainViewState.playerXTurn.toggle()
         }
