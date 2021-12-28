@@ -10,65 +10,63 @@ import SwiftUI
 struct MainMenu: View {
     var body: some View {
         NavigationView{
-
-                
-                VStack{
-                    Text("Project X")
-                    Spacer()
-                    Text("Elegí un juego")
-                        .fontWeight(.bold)
-                        .font(.system(.title))
-                        .padding()
-                        .customTextStyle()
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack{
-                            NavigationLink(destination: TicTacToeMenu()) {
-                                VStack{
-                                    Image("tatetiimage")
-                                        .resizable()
-                                        .frame(width: 200, height: 200)
-                                        .border(Color.black, width: 1)
-                                    Text("TicTacToe")
-                                        .customButtonStyle()
-                                }
-                            }
+            VStack{
+                Text("Project X")
+                Spacer()
+                Text("Elegí un juego")
+                    .fontWeight(.bold)
+                    .font(.system(.title))
+                    .padding()
+                    .customTextStyle()
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        NavigationLink(destination: TicTacToeMenu()) {
                             VStack{
-                                Image("comingsoon")
+                                Image("tatetiimage")
                                     .resizable()
                                     .frame(width: 200, height: 200)
                                     .border(Color.black, width: 1)
-                                Text("Game Name")
-                                    .customButtonStyle()
-                            }
-                            VStack{
-                                Image("comingsoon")
-                                    .resizable()
-                                    .frame(width: 200, height: 200)
-                                    .border(Color.black, width: 1)
-                                Text("Game Name")
-                                    .customButtonStyle()
-                            }
-                            VStack{
-                                Image("comingsoon")
-                                    .resizable()
-                                    .frame(width: 200, height: 200)
-                                    .border(Color.black, width: 1)
-                                Text("Game Name")
-                                    .customButtonStyle()
-                            }
-                            VStack{
-                                Image("comingsoon")
-                                    .resizable()
-                                    .frame(width: 200, height: 200)
-                                    .border(Color.black, width: 1)
-                                Text("ame Name")
+                                Text("TicTacToe")
                                     .customButtonStyle()
                             }
                         }
-                        .padding()
+                        VStack{
+                            Image("comingsoon")
+                                .resizable()
+                                .frame(width: 200, height: 200)
+                                .border(Color.black, width: 1)
+                            Text("Game Name")
+                                .customButtonStyle()
+                        }
+                        VStack{
+                            Image("comingsoon")
+                                .resizable()
+                                .frame(width: 200, height: 200)
+                                .border(Color.black, width: 1)
+                            Text("Game Name")
+                                .customButtonStyle()
+                        }
+                        VStack{
+                            Image("comingsoon")
+                                .resizable()
+                                .frame(width: 200, height: 200)
+                                .border(Color.black, width: 1)
+                            Text("Game Name")
+                                .customButtonStyle()
+                        }
+                        VStack{
+                            Image("comingsoon")
+                                .resizable()
+                                .frame(width: 200, height: 200)
+                                .border(Color.black, width: 1)
+                            Text("ame Name")
+                                .customButtonStyle()
+                        }
                     }
-                    Spacer()
+                    .padding()
                 }
+                Spacer()
+            }
         }
     }
 }

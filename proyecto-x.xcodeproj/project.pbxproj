@@ -21,7 +21,9 @@
 		6A425831270CFA58006C1F14 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A425830270CFA58006C1F14 /* Enums.swift */; };
 		6A42583C270CFCC7006C1F14 /* HelperViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A42583B270CFCC7006C1F14 /* HelperViews.swift */; };
 		CE50353327502BF400D93889 /* BEComunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50353227502BF400D93889 /* BEComunication.swift */; };
-		CE5035352750305600D93889 /* mainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5035342750305600D93889 /* mainMenu.swift */; };
+		CE5035352750305600D93889 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5035342750305600D93889 /* MainMenu.swift */; };
+		CECCD24D277510DA00C42020 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCD24C277510DA00C42020 /* ViewModel.swift */; };
+		CECCD24F2775128D00C42020 /* TicTacToeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCD24E2775128D00C42020 /* TicTacToeMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +64,9 @@
 		6A425830270CFA58006C1F14 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		6A42583B270CFCC7006C1F14 /* HelperViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperViews.swift; sourceTree = "<group>"; };
 		CE50353227502BF400D93889 /* BEComunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BEComunication.swift; sourceTree = "<group>"; };
-		CE5035342750305600D93889 /* mainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainMenu.swift; sourceTree = "<group>"; };
+		CE5035342750305600D93889 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		CECCD24C277510DA00C42020 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		CECCD24E2775128D00C42020 /* TicTacToeMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicTacToeMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,10 +118,12 @@
 		5F82982526F142E900FAC491 /* proyecto-x */ = {
 			isa = PBXGroup;
 			children = (
+				CECCD24E2775128D00C42020 /* TicTacToeMenu.swift */,
+				CECCD24827750FFE00C42020 /* ViewModel */,
 				21398747272B3E03000A96E8 /* CustomModifiers.swift */,
 				5F82982626F142E900FAC491 /* proyecto_xApp.swift */,
 				5F82982826F142E900FAC491 /* MainView.swift */,
-				CE5035342750305600D93889 /* mainMenu.swift */,
+				CE5035342750305600D93889 /* MainMenu.swift */,
 				CE50353227502BF400D93889 /* BEComunication.swift */,
 				6A42583B270CFCC7006C1F14 /* HelperViews.swift */,
 				5F82982A26F142EA00FAC491 /* Assets.xcassets */,
@@ -155,6 +161,14 @@
 				5F82984526F142EA00FAC491 /* Info.plist */,
 			);
 			path = "proyecto-xUITests";
+			sourceTree = "<group>";
+		};
+		CECCD24827750FFE00C42020 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CECCD24C277510DA00C42020 /* ViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,11 +305,13 @@
 				5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */,
 				6A42583C270CFCC7006C1F14 /* HelperViews.swift in Sources */,
 				6A425831270CFA58006C1F14 /* Enums.swift in Sources */,
-				CE5035352750305600D93889 /* mainMenu.swift in Sources */,
+				CE5035352750305600D93889 /* MainMenu.swift in Sources */,
 				212E1E6F2762A83B0025270C /* BackgroundAsyncImage.swift in Sources */,
 				21398748272B3E03000A96E8 /* CustomModifiers.swift in Sources */,
 				6A42581C2708F4EE006C1F14 /* RetoScreen.swift in Sources */,
 				5F6EF39E2735BFCB00D0A72C /* VictoryAnimatedLine.swift in Sources */,
+				CECCD24F2775128D00C42020 /* TicTacToeMenu.swift in Sources */,
+				CECCD24D277510DA00C42020 /* ViewModel.swift in Sources */,
 				CE50353327502BF400D93889 /* BEComunication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
