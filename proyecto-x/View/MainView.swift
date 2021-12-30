@@ -81,6 +81,9 @@ struct MainView: View {
         .onAppear {
             mainViewState.gameMode = gameMode
         }
+        .onDisappear {
+            mainViewState.resetGame()
+        }
     }
 }
 

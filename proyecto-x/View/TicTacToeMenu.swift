@@ -13,9 +13,9 @@ struct TicTacToeMenu: View {
     var gameMode : GameMode = .notSelectedMode
     
     var body: some View {
+        GeometryReader { screenGeometry in
             ZStack {
-                Color(red: 111/255, green: 156/255, blue: 235/255)
-                    .ignoresSafeArea()
+                BackgroundAsyncImage(screenGeometry: screenGeometry)
                 
                 VStack {
                             Spacer()
@@ -39,12 +39,8 @@ struct TicTacToeMenu: View {
                             Spacer()
                         }
                 }
+            }
         }
     
 }
 
-struct MainMenu_Previews: PreviewProvider {
-    static var previews: some View {
-        MainMenu()
-    }
-}

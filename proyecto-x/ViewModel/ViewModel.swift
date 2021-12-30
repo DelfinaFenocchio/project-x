@@ -79,16 +79,14 @@ final class TicTacToeState : ObservableObject {
     func evaluatePlay () ->  GameState {
         for (possibleWinnerLine) in possibleWinnerLines {
             if isVictory(possibleWinnerLine) {
-                
                 if playerXTurn {
                     GameStateProperty = GameState.playerOWin
-                    print("gano la o")
                 } else {
                     GameStateProperty = GameState.playerXWin
-                    print("gano la x")
                 }
                 
                 winnerLine = possibleWinnerLine
+                break
             }
             else {
                 if (!board.pressed.contains(CellState.empty)){
