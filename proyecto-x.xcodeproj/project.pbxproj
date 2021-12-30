@@ -118,21 +118,13 @@
 		5F82982526F142E900FAC491 /* proyecto-x */ = {
 			isa = PBXGroup;
 			children = (
-				CECCD24E2775128D00C42020 /* TicTacToeMenu.swift */,
+				CECCD251277D3FAB00C42020 /* Model */,
+				CECCD250277D1DC800C42020 /* View */,
 				CECCD24827750FFE00C42020 /* ViewModel */,
-				21398747272B3E03000A96E8 /* CustomModifiers.swift */,
 				5F82982626F142E900FAC491 /* proyecto_xApp.swift */,
-				5F82982826F142E900FAC491 /* MainView.swift */,
-				CE5035342750305600D93889 /* MainMenu.swift */,
-				CE50353227502BF400D93889 /* BEComunication.swift */,
-				6A42583B270CFCC7006C1F14 /* HelperViews.swift */,
 				5F82982A26F142EA00FAC491 /* Assets.xcassets */,
 				5F82982F26F142EA00FAC491 /* Info.plist */,
 				5F82982C26F142EA00FAC491 /* Preview Content */,
-				6A425830270CFA58006C1F14 /* Enums.swift */,
-				2132D51E2703B5D700C5039D /* Cell.swift */,
-				6A42581B2708F4EE006C1F14 /* RetoScreen.swift */,
-				5F6EF39D2735BFCB00D0A72C /* VictoryAnimatedLine.swift */,
 			);
 			path = "proyecto-x";
 			sourceTree = "<group>";
@@ -169,6 +161,30 @@
 				CECCD24C277510DA00C42020 /* ViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CECCD250277D1DC800C42020 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6A42581B2708F4EE006C1F14 /* RetoScreen.swift */,
+				21398747272B3E03000A96E8 /* CustomModifiers.swift */,
+				CECCD24E2775128D00C42020 /* TicTacToeMenu.swift */,
+				5F82982826F142E900FAC491 /* MainView.swift */,
+				CE5035342750305600D93889 /* MainMenu.swift */,
+				6A42583B270CFCC7006C1F14 /* HelperViews.swift */,
+				2132D51E2703B5D700C5039D /* Cell.swift */,
+				5F6EF39D2735BFCB00D0A72C /* VictoryAnimatedLine.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CECCD251277D3FAB00C42020 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6A425830270CFA58006C1F14 /* Enums.swift */,
+				CE50353227502BF400D93889 /* BEComunication.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

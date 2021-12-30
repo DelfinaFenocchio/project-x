@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var mainViewState : TicTacToeState = TicTacToeState()
-    
+    @EnvironmentObject var mainViewState : TicTacToeState
+
     let gameMode : GameMode
     
     var body: some View {
-        GeometryReader{ screenGeometry in
+        
+        mainViewState.gameMode = gameMode
+        
+        return GeometryReader{ screenGeometry in
             ZStack {
                 BackgroundAsyncImage(screenGeometry: screenGeometry)
                 
@@ -76,7 +79,6 @@ struct MainView: View {
                         }
                     }
                 }
-                .environmentObject(mainViewState)
             }
         }
     }

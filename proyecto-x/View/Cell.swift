@@ -22,10 +22,9 @@ struct Cell: View {
                 .onTapGesture(count: 1, perform: {
                     if(playability == CellState.empty && globalState.GameStateProperty == GameState.active)
                     {
-                        onTapGestureHandler()
+                        globalState.onTapGestureHandler(index: index)
                     }
                 })
-            
             
             if(playability != CellState.empty) {
                 if (playability == CellState.playerX) {
@@ -36,27 +35,6 @@ struct Cell: View {
             }
         }
         .disabled(globalState.isGameboardDisabled)
-    }
-    
-    public func onTapGestureHandler() {
-        if(gameMode == .singlePlayer) {
-            globalState.isGameboardDisabled = true
-        }
-        
-        if(globalState.playerXTurn) {
-            globalState.board.pressed[index] = CellState.playerX
-        } else {
-            globalState.board.pressed[index] = CellState.playerO
-        }
-        
-        globalState.playerXTurn.toggle()
-        
-        _ = globalState.evaluatePlay()
-        
-        if(!globalState.playerXTurn && gameMode == .singlePlayer && globalState.GameStateProperty == GameState.active){
-            globalState.automaticPlay()
-            globalState.playerXTurn.toggle()
-        }
     }
 }
 

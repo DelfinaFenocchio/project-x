@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TicTacToeMenu: View {
+    
+    @StateObject var mainViewState : TicTacToeState = TicTacToeState()
     var gameMode : GameMode = .notSelectedMode
     
     var body: some View {
@@ -25,12 +27,12 @@ struct TicTacToeMenu: View {
                                 .padding()
                                 .customTextStyle()
 
-                            NavigationLink(destination: MainView(gameMode: .singlePlayer)) {
+                            NavigationLink(destination: MainView(gameMode: .singlePlayer).environmentObject(mainViewState)) {
                                 Text("1 jugador")
                                     .customButtonStyle()
                             }
 
-                            NavigationLink(destination: MainView(gameMode: .multiPlayer)) {
+                            NavigationLink(destination: MainView(gameMode: .multiPlayer).environmentObject(mainViewState)) {
                                 Text("2 jugadores")
                                     .customButtonStyle()
                             }
