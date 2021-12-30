@@ -11,9 +11,9 @@ let initialBoardPlayability : [CellState] = [.empty, .empty, .empty, .empty, .em
 
 struct BoardStruct {
     var pressed = initialBoardPlayability
-
+    
     var coords : [CGPoint] = [CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0), CGPoint(x: 216.0, y: 91.0)]
-
+    
     mutating func setCoords(index : Int, point: CGPoint){
         coords[index] = point
     }
@@ -26,6 +26,7 @@ final class TicTacToeState : ObservableObject {
     @Published var isGameboardDisabled = false
     @Published var percentage: CGFloat = .zero
     @Published var winnerLine : [Int] = []
+    @Published var gameMode : GameMode = .notSelectedMode
     
     let possibleWinnerLines : [[Int]] = [
         [0, 1, 2],
@@ -63,9 +64,9 @@ final class TicTacToeState : ObservableObject {
             for (index, cell) in board.pressed.enumerated() {
                 if cell == CellState.empty {
                     emptyCellIndexes.append(index)
-              }
+                }
             }
-
+            
             if let randomEmptyCellIndex = emptyCellIndexes.randomElement() {
                 board.pressed[randomEmptyCellIndex] = CellState.playerO
                 isGameboardDisabled = false
@@ -78,23 +79,44 @@ final class TicTacToeState : ObservableObject {
     func evaluatePlay () ->  GameState {
         for (possibleWinnerLine) in possibleWinnerLines {
             if isVictory(possibleWinnerLine) {
-                    
-                    if playerXTurn {
-                        GameStateProperty = GameState.playerOWin
-                        print("gano la o")
-                    } else {
-                        GameStateProperty = GameState.playerXWin
-                        print("gano la x")
-                    }
-                    
-                    winnerLine = possibleWinnerLine
+                
+                if playerXTurn {
+                    GameStateProperty = GameState.playerOWin
+                    print("gano la o")
+                } else {
+                    GameStateProperty = GameState.playerXWin
+                    print("gano la x")
                 }
-                else {
-                    if (!board.pressed.contains(CellState.empty)){
-                        GameStateProperty = GameState.draw
-                    }
+                
+                winnerLine = possibleWinnerLine
+            }
+            else {
+                if (!board.pressed.contains(CellState.empty)){
+                    GameStateProperty = GameState.draw
                 }
             }
+        }
         return GameStateProperty
+    }
+    
+    func onTapGestureHandler(index: Int) {
+        if(gameMode == .singlePlayer) {
+            isGameboardDisabled = true
+        }
+        
+        if(playerXTurn) {
+            board.pressed[index] = CellState.playerX
+        } else {
+            board.pressed[index] = CellState.playerO
+        }
+        
+        playerXTurn.toggle()
+        
+        _ = evaluatePlay()
+        
+        if(!playerXTurn && gameMode == .singlePlayer && GameStateProperty == GameState.active){
+            automaticPlay()
+            playerXTurn.toggle()
+        }
     }
 }
