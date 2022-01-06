@@ -30,13 +30,15 @@ struct MainMenu: View {
                                     .customButtonStyle()
                             }
                         }
-                        VStack{
-                            Image("comingsoon")
-                                .resizable()
-                                .frame(width: 200, height: 200)
-                                .border(Color.black, width: 1)
-                            Text("Game Name")
-                                .customButtonStyle()
+                        NavigationLink(destination: MemoryGameMenu()) {
+                            VStack{
+                                Image("comingsoon")
+                                    .resizable()
+                                    .frame(width: 200, height: 200)
+                                    .border(Color.black, width: 1)
+                                Text("Memory")
+                                    .customButtonStyle()
+                            }
                         }
                         VStack{
                             Image("comingsoon")

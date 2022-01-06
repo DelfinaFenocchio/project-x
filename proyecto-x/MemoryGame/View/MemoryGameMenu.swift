@@ -9,7 +9,29 @@ import SwiftUI
 
 struct MemoryGameMenu: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Spacer()
+            Text("Memory Game")
+            Spacer()
+            Text("Cantidad de cards")
+                .fontWeight(.bold)
+                .font(.system(.title))
+                .padding()
+                .customTextStyle()
+            Spacer()
+            Text("Elegí el modo de juego")
+                .fontWeight(.bold)
+                .font(.system(.title))
+                .padding()
+                .customTextStyle()
+            Spacer()
+            Text("Tiempo de muestra o Cantidad de players")
+                .fontWeight(.bold)
+                .font(.system(.title))
+                .padding()
+                .customTextStyle()
+            Spacer()
+        }
     }
 }
 
