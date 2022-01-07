@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct MemoryGameMenu: View {
     var body: some View {
         VStack {
@@ -25,18 +27,16 @@ struct MemoryGameMenu: View {
                 .padding()
                 .customTextStyle()
             Spacer()
-            Text("Tiempo de muestra o Cantidad de players")
+            Text("Tiempo de previsualizacion")
                 .fontWeight(.bold)
                 .font(.system(.title))
                 .padding()
                 .customTextStyle()
             Spacer()
+            NavigationLink(destination: MemoryMainView()) {
+                    Text("Comenzar juego")
+                        .customButtonStyle()
+            }
         }
-    }
-}
-
-struct MemoryGameMenu_Previews: PreviewProvider {
-    static var previews: some View {
-        MemoryGameMenu()
     }
 }
