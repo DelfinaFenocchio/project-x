@@ -41,6 +41,4 @@ struct TicTacToeMenu: View {
                 }
             }
         }
-    
 }
-
