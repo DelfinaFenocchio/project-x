@@ -10,10 +10,7 @@ import SwiftUI
 
 
 struct MemoryGameMenu: View {
-    //    var colors = ["Red", "Green", "Blue", "Tartan"]
-    @State private var cardsAmountSelected : Int = 1
-    @State private var gameModeSelected : Int = 1
-    @State private var visualizationTimeSelected : Int = 1
+    @StateObject var memoryGameState : MemoryGameState = MemoryGameState()
     
     var body: some View {
         VStack {
@@ -26,12 +23,12 @@ struct MemoryGameMenu: View {
                     .padding()
                     .customTextStyle()
                 
-                Picker("Please choose a color", selection: $cardsAmountSelected) {
-                    Text("6 cards").tag(1)
-                    Text("8 cards").tag(2)
-                    Text("10 cards").tag(3)
-                    Text("12 cards").tag(4)
-                }
+                Picker("Please choose a color", selection: $memoryGameState.cardsAmountSelected) {
+                    Text("6 cards").tag(6)
+                    Text("8 cards").tag(8)
+                    Text("10 cards").tag(10)
+                    Text("12 cards").tag(12)
+                }.pickerStyle(SegmentedPickerStyle())
                 
                 Spacer()
                 Text("Elegí el modo de juego")
@@ -40,10 +37,10 @@ struct MemoryGameMenu: View {
                     .padding()
                     .customTextStyle()
                 
-                Picker("Modo de Juego", selection: $gameModeSelected) {
-                    Text("\(GameModeMemoryGame.classicMultiPlayer.rawValue)").tag(1)
-                    Text("\(GameModeMemoryGame.classicSinglePlayer.rawValue)").tag(2)
-                    Text("\(GameModeMemoryGame.sequential.rawValue)").tag(3)
+                Picker("Modo de Juego", selection: $memoryGameState.gameModeSelected) {
+                    Text("\(GameModeMemoryGame.classicMultiPlayer.rawValue)").tag(GameModeMemoryGame.classicMultiPlayer)
+                    Text("\(GameModeMemoryGame.classicSinglePlayer.rawValue)").tag(GameModeMemoryGame.classicSinglePlayer)
+                    Text("\(GameModeMemoryGame.sequential.rawValue)").tag(GameModeMemoryGame.sequential)
                 }
                 
                 Spacer()
@@ -55,14 +52,14 @@ struct MemoryGameMenu: View {
                     .padding()
                     .customTextStyle()
                 
-                Picker("Tiempo de previsualizacion", selection: $visualizationTimeSelected) {
+                Picker("Tiempo de previsualizacion", selection: $memoryGameState.visualizationTimeSelected) {
                     Text("1 second").tag(1)
                     Text("2 seconds").tag(2)
                     Text("3 seconds").tag(3)
                 }
                 
                 Spacer()
-                NavigationLink(destination: MemoryMainView()) {
+                NavigationLink(destination: MemoryMainView().environmentObject(memoryGameState)) {
                     Text("Comenzar juego")
                         .customButtonStyle()
                 }
