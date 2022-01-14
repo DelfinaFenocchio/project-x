@@ -8,33 +8,34 @@
 import SwiftUI
 
 struct MemoryMainView: View {
-    @EnvironmentObject var memoryGameState : MemoryGameState
+    @EnvironmentObject var state : MemoryGameState
+    
     var body: some View {
         VStack{
-            memoryGameState.loading
-            ?
-                Text("Cargando juego...")
-            :
-                Text("Jugando")
+            Text("Jugando: \(state.gameModeSelected.rawValue)")
             
-            VStack{
-                
-            
-            LazyVGrid (columns: memoryGameState.columns, spacing: 5){
-                ForEach(0..<memoryGameState.cardsAmountSelected) { index in
-//                  TODO: Acá tiene que ir la leyenda que indique al usuario el orden en que tiene que levantar las cards. Tienen que ser imágenes con nombre "Artboard \(index)"
-                    Text("\(index)")
-                    Image("Artboard \(index + 1)")
-                }
-            }
-//            for card in memoryGameState.board.cardsArrangement {
-//                Image(card.imageId)
+            if(!state.loading){
+                CorrectSequenceIndicator()
+                VStack {
+                    Text("Elementos:")
+                    Text("(TODO: hay que convertir esto en un tablero con cards dadas vuelta)")
+                    HStack{
+                        ForEach(0..<state.cardsAmountSelected) { index in
+                            let element = state.board.playableCards[index]
+                            Image(element.image)
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                        }
+                    }
+                }.padding(20)
             }
         }
         .onAppear(perform: {
-            memoryGameState.board.generateGame(cardsAmount: memoryGameState.cardsAmountSelected)
-            memoryGameState.loading.toggle()
-            print(memoryGameState.board.cardsArrangement)
+            state.board.generateGame(cardsAmount: state.cardsAmountSelected)
+            state.loading.toggle()
+        })
+        .onDisappear(perform: {
+            state.reset()
         })
     }
 }
