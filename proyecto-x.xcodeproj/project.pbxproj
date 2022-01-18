@@ -11,6 +11,8 @@
 		5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82982626F142E900FAC491 /* proyecto_xApp.swift */; };
 		5F82983926F142EA00FAC491 /* proyecto_xTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82983826F142EA00FAC491 /* proyecto_xTests.swift */; };
 		5F82984426F142EA00FAC491 /* proyecto_xUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82984326F142EA00FAC491 /* proyecto_xUITests.swift */; };
+		CE37BC6B278E6CFC00BAAEC4 /* AnimationsPlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37BC6A278E6CFC00BAAEC4 /* AnimationsPlayground.swift */; };
+		CE37BC6D2793856200BAAEC4 /* FlipCardAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37BC6C2793856200BAAEC4 /* FlipCardAnimation.swift */; };
 		CE808EE6278E255B0067FCE3 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE808EE5278E255B0067FCE3 /* MainMenu.swift */; };
 		CE808EF6278E277E0067FCE3 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE808EEB278E277E0067FCE3 /* ViewModel.swift */; };
 		CE808EF7278E277E0067FCE3 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE808EED278E277E0067FCE3 /* Enums.swift */; };
@@ -59,6 +61,8 @@
 		5F82983F26F142EA00FAC491 /* proyecto-xUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "proyecto-xUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F82984326F142EA00FAC491 /* proyecto_xUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proyecto_xUITests.swift; sourceTree = "<group>"; };
 		5F82984526F142EA00FAC491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE37BC6A278E6CFC00BAAEC4 /* AnimationsPlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationsPlayground.swift; sourceTree = "<group>"; };
+		CE37BC6C2793856200BAAEC4 /* FlipCardAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipCardAnimation.swift; sourceTree = "<group>"; };
 		CE808EE5278E255B0067FCE3 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		CE808EEB278E277E0067FCE3 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		CE808EED278E277E0067FCE3 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -128,15 +132,17 @@
 		5F82982526F142E900FAC491 /* proyecto-x */ = {
 			isa = PBXGroup;
 			children = (
-				CE808F0B278E28060067FCE3 /* Preview Content */,
+				5F82982626F142E900FAC491 /* proyecto_xApp.swift */,
+				CE808EE5278E255B0067FCE3 /* MainMenu.swift */,
 				CE808EFF278E27950067FCE3 /* MemoryGame */,
 				CE808EE9278E277E0067FCE3 /* TicTacToe */,
-				CE808EE5278E255B0067FCE3 /* MainMenu.swift */,
-				5F82982626F142E900FAC491 /* proyecto_xApp.swift */,
 				CECCD253278E212400C42020 /* readme.md */,
 				CECCD257278E212400C42020 /* RetoScreen.swift */,
 				CECCD256278E212400C42020 /* Assets.xcassets */,
 				5F82982F26F142EA00FAC491 /* Info.plist */,
+				CE808F0B278E28060067FCE3 /* Preview Content */,
+				CE37BC6A278E6CFC00BAAEC4 /* AnimationsPlayground.swift */,
+				CE37BC6C2793856200BAAEC4 /* FlipCardAnimation.swift */,
 			);
 			path = "proyecto-x";
 			sourceTree = "<group>";
@@ -384,11 +390,13 @@
 				CE808EFA278E277E0067FCE3 /* Cell.swift in Sources */,
 				CE808EF7278E277E0067FCE3 /* Enums.swift in Sources */,
 				CE808EFD278E277E0067FCE3 /* VictoryAnimatedLine.swift in Sources */,
+				CE37BC6D2793856200BAAEC4 /* FlipCardAnimation.swift in Sources */,
 				CE808EE6278E255B0067FCE3 /* MainMenu.swift in Sources */,
 				CE808EFB278E277E0067FCE3 /* HelperViews.swift in Sources */,
 				CE808EFC278E277E0067FCE3 /* CustomModifiers.swift in Sources */,
 				CE808F08278E27950067FCE3 /* EnumsMemoryGame.swift in Sources */,
 				CE808EF8278E277E0067FCE3 /* BEComunication.swift in Sources */,
+				CE37BC6B278E6CFC00BAAEC4 /* AnimationsPlayground.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,5 +29,15 @@ class proyecto_xTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testIsVictoryFunction() {
+        let state =  TicTacToeState()
+        var board = state.board
+            board.pressed = [.empty, .empty, CellState.playerX, .empty, CellState.playerX, .empty, CellState.playerX, .empty, .empty]
+        let result = state.isVictory([2, 4, 6])
+        print("board.pressed: ", board.pressed)
+        print("result: ", result)
+        XCTAssertTrue(result)
+    }
 
 }
