@@ -11,31 +11,36 @@ struct MemoryMainView: View {
     @EnvironmentObject var state : MemoryGameState
     
     var body: some View {
-        VStack{
-            Text("Jugando: \(state.gameModeSelected.rawValue)")
-            
-            if(!state.loading){
-                CorrectSequenceIndicator()
-                VStack {
-                    Text("Elementos:")
-                    Text("(TODO: hay que convertir esto en un tablero con cards dadas vuelta)")
-                    HStack{
-                        ForEach(0..<state.cardsAmountSelected) { index in
-                            let element = state.board.playableCards[index]
-                            Image(element.image)
-                                .resizable()
-                                .frame(width: 40, height: 40)
+        GeometryReader { screenGeometry in
+            VStack{
+                Text("Jugando: \(state.gameModeSelected.rawValue)")
+                Spacer()
+                if(!state.loading){
+                    Spacer()
+                    CorrectSequenceIndicator()
+                    Spacer()
+                    VStack {
+                        Text("Elementos:")
+                        Text("(TODO: hay que convertir esto en un tablero con cards dadas vuelta)")
+                        ZStack{
+                            LazyVGrid(columns: state.columns, spacing: 5) {
+                                ForEach(0..<state.cardsAmountSelected) { index in
+                                    MemoryGameCell(index: index, screenGeometry: screenGeometry)
+                                }
+                            }
+                            .customCellContainerStyle(width: screenGeometry.size.width)
                         }
                     }
-                }.padding(20)
+                    Spacer()
+                }
             }
+            .onAppear(perform: {
+                state.board.generateGame(cardsAmount: state.cardsAmountSelected, visualizationTime: state.visualizationTimeSelected)
+                state.loading.toggle()
+            })
+            .onDisappear(perform: {
+                state.reset()
+        })
         }
-        .onAppear(perform: {
-            state.board.generateGame(cardsAmount: state.cardsAmountSelected)
-            state.loading.toggle()
-        })
-        .onDisappear(perform: {
-            state.reset()
-        })
     }
 }

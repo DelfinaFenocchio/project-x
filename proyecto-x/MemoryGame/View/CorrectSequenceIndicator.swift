@@ -21,7 +21,7 @@ struct CorrectSequenceIndicator: View {
                         Text("\(index + 1)")
                         Image(element!.image)
                             .resizable()
-                            .frame(width: 40, height: 40)
+                            .frame(width: state.cardsAmountSelected > 9 ? 25 : 35, height: state.cardsAmountSelected > 9 ? 25 : 35)
                     }
                 }
             }

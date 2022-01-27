@@ -28,7 +28,9 @@ struct MemoryGameMenu: View {
                     Text("8 cards").tag(8)
                     Text("10 cards").tag(10)
                     Text("12 cards").tag(12)
-                }.pickerStyle(SegmentedPickerStyle())
+                }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
                 
                 Spacer()
                 Text("Elegí el modo de juego")
@@ -42,6 +44,8 @@ struct MemoryGameMenu: View {
                     Text("\(GameModeMemoryGame.classicSinglePlayer.rawValue)").tag(GameModeMemoryGame.classicSinglePlayer)
                     Text("\(GameModeMemoryGame.sequential.rawValue)").tag(GameModeMemoryGame.sequential)
                 }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
                 
                 Spacer()
             }
@@ -57,6 +61,8 @@ struct MemoryGameMenu: View {
                     Text("2 seconds").tag(2)
                     Text("3 seconds").tag(3)
                 }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
                 
                 Spacer()
                 NavigationLink(destination: MemoryMainView().environmentObject(state)) {

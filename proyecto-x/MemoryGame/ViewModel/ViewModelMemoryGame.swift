@@ -21,15 +21,21 @@ struct MemoryGameCard {
     var flipped : Bool = true
 }
 
-struct BoardMemoryGame {
+final class BoardMemoryGame {
     //var pressed
     var playableCards : [MemoryGameCard] = []
     var cardsArrangement : [Int] = []
+    @Published var cardFlipped : [Bool] = []
+    @Published var cardFlipped2 : [Bool] = []
     
     //TODO: Contemplate other game modes. Currently only "sequential"
-    mutating func generateGame (cardsAmount : Int) -> Void {
+    func generateGame (cardsAmount : Int, visualizationTime : Int) -> Void {
         let randomImageIds = getRandomImageIds()
-
+        
+        cardFlipped = Array(repeating: false, count: cardsAmount)
+        
+    
+        
         var index : Int = 0
         while index < cardsAmount{
             cardsArrangement.append(index)
@@ -39,14 +45,37 @@ struct BoardMemoryGame {
             index += 1
         }
         cardsArrangement.shuffle()
-        //Quizas haya que mezclar también playableCards?
-        //playableCards.shuffle()
         
+        
+        
+        cardFlipped2 = cardFlipped.map { card in
+           var mutableCard = card
+            mutableCard.toggle()
+            return mutableCard
+        }
+
+        cardFlipped = cardFlipped2
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(visualizationTime)) { [self] in
+            cardFlipped2 = cardFlipped.map { card in
+               var mutableCard = card
+                mutableCard.toggle()
+                return mutableCard
+            }
+
+            cardFlipped = cardFlipped2
+            
+            print("elements after 3 secons: \(cardFlipped)")
+        }
+
+
+                                                                            
+                                                                                 
         print("CARD ARRANGEMENT: \(cardsArrangement)")
         print("BOARD ELEMENTS: \(playableCards)")
     }
     
-    mutating func reset ()  -> Void {
+    func reset ()  -> Void {
         playableCards = []
         cardsArrangement = []
     }
