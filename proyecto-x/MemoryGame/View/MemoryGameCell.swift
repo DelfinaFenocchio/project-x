@@ -7,6 +7,31 @@
 
 import SwiftUI
 
+struct aanotherView : View {
+    @EnvironmentObject var state : MemoryGameState
+    @ObservedObject var stateSecondary : BoardMemoryGame
+    var screenGeometry : GeometryProxy
+    let index : Int
+
+    var body: some View {
+        let element = stateSecondary.playableCards[index]
+
+        RoundedRectangle(cornerRadius: 25, style: .continuous)
+            .customCellFlippedStyleMG(width: screenGeometry.size.width / (state.cardsAmountSelected > 9 ? 4.5 : 3.5))
+        
+        if(stateSecondary.flipLoading){
+            RoundedRectangle(cornerRadius: 25, style: .continuous)
+                .customCellStyleMG(width: screenGeometry.size.width / (state.cardsAmountSelected > 9 ? 4.5 : 3.5))
+                .opacity(stateSecondary.cardFlipped[index] ? 0 : 1)
+            
+            Image(element.image)
+                .resizable()
+                .frame(width: 50, height: 50)
+                .opacity(stateSecondary.cardFlipped[index] ? 1 : 0)
+        }
+    }
+}
+
 struct MemoryGameCell: View {
     @EnvironmentObject var state : MemoryGameState
     let index : Int
@@ -14,19 +39,9 @@ struct MemoryGameCell: View {
     
     var body: some View {
         ZStack {
-
-            RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .customCellFlippedStyleMG(width: screenGeometry.size.width / (state.cardsAmountSelected > 9 ? 4.5 : 3.5))
-            
-            RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .customCellStyleMG(width: screenGeometry.size.width / (state.cardsAmountSelected > 9 ? 4.5 : 3.5))
-                .opacity(state.board.cardFlipped[index] ? 0 : 1)
-            
-            let element = state.board.playableCards[index]
-            Image(element.image)
-                .resizable()
-                .frame(width: 50, height: 50)
-                .opacity(state.board.cardFlipped[index] ? 1 : 0)
+        
+            aanotherView(stateSecondary: state.board, screenGeometry: screenGeometry, index: index)
+        
         }
         .rotation3DEffect(
             .init(degrees: state.board.cardFlipped[index] ? 180 : 0),

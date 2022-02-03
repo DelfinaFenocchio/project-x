@@ -21,20 +21,18 @@ struct MemoryGameCard {
     var flipped : Bool = true
 }
 
-final class BoardMemoryGame {
-    //var pressed
+final class BoardMemoryGame : ObservableObject {
     var playableCards : [MemoryGameCard] = []
     var cardsArrangement : [Int] = []
     @Published var cardFlipped : [Bool] = []
     @Published var cardFlipped2 : [Bool] = []
+    @Published var flipLoading : Bool = true    
     
     //TODO: Contemplate other game modes. Currently only "sequential"
     func generateGame (cardsAmount : Int, visualizationTime : Int) -> Void {
         let randomImageIds = getRandomImageIds()
         
         cardFlipped = Array(repeating: false, count: cardsAmount)
-        
-    
         
         var index : Int = 0
         while index < cardsAmount{
@@ -45,7 +43,6 @@ final class BoardMemoryGame {
             index += 1
         }
         cardsArrangement.shuffle()
-        
         
         
         cardFlipped2 = cardFlipped.map { card in
@@ -64,12 +61,12 @@ final class BoardMemoryGame {
             }
 
             cardFlipped = cardFlipped2
+                        
+            flipLoading.toggle()
             
             print("elements after 3 secons: \(cardFlipped)")
         }
 
-
-                                                                            
                                                                                  
         print("CARD ARRANGEMENT: \(cardsArrangement)")
         print("BOARD ELEMENTS: \(playableCards)")
@@ -82,8 +79,8 @@ final class BoardMemoryGame {
 }
 
 final class MemoryGameState : ObservableObject {
-    @Published var board : BoardMemoryGame = BoardMemoryGame()
     @Published var loading : Bool = true
+    @Published var board : BoardMemoryGame = BoardMemoryGame()
     
     @Published var gameModeSelected : GameModeMemoryGame = .sequential
     @Published var cardsAmountSelected : Int = 6

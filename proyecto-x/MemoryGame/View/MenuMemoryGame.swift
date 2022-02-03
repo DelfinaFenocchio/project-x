@@ -23,7 +23,7 @@ struct MemoryGameMenu: View {
                     .padding()
                     .customTextStyle()
                 
-                Picker("Please choose a color", selection: $state.cardsAmountSelected) {
+                Picker("Cards amount", selection: $state.cardsAmountSelected) {
                     Text("6 cards").tag(6)
                     Text("8 cards").tag(8)
                     Text("10 cards").tag(10)

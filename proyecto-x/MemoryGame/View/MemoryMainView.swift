@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+struct anotherView : View {
+    @ObservedObject var stateSecondary : BoardMemoryGame
+    @EnvironmentObject var state : MemoryGameState
+
+    var body: some View {
+        if(stateSecondary.flipLoading){
+            Text("Observa los animales durante \(state.visualizationTimeSelected) segundos")
+        }
+    }
+}
+
 struct MemoryMainView: View {
     @EnvironmentObject var state : MemoryGameState
     
@@ -14,6 +25,9 @@ struct MemoryMainView: View {
         GeometryReader { screenGeometry in
             VStack{
                 Text("Jugando: \(state.gameModeSelected.rawValue)")
+                
+                anotherView(stateSecondary: state.board)
+                
                 Spacer()
                 if(!state.loading){
                     Spacer()
