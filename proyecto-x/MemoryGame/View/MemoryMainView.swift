@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-struct anotherView : View {
-    @ObservedObject var stateSecondary : BoardMemoryGame
-    @EnvironmentObject var state : MemoryGameState
-
-    var body: some View {
-        if(stateSecondary.flipLoading){
-            Text("Observa los animales durante \(state.visualizationTimeSelected) segundos")
-        }
-    }
-}
-
 struct MemoryMainView: View {
     @EnvironmentObject var state : MemoryGameState
     
@@ -26,7 +15,9 @@ struct MemoryMainView: View {
             VStack{
                 Text("Jugando: \(state.gameModeSelected.rawValue)")
                 
-                anotherView(stateSecondary: state.board)
+                if(state.flipLoading){
+                    Text("Observa los animales durante \(state.visualizationTimeSelected) segundos")
+                }
                 
                 Spacer()
                 if(!state.loading){
@@ -39,7 +30,7 @@ struct MemoryMainView: View {
                         ZStack{
                             LazyVGrid(columns: state.columns, spacing: 5) {
                                 ForEach(0..<state.cardsAmountSelected) { index in
-                                    MemoryGameCell(stateSecondary: state.board, index: index, screenGeometry: screenGeometry)
+                                    MemoryGameCell(index: index, screenGeometry: screenGeometry)
                                 }
                             }
                             .customCellContainerStyle(width: screenGeometry.size.width)
@@ -49,7 +40,7 @@ struct MemoryMainView: View {
                 }
             }
             .onAppear(perform: {
-                state.board.generateGame(cardsAmount: state.cardsAmountSelected, visualizationTime: state.visualizationTimeSelected)
+                state.generateGame(cardsAmount: state.cardsAmountSelected, visualizationTime: state.visualizationTimeSelected)
                 state.loading.toggle()
             })
             .onDisappear(perform: {

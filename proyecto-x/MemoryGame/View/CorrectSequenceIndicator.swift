@@ -15,8 +15,8 @@ struct CorrectSequenceIndicator: View {
             Text("Da vuelta los animalitos en este orden:")
             HStack {
                 ForEach(0..<state.cardsAmountSelected) { index in
-                    let id = state.board.cardsArrangement[index]
-                    let element = state.board.playableCards.filter{ $0.id == id }.first
+                    let id = state.cardsArrangement[index]
+                    let element = state.playableCards.filter{ $0.id == id }.first
                     VStack{
                         Text("\(index + 1)")
                         Image(element!.image)
