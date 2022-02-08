@@ -24,7 +24,7 @@ struct MemoryGameCard {
 final class BoardMemoryGame : ObservableObject {
     var playableCards : [MemoryGameCard] = []
     var cardsArrangement : [Int] = []
-    @Published var cardFlipped : [Bool] = []
+   // @Published var cardFlipped : [Bool] = []
     @Published var cardFlipped2 : [Bool] = []
     @Published var flipLoading : Bool = true    
     
@@ -32,7 +32,7 @@ final class BoardMemoryGame : ObservableObject {
     func generateGame (cardsAmount : Int, visualizationTime : Int) -> Void {
         let randomImageIds = getRandomImageIds()
         
-        cardFlipped = Array(repeating: false, count: cardsAmount)
+        //cardFlipped = Array(repeating: false, count: cardsAmount)
         
         var index : Int = 0
         while index < cardsAmount{
@@ -45,26 +45,33 @@ final class BoardMemoryGame : ObservableObject {
         cardsArrangement.shuffle()
         
         
-        cardFlipped2 = cardFlipped.map { card in
-           var mutableCard = card
-            mutableCard.toggle()
-            return mutableCard
-        }
+//        cardFlipped2 = cardFlipped.map { card in
+//           var mutableCard = card
+//            mutableCard.toggle()
+//            return mutableCard
+//        }
 
-        cardFlipped = cardFlipped2
+  //      cardFlipped = cardFlipped2
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(visualizationTime)) { [self] in
-            cardFlipped2 = cardFlipped.map { card in
-               var mutableCard = card
-                mutableCard.toggle()
+//            cardFlipped2 = cardFlipped.map { card in
+//               var mutableCard = card
+//                mutableCard.toggle()
+//                return mutableCard
+//            }
+
+            
+//            cardFlipped = cardFlipped2
+            
+           playableCards = playableCards.map { card in
+                var mutableCard = card
+                mutableCard.flipped.toggle()
                 return mutableCard
             }
-
-            cardFlipped = cardFlipped2
-                        
+            
             flipLoading.toggle()
             
-            print("elements after 3 secons: \(cardFlipped)")
+            print("elements after 3 secons: \(playableCards)")
         }
 
                                                                                  
@@ -75,6 +82,7 @@ final class BoardMemoryGame : ObservableObject {
     func reset ()  -> Void {
         playableCards = []
         cardsArrangement = []
+        flipLoading = true
     }
 }
 
