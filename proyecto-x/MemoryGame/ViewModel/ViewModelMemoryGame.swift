@@ -18,7 +18,7 @@ func getRandomImageIds () -> [String] {
 struct MemoryGameCard {
     var id : Int
     var image : String
-    var flipped : Bool = true
+    var flipped : Bool = false
 }
 
 final class MemoryGameState : ObservableObject {
@@ -34,9 +34,11 @@ final class MemoryGameState : ObservableObject {
     @Published var cardsArrangement : [Int] = []
     @Published var selectedArrangement : [Int] = []
     
-    @Published var disabled : Bool = false
+    @Published var disabled : Bool = true
     
     @Published var flipLoading : Bool = true
+    
+    let visualizationDelay : Double = 0.5
     
     //TODO: Contemplate other game modes. Currently only "sequential"
     func generateGame(cardsAmount : Int) -> Void {
@@ -54,17 +56,25 @@ final class MemoryGameState : ObservableObject {
     }
     
     func startGame() -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + Double(visualizationTimeSelected)) { [self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + visualizationDelay) { [self] in
+            flipAllCards()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + (visualizationDelay + Double(visualizationTimeSelected))) { [self] in
             
-            withAnimation(Animation.easeIn(duration: 0.3)){
-                playableCards = playableCards.map { card in
-                     var mutableCard = card
-                     mutableCard.flipped.toggle()
-                     return mutableCard
-                 }
-            }
-            
+            flipAllCards()
             flipLoading.toggle()
+            disabled = false
+        }
+    }
+    
+    func flipAllCards () -> Void {
+        withAnimation(Animation.easeIn(duration: 0.3)){
+            playableCards = playableCards.map { card in
+                var mutableCard = card
+                mutableCard.flipped.toggle()
+                return mutableCard
+             }
         }
     }
     
@@ -130,7 +140,7 @@ final class MemoryGameState : ObservableObject {
         cardsArrangement = []
         selectedArrangement = []
         remainingLives = 3
-        disabled = false
+        disabled = true
     }
     
     let columns: [GridItem] = [GridItem(.flexible()),
