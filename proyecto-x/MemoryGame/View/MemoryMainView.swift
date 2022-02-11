@@ -15,9 +15,7 @@ struct MemoryMainView: View {
             VStack{
                 Text("Jugando: \(state.gameModeSelected.rawValue)")
                 
-                if(state.flipLoading){
-                    Text("Observa los animales durante \(state.visualizationTimeSelected) segundos")
-                }
+                MemoryGameHelperText()
                 
                 Spacer()
                 if(!state.loading){
@@ -25,8 +23,6 @@ struct MemoryMainView: View {
                     CorrectSequenceIndicator()
                     Spacer()
                     VStack {
-                        Text("Elementos:")
-                        Text("(TODO: hay que convertir esto en un tablero con cards dadas vuelta)")
                         ZStack{
                             LazyVGrid(columns: state.columns, spacing: 5) {
                                 ForEach(0..<state.cardsAmountSelected) { index in
@@ -40,7 +36,8 @@ struct MemoryMainView: View {
                 }
             }
             .onAppear(perform: {
-                state.generateGame(cardsAmount: state.cardsAmountSelected, visualizationTime: state.visualizationTimeSelected)
+                state.generateGame(cardsAmount: state.cardsAmountSelected)
+                state.startGame()
                 state.loading.toggle()
             })
             .onDisappear(perform: {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		212E1E6F2762A83B0025270C /* BackgroundAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E1E6E2762A83B0025270C /* BackgroundAsyncImage.swift */; };
 		218754EA2790F6E000C9826B /* CorrectSequenceIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218754E92790F6E000C9826B /* CorrectSequenceIndicator.swift */; };
+		21FEB68027B5FCE30002CEAE /* MemoryGameHelperText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEB67F27B5FCE30002CEAE /* MemoryGameHelperText.swift */; };
 		5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82982626F142E900FAC491 /* proyecto_xApp.swift */; };
 		5F82983926F142EA00FAC491 /* proyecto_xTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82983826F142EA00FAC491 /* proyecto_xTests.swift */; };
 		5F82984426F142EA00FAC491 /* proyecto_xUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82984326F142EA00FAC491 /* proyecto_xUITests.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		212E1E6E2762A83B0025270C /* BackgroundAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAsyncImage.swift; sourceTree = "<group>"; };
 		218754E92790F6E000C9826B /* CorrectSequenceIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectSequenceIndicator.swift; sourceTree = "<group>"; };
+		21FEB67F27B5FCE30002CEAE /* MemoryGameHelperText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameHelperText.swift; sourceTree = "<group>"; };
 		5F82982326F142E900FAC491 /* proyecto-x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "proyecto-x.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F82982626F142E900FAC491 /* proyecto_xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proyecto_xApp.swift; sourceTree = "<group>"; };
 		5F82982F26F142EA00FAC491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				CE808F06278E27950067FCE3 /* MemoryMainView.swift */,
 				CE37BC6F27A335ED00BAAEC4 /* MemoryGameCell.swift */,
 				218754E92790F6E000C9826B /* CorrectSequenceIndicator.swift */,
+				21FEB67F27B5FCE30002CEAE /* MemoryGameHelperText.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				CE808EFA278E277E0067FCE3 /* Cell.swift in Sources */,
 				CE808EF7278E277E0067FCE3 /* Enums.swift in Sources */,
 				CE37BC7127A335ED00BAAEC4 /* MemoryGameCell.swift in Sources */,
+				21FEB68027B5FCE30002CEAE /* MemoryGameHelperText.swift in Sources */,
 				CE808EFD278E277E0067FCE3 /* VictoryAnimatedLine.swift in Sources */,
 				CE808EE6278E255B0067FCE3 /* MainMenu.swift in Sources */,
 				CE808EFB278E277E0067FCE3 /* HelperViews.swift in Sources */,
