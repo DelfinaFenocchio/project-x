@@ -21,7 +21,7 @@ struct MemoryGameCard {
     var flipped : Bool = false
 }
 
-final class MemoryGameState : ObservableObject {
+@MainActor final class MemoryGameState : ObservableObject {
     @Published var loading : Bool = true
     
     @Published var gameModeSelected : GameModeMemoryGame = .sequential
@@ -56,26 +56,29 @@ final class MemoryGameState : ObservableObject {
     }
     
     func startGame() -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + visualizationDelay) { [self] in
+        Task {
+            try? await Task.sleep(nanoseconds: UInt64(visualizationDelay * 1_000_000_000))
             flipAllCards()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + (visualizationDelay + Double(visualizationTimeSelected))) { [self] in
-            
+            try? await Task.sleep(nanoseconds: UInt64(visualizationTimeSelected * 1_000_000_000))
             flipAllCards()
             flipLoading.toggle()
             disabled = false
         }
     }
     
-    func flipAllCards () -> Void {
-        withAnimation(Animation.easeIn(duration: 0.3)){
-            playableCards = playableCards.map { card in
-                var mutableCard = card
-                mutableCard.flipped.toggle()
-                return mutableCard
-             }
-        }
+    func flipAllCards (value : Bool? = nil) -> Void {
+            withAnimation(Animation.easeIn(duration: 0.3)){
+                playableCards = playableCards.map { card in
+                    var mutableCard = card
+                    if let flipped = value {
+                        mutableCard.flipped = flipped
+                    } else {
+                        mutableCard.flipped.toggle()
+                    }
+                    return mutableCard
+                 }
+            }
+        
     }
     
     func flipCard (index : Int) -> Void {
@@ -83,23 +86,18 @@ final class MemoryGameState : ObservableObject {
         playableCards[index].flipped = true
         selectedArrangement.append(playableCards[index].id)
     }
-    
-    func resetCards () -> Void {
-        print("Escondiendo cartas..")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
-            for (index, item) in playableCards.enumerated() {
-                if(item.flipped) {
-                    withAnimation(Animation.easeIn(duration: 0.3)){
-                        playableCards[index].flipped = false
-                    }
-                }
-            }
-            
+
+    func handleMistake () -> Void {
+        Task {
+            try? await Task.sleep(nanoseconds: 2_000_000_000)
+            flipAllCards(value: true)
+            try? await Task.sleep(nanoseconds: 2_000_000_000)
+            flipAllCards(value: false)
             selectedArrangement = []
             disabled = false
         }
     }
-    
+
     func evaluateFlip () -> Void {
         print("Total: \(selectedArrangement)")
         
@@ -119,7 +117,7 @@ final class MemoryGameState : ObservableObject {
             disabled = true
             remainingLives -= 1
             if(remainingLives != 0){
-                resetCards()
+               handleMistake()
             }
         } else {
             print("Elegiste bien")
