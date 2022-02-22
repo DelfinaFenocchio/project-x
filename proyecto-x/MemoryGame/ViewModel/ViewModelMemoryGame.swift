@@ -38,7 +38,8 @@ struct MemoryGameCard {
     
     @Published var flipLoading : Bool = true
     
-    let visualizationDelay : Double = 0.5
+    let initialVisualizationDelay : UInt64 = 500_000_000
+    let mistakeVisualizationDelay : UInt64 = 1_500_000_000
     
     //TODO: Contemplate other game modes. Currently only "sequential"
     func generateGame(cardsAmount : Int) -> Void {
@@ -57,7 +58,7 @@ struct MemoryGameCard {
     
     func startGame() -> Void {
         Task {
-            try? await Task.sleep(nanoseconds: UInt64(visualizationDelay * 1_000_000_000))
+            try? await Task.sleep(nanoseconds: initialVisualizationDelay)
             flipAllCards()
             try? await Task.sleep(nanoseconds: UInt64(visualizationTimeSelected * 1_000_000_000))
             flipAllCards()
@@ -89,9 +90,9 @@ struct MemoryGameCard {
 
     func handleMistake () -> Void {
         Task {
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
+            try? await Task.sleep(nanoseconds: mistakeVisualizationDelay)
             flipAllCards(value: true)
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
+            try? await Task.sleep(nanoseconds: mistakeVisualizationDelay)
             flipAllCards(value: false)
             selectedArrangement = []
             disabled = false
