@@ -57,9 +57,9 @@ struct MemoryGameMenu: View {
                     .customTextStyle()
                 
                 Picker("Tiempo de previsualizacion", selection: $state.visualizationTimeSelected) {
-                    Text("1 second").tag(1)
-                    Text("2 seconds").tag(2)
-                    Text("3 seconds").tag(3)
+                    Text("3 second").tag(3)
+                    Text("5 seconds").tag(5)
+                    Text("8 seconds").tag(8)
                 }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding()
