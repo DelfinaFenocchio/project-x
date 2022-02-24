@@ -38,7 +38,7 @@ struct MemoryGameCell: View {
             .init(degrees: state.playableCards[index].flipped ? 180 : 0),
             axis: (x: 0.0, y: 1.0, z: 0.0), anchor: .center, anchorZ: 0.0, perspective: 1.0)
         .onTapGesture(perform: {
-            let disabled = state.disabled || state.playableCards[index].flipped || state.remainingLives == 0
+            let disabled = state.disabled || state.playableCards[index].flipped || state.remainingLives == 0
             guard disabled  else {
                 withAnimation(Animation.easeIn(duration: 0.3)){
                     state.flipCard(index: index)
