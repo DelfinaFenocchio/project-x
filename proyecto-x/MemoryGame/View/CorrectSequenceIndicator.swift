@@ -18,7 +18,6 @@ struct CorrectSequenceIndicator: View {
                     let id = state.cardsArrangement[index]
                     let element = state.playableCards.filter{ $0.id == id }.first
                     VStack{
-                        Text("\(index + 1)")
                         Image(element!.image)
                             .resizable()
                             .frame(width: state.cardsAmountSelected > 9 ? 25 : 35, height: state.cardsAmountSelected > 9 ? 25 : 35)

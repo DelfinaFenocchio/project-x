@@ -21,7 +21,8 @@ struct MemoryGameCard {
     var flipped : Bool = false
 }
 
-@MainActor final class MemoryGameState : ObservableObject {
+@MainActor
+final class MemoryGameState : ObservableObject {
     @Published var loading : Bool = true
     
     @Published var gameModeSelected : GameModeMemoryGame = .sequential
@@ -100,8 +101,6 @@ struct MemoryGameCard {
     }
 
     func evaluateFlip () -> Void {
-        print("Total: \(selectedArrangement)")
-        
         let lastFlip = selectedArrangement.count == cardsAmountSelected
         
         var wrong = false
@@ -114,20 +113,17 @@ struct MemoryGameCard {
         }
         
         if (wrong) {
-            print("Card incorrecta")
             disabled = true
             remainingLives -= 1
             if(remainingLives != 0){
                handleMistake()
             }
         } else {
-            print("Elegiste bien")
             if (lastFlip) {
                 victory = true
+                onVictory()
             }
         }
-        
-        print("------------------------------")
     }
     
     
@@ -140,6 +136,17 @@ struct MemoryGameCard {
         selectedArrangement = []
         remainingLives = 3
         disabled = true
+    }
+    
+    
+    func onVictory () -> Void {
+        Task {
+            try? await Task.sleep(nanoseconds: UInt64(5_000_000_000))
+            reset()
+            generateGame(cardsAmount: cardsAmountSelected)
+            startGame()
+            loading.toggle()
+        }
     }
     
     let columns: [GridItem] = [GridItem(.flexible()),
