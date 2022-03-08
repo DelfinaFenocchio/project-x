@@ -12,27 +12,35 @@ struct MemoryMainView: View {
     
     var body: some View {
         GeometryReader { screenGeometry in
-            VStack{
-                Text("Jugando: \(state.gameModeSelected.rawValue)")
-                
-                MemoryGameHelperText()
-                
-                Spacer()
-                if(!state.loading){
+            ZStack {
+                VStack{
+                    Text("Jugando: \(state.gameModeSelected.rawValue)")
+
+                    MemoryGameHelperText()
+                    
                     Spacer()
-                    CorrectSequenceIndicator()
-                    Spacer()
-                    VStack {
-                        ZStack{
-                            LazyVGrid(columns: state.columns, spacing: 5) {
-                                ForEach(0..<state.cardsAmountSelected) { index in
-                                    MemoryGameCell(index: index, screenGeometry: screenGeometry)
+                    if(!state.loading){
+                        Spacer()
+                        CorrectSequenceIndicator()
+                        Spacer()
+                        VStack {
+                            ZStack{
+                                LazyVGrid(columns: state.columns, spacing: 5) {
+                                    ForEach(0..<state.cardsAmountSelected) { index in
+                                        MemoryGameCell(index: index, screenGeometry: screenGeometry)
+                                    }
                                 }
+                                .customCellContainerStyle(width: screenGeometry.size.width)
                             }
-                            .customCellContainerStyle(width: screenGeometry.size.width)
                         }
+                        Spacer()
                     }
-                    Spacer()
+                    
+                }
+                if(state.victory){
+                    MemoryGameResultModal()
+                        .zIndex(1)
+                        .transition(.move(edge: .bottom))
                 }
             }
             .onAppear(perform: {
@@ -42,7 +50,8 @@ struct MemoryMainView: View {
             })
             .onDisappear(perform: {
                 state.reset()
-        })
+            })
+
         }
     }
 }

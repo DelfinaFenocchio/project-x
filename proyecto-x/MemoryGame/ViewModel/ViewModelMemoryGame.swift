@@ -141,11 +141,15 @@ final class MemoryGameState : ObservableObject {
     
     func onVictory () -> Void {
         Task {
-            try? await Task.sleep(nanoseconds: UInt64(5_000_000_000))
-            reset()
-            generateGame(cardsAmount: cardsAmountSelected)
-            startGame()
-            loading.toggle()
+            try? await Task.sleep(nanoseconds: UInt64(10_500_000_000))
+            withAnimation(Animation.easeIn(duration: 10.0)){
+                victory = true
+            }
+//            try? await Task.sleep(nanoseconds: UInt64(5_000_000_000))
+//            reset()
+//            generateGame(cardsAmount: cardsAmountSelected)
+//            startGame()
+//            loading.toggle()
         }
     }
     
