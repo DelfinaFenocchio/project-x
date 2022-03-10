@@ -9,8 +9,8 @@ Memory game
     - Secuencial:
         - Un único jugador debe encontrar las cards en el orden especificado hasta encontrarlas todas o agotar sus vidas.
         - Al cometer un error se muestran por una cantidad de segundos (1.5s) y se voltean todas.
-        - TODO: Al ganar generar una nueva partida (es automatico porque va a estar explicado antes que una vez que gana puede volver a jugar para sumar victorias) y persistir el número de victorias seguidas en la memoria local del dispositivo (encriptada).
         -TODO: Si el usuario gana la partida, se muestra un modal con la puntuacion y un feedback con los segundos que faltan para comenzar la siguiente partida.
+        - TODO: Al ganar generar una nueva partida (es automatico porque va a estar explicado antes que una vez que gana puede volver a jugar para sumar victorias) y persistir el número de victorias seguidas en la memoria local del dispositivo (encriptada).
         -TODO: Crear una ecuacion para calcular los puntos. Agregar la puntuacion correspondiente segun la cantidad de tiempo de previsualizacion (menos tiempo, mas puntos), cantidad de cards (mas cards, mas puntos) y cantidad de vidas al momento de ganar la partida (mas vidas, mas puntos).
         -TODO: Si el jugador pierde, se muestra un modal con los puntos y un boton para volver al menu de memory game.
         -TODO: Agregar opcion de elegir cantidad de vidas (2,3,4)
@@ -24,8 +24,10 @@ Memory game
         - TODO: El tiempo está limitado para cada turno (mostrarlo en la UI).
         - TODO: El jugador a iniciar la partida se selecciona al azar.
 
-Para el martes 08/03/22
+Para el martes 15/03/22
 Terminar la lógica faltante del modo secuencial.
 Que todos podamos jugar.
+Dejar lindo el modal
+Calcular puntos
 
 Desarrollar en el orden de los items de este readme.

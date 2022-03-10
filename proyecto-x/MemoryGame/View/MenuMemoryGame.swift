@@ -24,7 +24,7 @@ struct MemoryGameMenu: View {
                     .customTextStyle()
                 
                 Picker("Cards amount", selection: $state.cardsAmountSelected) {
-                    Text("6 cards").tag(6)
+                    Text("2 cards").tag(2)
                     Text("8 cards").tag(8)
                     Text("10 cards").tag(10)
                     Text("12 cards").tag(12)

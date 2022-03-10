@@ -37,7 +37,7 @@ struct MemoryMainView: View {
                     }
                     
                 }
-                if(state.victory){
+                if(state.showEndModal){
                     MemoryGameResultModal()
                         .zIndex(1)
                         .transition(.move(edge: .bottom))
@@ -49,7 +49,7 @@ struct MemoryMainView: View {
                 state.loading.toggle()
             })
             .onDisappear(perform: {
-                state.reset()
+                state.onGoBack()
             })
 
         }

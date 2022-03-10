@@ -26,10 +26,10 @@ final class MemoryGameState : ObservableObject {
     @Published var loading : Bool = true
     
     @Published var gameModeSelected : GameModeMemoryGame = .sequential
-    @Published var cardsAmountSelected : Int = 6
+    @Published var cardsAmountSelected : Int = 2
     @Published var visualizationTimeSelected : Int = 1
     @Published var remainingLives : Int = 3
-    @Published var victory : Bool = false
+    @Published var showEndModal : Bool = false
 
     @Published var playableCards : [MemoryGameCard] = []
     @Published var cardsArrangement : [Int] = []
@@ -120,17 +120,20 @@ final class MemoryGameState : ObservableObject {
             }
         } else {
             if (lastFlip) {
-                victory = true
                 onVictory()
             }
         }
     }
     
     
+    func onGoBack () -> Void {
+        showEndModal = false
+        reset()
+    }
+    
     func reset () -> Void {
         loading = true
         flipLoading = true
-        victory = false
         playableCards = []
         cardsArrangement = []
         selectedArrangement = []
@@ -141,15 +144,22 @@ final class MemoryGameState : ObservableObject {
     
     func onVictory () -> Void {
         Task {
-            try? await Task.sleep(nanoseconds: UInt64(10_500_000_000))
-            withAnimation(Animation.easeIn(duration: 10.0)){
-                victory = true
+            try? await Task.sleep(nanoseconds: UInt64(1_000_000_000))
+            withAnimation(Animation.easeIn(duration: 0.5)){
+                showEndModal = true
             }
-//            try? await Task.sleep(nanoseconds: UInt64(5_000_000_000))
-//            reset()
-//            generateGame(cardsAmount: cardsAmountSelected)
-//            startGame()
-//            loading.toggle()
+            try? await Task.sleep(nanoseconds: UInt64(3_500_000_000))
+            reset()
+            generateGame(cardsAmount: cardsAmountSelected)
+            loading.toggle()
+            withAnimation(Animation.easeIn(duration: 0.5)){
+                showEndModal = false
+            }
+            
+            try? await Task.sleep(nanoseconds: UInt64(1_500_000_000))
+            startGame()
+            
+            
         }
     }
     
