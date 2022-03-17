@@ -38,7 +38,7 @@ struct MemoryMainView: View {
                     
                 }
                 if(state.showEndModal){
-                    MemoryGameResultModal()
+                    MemoryGameResultModal(screenGeometry: screenGeometry)
                         .zIndex(1)
                         .transition(.move(edge: .bottom))
                 }

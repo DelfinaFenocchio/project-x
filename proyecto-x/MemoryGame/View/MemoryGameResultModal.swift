@@ -9,14 +9,34 @@ import SwiftUI
 
 struct MemoryGameResultModal: View {
     @EnvironmentObject var state : MemoryGameState
-    
+    let screenGeometry : GeometryProxy
        
        var body: some View {
            
-           ZStack {
-               Color.green.ignoresSafeArea()
+//            Text("hola")
+//               .frame(width: screenGeometry.size.width, height: screenGeometry.size.height, alignment: .center)
+//               .background(Color.yellow)
                
-               Text("Ganaste")
+               ZStack(alignment: .center) {
+                   Color.black.opacity(0.4)
+                       .ignoresSafeArea()
+                   
+                   RoundedRectangle(cornerRadius: 25.0)
+                       .padding()
+                       .foregroundColor(.green)
+                       .frame(width: screenGeometry.size.width, height: screenGeometry.size.height - 300, alignment: .center)
+                       .ignoresSafeArea()
+
+                   VStack {
+                       Text("Ganaste!")
+
+                       Text("Puntuacion: ")
+                   }
+//
+//
+//               }
+//               .background(Color.blue)
+//               .frame(maxHeight: .infinity)
            }
        }
 }
