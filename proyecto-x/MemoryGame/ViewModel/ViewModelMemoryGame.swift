@@ -29,6 +29,7 @@ final class MemoryGameState : ObservableObject {
     @Published var cardsAmountSelected : Int = 2
     @Published var visualizationTimeSelected : Int = 1
     @Published var remainingLives : Int = 3
+    @Published var totalScore : Int = 0
     @Published var showEndModal : Bool = false
 
     @Published var playableCards : [MemoryGameCard] = []
@@ -84,7 +85,6 @@ final class MemoryGameState : ObservableObject {
     }
     
     func flipCard (index : Int) -> Void {
-        print(playableCards[index].id)
         playableCards[index].flipped = true
         selectedArrangement.append(playableCards[index].id)
     }
@@ -143,6 +143,7 @@ final class MemoryGameState : ObservableObject {
     
     
     func onVictory () -> Void {
+        totalScore += calculateScore()
         Task {
             try? await Task.sleep(nanoseconds: UInt64(1_000_000_000))
             withAnimation(Animation.easeIn(duration: 0.5)){
@@ -161,6 +162,19 @@ final class MemoryGameState : ObservableObject {
             
             
         }
+    }
+    
+    func calculateScore () -> Int {
+        var score = 0
+        for point in PrevisualizationTimeValuePoints.allCases {
+            let pointString = "\(point)"
+            let pointLast = String(pointString.last!)
+            let pointLastInt = Int(pointLast) ?? 0
+            if pointLastInt == visualizationTimeSelected {
+                score += point.rawValue
+            }
+        }
+        return score
     }
     
     let columns: [GridItem] = [GridItem(.flexible()),

@@ -30,7 +30,7 @@ struct MemoryGameResultModal: View {
                    VStack {
                        Text("Ganaste!")
 
-                       Text("Puntuacion: ")
+                       Text("Puntuacion: \(state.totalScore)")
                    }
 //
 //
