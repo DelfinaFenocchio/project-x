@@ -33,15 +33,16 @@ enum PrevisualizationTimeValuePoints : Int, CaseIterable {
     case seconds_8 = 15
 }
 
-enum CardAmountValuePoints : Int {
-    case amount_8 = 5
-    case amount_10 = 10
-    case amount_12 = 15
+enum CardAmountValuePoints : Int, CaseIterable {
+    case amount_6 = 5
+    case amount_8 = 10
+    case amount_10 = 15
+    case amount_12 = 20
 }
 
-enum LivesAmountValuePoints : Int {
-    case amount_2 = 5
-    case amount_3 = 10
-    case amount_4 = 15
+enum LivesAmountValuePoints : Int, CaseIterable {
+    case amount_1 = 5
+    case amount_2 = 10
+    case amount_3 = 15
 }
 

@@ -159,22 +159,31 @@ final class MemoryGameState : ObservableObject {
             
             try? await Task.sleep(nanoseconds: UInt64(1_500_000_000))
             startGame()
-            
-            
         }
     }
     
     func calculateScore () -> Int {
         var score = 0
         for point in PrevisualizationTimeValuePoints.allCases {
-            let pointString = "\(point)"
-            let pointLast = String(pointString.last!)
-            let pointLastInt = Int(pointLast) ?? 0
-            if pointLastInt == visualizationTimeSelected {
-                score += point.rawValue
-            }
+            score += mapEnumToAddPoints("\(point)", visualizationTimeSelected)
+        }
+        for point in CardAmountValuePoints.allCases {
+            score += mapEnumToAddPoints("\(point)", cardsAmountSelected)
+        }
+        for point in LivesAmountValuePoints.allCases {
+            score += mapEnumToAddPoints("\(point)", remainingLives)
         }
         return score
+    }
+    
+    func mapEnumToAddPoints(_ enumItem: String, _ optionSelected : Int) -> Int {
+        let pointString = "\(enumItem)"
+        let pointLast = String(pointString.last!)
+        let pointLastInt = Int(pointLast) ?? 0
+        if pointLastInt == optionSelected {
+            return pointLastInt
+        }
+        return 0
     }
     
     let columns: [GridItem] = [GridItem(.flexible()),
