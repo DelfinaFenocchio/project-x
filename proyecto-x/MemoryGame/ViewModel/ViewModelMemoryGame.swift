@@ -27,7 +27,7 @@ final class MemoryGameState : ObservableObject {
     
     @Published var gameModeSelected : GameModeMemoryGame = .sequential
     @Published var cardsAmountSelected : Int = 2
-    @Published var visualizationTimeSelected : Int = 1
+    @Published var visualizationTimeSelected : Int = 3
     @Published var remainingLives : Int = 3
     @Published var totalScore : Int = 0
     @Published var showEndModal : Bool = false
@@ -125,7 +125,6 @@ final class MemoryGameState : ObservableObject {
         }
     }
     
-    
     func onGoBack () -> Void {
         showEndModal = false
         reset()
@@ -140,7 +139,6 @@ final class MemoryGameState : ObservableObject {
         remainingLives = 3
         disabled = true
     }
-    
     
     func onVictory () -> Void {
         totalScore += calculateScore()
@@ -164,24 +162,15 @@ final class MemoryGameState : ObservableObject {
     
     func calculateScore () -> Int {
         var score = 0
-        for point in PrevisualizationTimeValuePoints.allCases {
-            score += mapEnumToAddPoints("\(point)", visualizationTimeSelected)
-        }
-        for point in CardAmountValuePoints.allCases {
-            score += mapEnumToAddPoints("\(point)", cardsAmountSelected)
-        }
-        for point in LivesAmountValuePoints.allCases {
-            score += mapEnumToAddPoints("\(point)", remainingLives)
-        }
+        score += pointsEarnedByCategory(category: visualizationTimeSelected, pointsBank: PrevisualizationTimeValuePoints)
+        score += pointsEarnedByCategory(category: cardsAmountSelected, pointsBank: CardAmountValuePoints)
+        score += pointsEarnedByCategory(category: remainingLives, pointsBank: LivesAmountValuePoints)
         return score
     }
     
-    func mapEnumToAddPoints(_ enumItem: String, _ optionSelected : Int) -> Int {
-        let pointString = "\(enumItem)"
-        let pointLast = String(pointString.last!)
-        let pointLastInt = Int(pointLast) ?? 0
-        if pointLastInt == optionSelected {
-            return pointLastInt
+    func pointsEarnedByCategory(category optionSelectedOrRemaining : Int, pointsBank pointsDiccionary : [Int: Int]) -> Int {
+        if let pointsWon = pointsDiccionary[optionSelectedOrRemaining] {
+            return pointsWon
         }
         return 0
     }

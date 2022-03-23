@@ -14,6 +14,7 @@
 		5F82983926F142EA00FAC491 /* proyecto_xTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82983826F142EA00FAC491 /* proyecto_xTests.swift */; };
 		5F82984426F142EA00FAC491 /* proyecto_xUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82984326F142EA00FAC491 /* proyecto_xUITests.swift */; };
 		5F91CB9F27DA964A009117C2 /* MemoryGameResultModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F91CB9E27DA9649009117C2 /* MemoryGameResultModal.swift */; };
+		CE0F39A927EA98EC009FACB3 /* DiccionariesMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F39A827EA98EC009FACB3 /* DiccionariesMemoryGame.swift */; };
 		CE37BC7027A335ED00BAAEC4 /* CustomModifiersMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37BC6E27A335ED00BAAEC4 /* CustomModifiersMemory.swift */; };
 		CE37BC7127A335ED00BAAEC4 /* MemoryGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37BC6F27A335ED00BAAEC4 /* MemoryGameCell.swift */; };
 		CE808EE6278E255B0067FCE3 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE808EE5278E255B0067FCE3 /* MainMenu.swift */; };
@@ -67,6 +68,7 @@
 		5F82984326F142EA00FAC491 /* proyecto_xUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proyecto_xUITests.swift; sourceTree = "<group>"; };
 		5F82984526F142EA00FAC491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F91CB9E27DA9649009117C2 /* MemoryGameResultModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryGameResultModal.swift; sourceTree = "<group>"; };
+		CE0F39A827EA98EC009FACB3 /* DiccionariesMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiccionariesMemoryGame.swift; sourceTree = "<group>"; };
 		CE37BC6E27A335ED00BAAEC4 /* CustomModifiersMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifiersMemory.swift; sourceTree = "<group>"; };
 		CE37BC6F27A335ED00BAAEC4 /* MemoryGameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryGameCell.swift; sourceTree = "<group>"; };
 		CE808EE5278E255B0067FCE3 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				CE808F03278E27950067FCE3 /* EnumsMemoryGame.swift */,
+				CE0F39A827EA98EC009FACB3 /* DiccionariesMemoryGame.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				CE808EFE278E277E0067FCE3 /* MainView.swift in Sources */,
 				5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */,
 				5F91CB9F27DA964A009117C2 /* MemoryGameResultModal.swift in Sources */,
+				CE0F39A927EA98EC009FACB3 /* DiccionariesMemoryGame.swift in Sources */,
 				CE808F07278E27950067FCE3 /* ViewModelMemoryGame.swift in Sources */,
 				212E1E6F2762A83B0025270C /* BackgroundAsyncImage.swift in Sources */,
 				CE808EF9278E277E0067FCE3 /* TicTacToeMenu.swift in Sources */,
