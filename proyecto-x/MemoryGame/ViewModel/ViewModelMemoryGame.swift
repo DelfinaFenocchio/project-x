@@ -30,6 +30,7 @@ final class MemoryGameState : ObservableObject {
     @Published var visualizationTimeSelected : Int = 3
     @Published var remainingLives : Int = 3
     @Published var totalScore : Int = 0
+    @Published var highScore : Int = UserDefaults.standard.integer(forKey: "MemoryGameHighScore")
     @Published var showEndModal : Bool = false
 
     @Published var playableCards : [MemoryGameCard] = []
@@ -142,6 +143,9 @@ final class MemoryGameState : ObservableObject {
     
     func onVictory () -> Void {
         totalScore += calculateScore()
+        if totalScore > highScore {
+            UserDefaults.standard.set(self.totalScore, forKey: "MemoryGameHighScore")
+        }
         Task {
             try? await Task.sleep(nanoseconds: UInt64(1_000_000_000))
             withAnimation(Animation.easeIn(duration: 0.5)){

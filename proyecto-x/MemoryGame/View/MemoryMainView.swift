@@ -15,6 +15,10 @@ struct MemoryMainView: View {
             ZStack {
                 VStack{
                     Text("Jugando: \(state.gameModeSelected.rawValue)")
+                    Text("Score Actual: \(state.totalScore)")
+                    Text("High Score: \(state.highScore)")
+
+                    Spacer()
 
                     MemoryGameHelperText()
                     
