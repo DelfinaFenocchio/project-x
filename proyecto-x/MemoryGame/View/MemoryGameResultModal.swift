@@ -9,14 +9,13 @@ import SwiftUI
 
 struct MemoryGameResultModal: View {
     @EnvironmentObject var state : MemoryGameState
+    @State var remainingTime : Double = 3.5
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     let screenGeometry : GeometryProxy
        
        var body: some View {
            
-//            Text("hola")
-//               .frame(width: screenGeometry.size.width, height: screenGeometry.size.height, alignment: .center)
-//               .background(Color.yellow)
-               
                ZStack(alignment: .center) {
                    Color.black.opacity(0.4)
                        .ignoresSafeArea()
@@ -31,6 +30,9 @@ struct MemoryGameResultModal: View {
                        Text("Ganaste!")
 
                        Text("Puntuacion: \(state.totalScore)")
+                       
+                       Text("Próximo juego comienza en: \(Int(remainingTime + 1))")
+                       
                    }
 //
 //
@@ -38,5 +40,10 @@ struct MemoryGameResultModal: View {
 //               .background(Color.blue)
 //               .frame(maxHeight: .infinity)
            }
+               .onReceive(timer) { _ in
+                   remainingTime -= 1
+                }
+           
        }
+    
 }
