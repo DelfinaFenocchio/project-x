@@ -31,7 +31,7 @@ final class MemoryGameState : ObservableObject {
     @Published var remainingLives : Int = 3
     @Published var totalScore : Int = 0
     @Published var highScore : Int = UserDefaults.standard.integer(forKey: "MemoryGameHighScore")
-    @Published var showEndModal : Bool = false
+    @Published var gameStatus : GameStatusMemoryGame = GameStatusMemoryGame.inactive
 
     @Published var playableCards : [MemoryGameCard] = []
     @Published var cardsArrangement : [Int] = []
@@ -67,6 +67,7 @@ final class MemoryGameState : ObservableObject {
             flipAllCards()
             flipLoading.toggle()
             disabled = false
+            gameStatus = .active
         }
     }
     
@@ -119,6 +120,9 @@ final class MemoryGameState : ObservableObject {
             if(remainingLives != 0){
                handleMistake()
             }
+            else {
+                onDefeated()
+            }
         } else {
             if (lastFlip) {
                 onVictory()
@@ -127,7 +131,7 @@ final class MemoryGameState : ObservableObject {
     }
     
     func onGoBack () -> Void {
-        showEndModal = false
+        gameStatus = GameStatusMemoryGame.inactive
         reset()
     }
     
@@ -149,18 +153,27 @@ final class MemoryGameState : ObservableObject {
         Task {
             try? await Task.sleep(nanoseconds: UInt64(1_000_000_000))
             withAnimation(Animation.easeIn(duration: 0.5)){
-                showEndModal = true
+                gameStatus = GameStatusMemoryGame.victory
             }
             try? await Task.sleep(nanoseconds: UInt64(3_500_000_000))
             reset()
             generateGame(cardsAmount: cardsAmountSelected)
             loading.toggle()
             withAnimation(Animation.easeIn(duration: 0.5)){
-                showEndModal = false
+                gameStatus = GameStatusMemoryGame.active
             }
             
             try? await Task.sleep(nanoseconds: UInt64(1_500_000_000))
             startGame()
+        }
+    }
+    
+    func onDefeated () -> Void {
+        Task {
+            try? await Task.sleep(nanoseconds: UInt64(1_000_000_000))
+            withAnimation(Animation.easeIn(duration: 0.5)){
+                gameStatus = GameStatusMemoryGame.defeated
+            }
         }
     }
     

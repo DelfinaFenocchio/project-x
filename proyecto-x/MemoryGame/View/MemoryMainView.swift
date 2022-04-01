@@ -41,7 +41,7 @@ struct MemoryMainView: View {
                     }
                     
                 }
-                if(state.showEndModal){
+                if(state.gameStatus == .victory || state.gameStatus == .defeated){
                     MemoryGameResultModal(screenGeometry: screenGeometry)
                         .zIndex(1)
                         .transition(.move(edge: .bottom))

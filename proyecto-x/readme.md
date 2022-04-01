@@ -12,7 +12,7 @@ Memory game
         - Si el usuario gana la partida, se muestra un modal con la puntuacion y un feedback con los segundos que faltan para comenzar la siguiente partida.
         - Al ganar generar una nueva partida (es automatico porque va a estar explicado antes que una vez que gana puede volver a jugar para sumar victorias) 
         - Crear una ecuacion para calcular los puntos. Agregar la puntuacion correspondiente segun la cantidad de tiempo de previsualizacion (menos tiempo, mas puntos), cantidad de cards (mas cards, mas puntos) y cantidad de vidas al momento de ganar la partida (mas vidas, mas puntos).
-        -TODO: Si el jugador pierde, se muestra un modal con los puntos y un boton para volver al menu de memory game. 
+        - Si el jugador pierde, se muestra un modal con los puntos y un boton para volver al menu de memory game.
         -TODO: Agregar opcion de elegir cantidad de vidas (2,3,4)
         -TODO: Persistir el high Score en la memoria local del dispositivo SOLO al cerrar la app o salir del juego .
     - Clasico 1 jugador:
@@ -27,7 +27,7 @@ Memory game
         
 -TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran
 
-Para el Jueves 31/03/22
+Para el Martes 05/04/22
 Terminar la lógica faltante del modo secuencial.
 Que todos podamos jugar.
 

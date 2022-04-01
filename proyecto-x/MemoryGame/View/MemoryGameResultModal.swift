@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MemoryGameResultModal: View {
     @EnvironmentObject var state : MemoryGameState
+    @Environment(\.presentationMode) var presentationMode
+    
     @State var remainingTime : Double = 3.5
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -22,16 +24,27 @@ struct MemoryGameResultModal: View {
                    
                    RoundedRectangle(cornerRadius: 25.0)
                        .padding()
-                       .foregroundColor(.green)
+                       .foregroundColor(.white)
                        .frame(width: screenGeometry.size.width, height: screenGeometry.size.height - 300, alignment: .center)
                        .ignoresSafeArea()
 
                    VStack {
-                       Text("Ganaste!")
+                       if (state.gameStatus == GameStatusMemoryGame.victory) {
+                           Text("Ganaste!")
 
-                       Text("Puntuacion: \(state.totalScore)")
-                       
-                       Text("Próximo juego comienza en: \(Int(remainingTime + 1))")
+                           Text("Puntuacion: \(state.totalScore)")
+                           
+                           Text("Próximo juego comienza en: \(Int(remainingTime + 1))")
+                       }
+                       else {
+                           Text("Perdiste")
+
+                           Text("Puntuacion: \(state.totalScore)")
+                           
+                           Button(action: { self.presentationMode.wrappedValue.dismiss() })
+                           { Text("Volver al Menu") }
+                       }
+
                        
                    }
 //
