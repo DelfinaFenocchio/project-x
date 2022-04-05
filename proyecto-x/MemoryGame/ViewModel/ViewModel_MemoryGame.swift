@@ -28,7 +28,8 @@ final class MemoryGameState : ObservableObject {
     @Published var gameModeSelected : GameModeMemoryGame = .sequential
     @Published var cardsAmountSelected : Int = 2
     @Published var visualizationTimeSelected : Int = 3
-    @Published var remainingLives : Int = 3
+    @Published var remainingLives : Int = 0
+    @Published var livesAmountSelected : Int = 4
     @Published var totalScore : Int = 0
     @Published var highScore : Int = UserDefaults.standard.integer(forKey: "MemoryGameHighScore")
     @Published var gameStatus : GameStatusMemoryGame = GameStatusMemoryGame.inactive
@@ -68,6 +69,7 @@ final class MemoryGameState : ObservableObject {
             flipLoading.toggle()
             disabled = false
             gameStatus = .active
+            remainingLives = livesAmountSelected
         }
     }
     
@@ -141,7 +143,7 @@ final class MemoryGameState : ObservableObject {
         playableCards = []
         cardsArrangement = []
         selectedArrangement = []
-        remainingLives = 3
+    
         disabled = true
     }
     
@@ -181,12 +183,13 @@ final class MemoryGameState : ObservableObject {
         var score = 0
         score += pointsEarnedByCategory(category: visualizationTimeSelected, pointsBank: PrevisualizationTimeValuePoints)
         score += pointsEarnedByCategory(category: cardsAmountSelected, pointsBank: CardAmountValuePoints)
-        score += pointsEarnedByCategory(category: remainingLives, pointsBank: LivesAmountValuePoints)
+        score += pointsEarnedByCategory(category: livesAmountSelected, pointsBank: LivesAmountValuePoints)
+        score -= 5 * (livesAmountSelected - remainingLives)
         return score
     }
     
-    func pointsEarnedByCategory(category optionSelectedOrRemaining : Int, pointsBank pointsDiccionary : [Int: Int]) -> Int {
-        if let pointsWon = pointsDiccionary[optionSelectedOrRemaining] {
+    func pointsEarnedByCategory(category optionSelectedOrRemaining : Int, pointsBank pointsDictionary : [Int: Int]) -> Int {
+        if let pointsWon = pointsDictionary[optionSelectedOrRemaining] {
             return pointsWon
         }
         return 0

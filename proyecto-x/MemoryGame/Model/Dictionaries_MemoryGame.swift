@@ -1,5 +1,5 @@
 //
-//  DiccionariesMemoryGame.swift
+//  DictionariesMemoryGame.swift
 //  proyecto-x
 //
 //  Created by Lisbaldy de Jesus on 22/03/2022.
@@ -22,7 +22,7 @@ let CardAmountValuePoints : [Int : Int] = [
 ]
 
 let LivesAmountValuePoints : [Int : Int] = [
-    1: 5,
-    2: 10,
-    3: 15
+    2: 90,
+    4: 60,
+    6: 30
 ]

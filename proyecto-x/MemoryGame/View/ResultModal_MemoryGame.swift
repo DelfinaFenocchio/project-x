@@ -37,12 +37,17 @@ struct MemoryGameResultModal: View {
                            Text("Próximo juego comienza en: \(Int(remainingTime + 1))")
                        }
                        else {
-                           Text("Perdiste")
+                            if (state.gameStatus == GameStatusMemoryGame.defeated) {
+                               Text("Perdiste")
 
-                           Text("Puntuacion: \(state.totalScore)")
-                           
-                           Button(action: { self.presentationMode.wrappedValue.dismiss() })
-                           { Text("Volver al Menu") }
+                               Text("Puntuacion: \(state.totalScore)")
+                               
+                               Button(action: { self.presentationMode.wrappedValue.dismiss() })
+                               { Text("Volver al Menu") }
+                           }
+                           else {
+                               EmptyView()
+                           }
                        }
 
                        
