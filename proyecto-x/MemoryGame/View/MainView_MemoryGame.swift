@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MemoryMainView: View {
     @EnvironmentObject var state : MemoryGameState
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
         GeometryReader { screenGeometry in
@@ -21,6 +22,7 @@ struct MemoryMainView: View {
                     Spacer()
 
                     MemoryGameHelperText()
+                    LivesIndicator_MemoryGame(remainingLives: state.remainingLives)
                     
                     Spacer()
                     if(!state.loading){
@@ -55,6 +57,11 @@ struct MemoryMainView: View {
             .onDisappear(perform: {
                 state.onGoBack()
             })
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .background {
+                    state.evalutateHighScore()
+                }
+            }
 
         }
     }

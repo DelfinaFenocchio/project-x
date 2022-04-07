@@ -14,7 +14,7 @@ Memory game
         - Crear una ecuacion para calcular los puntos. Agregar la puntuacion correspondiente segun la cantidad de tiempo de previsualizacion (menos tiempo, mas puntos), cantidad de cards (mas cards, mas puntos) y cantidad de vidas al momento de ganar la partida (mas vidas, mas puntos).
         - Si el jugador pierde, se muestra un modal con los puntos y un boton para volver al menu de memory game.
         -Agregar opcion de elegir cantidad de vidas (2,4,6)
-        -TODO: Persistir el high Score en la memoria local del dispositivo SOLO al cerrar la app o salir del juego .
+        -Persistir el high Score en la memoria local del dispositivo SOLO al cerrar la app o salir del juego .
     - Clasico 1 jugador:
         - TODO: Se deben encontrar de a pares hasta encontrarlas todas o hasta agotarse la cantidad de vidas (depende de la cantidad de cartas seleccionadas) ya que tiene una cantidad limitada (a elección).
         - TODO: Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido y se descuenta una vida.

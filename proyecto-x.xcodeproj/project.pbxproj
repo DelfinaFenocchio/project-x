@@ -10,6 +10,7 @@
 		212E1E6F2762A83B0025270C /* BackgroundAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E1E6E2762A83B0025270C /* BackgroundAsyncImage.swift */; };
 		218754EA2790F6E000C9826B /* CorrectSequenceIndicator_MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218754E92790F6E000C9826B /* CorrectSequenceIndicator_MemoryGame.swift */; };
 		21FEB68027B5FCE30002CEAE /* HelperText_MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEB67F27B5FCE30002CEAE /* HelperText_MemoryGame.swift */; };
+		5F623BFC27FF85A500FCAFF9 /* LivesIndicator_MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F623BFB27FF85A500FCAFF9 /* LivesIndicator_MemoryGame.swift */; };
 		5F82982726F142E900FAC491 /* proyecto_xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82982626F142E900FAC491 /* proyecto_xApp.swift */; };
 		5F82983926F142EA00FAC491 /* proyecto_xTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82983826F142EA00FAC491 /* proyecto_xTests.swift */; };
 		5F82984426F142EA00FAC491 /* proyecto_xUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F82984326F142EA00FAC491 /* proyecto_xUITests.swift */; };
@@ -58,6 +59,7 @@
 		212E1E6E2762A83B0025270C /* BackgroundAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAsyncImage.swift; sourceTree = "<group>"; };
 		218754E92790F6E000C9826B /* CorrectSequenceIndicator_MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectSequenceIndicator_MemoryGame.swift; sourceTree = "<group>"; };
 		21FEB67F27B5FCE30002CEAE /* HelperText_MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperText_MemoryGame.swift; sourceTree = "<group>"; };
+		5F623BFB27FF85A500FCAFF9 /* LivesIndicator_MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivesIndicator_MemoryGame.swift; sourceTree = "<group>"; };
 		5F82982326F142E900FAC491 /* proyecto-x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "proyecto-x.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F82982626F142E900FAC491 /* proyecto_xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proyecto_xApp.swift; sourceTree = "<group>"; };
 		5F82982F26F142EA00FAC491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				CE37BC6F27A335ED00BAAEC4 /* Cell_MemoryGame.swift */,
 				218754E92790F6E000C9826B /* CorrectSequenceIndicator_MemoryGame.swift */,
 				21FEB67F27B5FCE30002CEAE /* HelperText_MemoryGame.swift */,
+				5F623BFB27FF85A500FCAFF9 /* LivesIndicator_MemoryGame.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				CE808EF9278E277E0067FCE3 /* TicTacToeMenu.swift in Sources */,
 				CECCD25E278E212400C42020 /* RetoScreen.swift in Sources */,
 				CE808F0A278E27950067FCE3 /* MainView_MemoryGame.swift in Sources */,
+				5F623BFC27FF85A500FCAFF9 /* LivesIndicator_MemoryGame.swift in Sources */,
 				CE808F09278E27950067FCE3 /* Menu_MemoryGame.swift in Sources */,
 				CE808EFA278E277E0067FCE3 /* Cell.swift in Sources */,
 				CE808EF7278E277E0067FCE3 /* Enums.swift in Sources */,

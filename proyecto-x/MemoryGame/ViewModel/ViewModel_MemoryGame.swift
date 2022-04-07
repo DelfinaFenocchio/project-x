@@ -62,6 +62,7 @@ final class MemoryGameState : ObservableObject {
     
     func startGame() -> Void {
         Task {
+            remainingLives = livesAmountSelected
             try? await Task.sleep(nanoseconds: initialVisualizationDelay)
             flipAllCards()
             try? await Task.sleep(nanoseconds: UInt64(visualizationTimeSelected * 1_000_000_000))
@@ -69,7 +70,6 @@ final class MemoryGameState : ObservableObject {
             flipLoading.toggle()
             disabled = false
             gameStatus = .active
-            remainingLives = livesAmountSelected
         }
     }
     
@@ -134,6 +134,7 @@ final class MemoryGameState : ObservableObject {
     
     func onGoBack () -> Void {
         gameStatus = GameStatusMemoryGame.inactive
+        evalutateHighScore()
         reset()
     }
     
@@ -149,9 +150,9 @@ final class MemoryGameState : ObservableObject {
     
     func onVictory () -> Void {
         totalScore += calculateScore()
-        if totalScore > highScore {
-            UserDefaults.standard.set(self.totalScore, forKey: "MemoryGameHighScore")
-        }
+//        if totalScore > highScore {
+//            UserDefaults.standard.set(self.totalScore, forKey: "MemoryGameHighScore")
+//        }
         Task {
             try? await Task.sleep(nanoseconds: UInt64(1_000_000_000))
             withAnimation(Animation.easeIn(duration: 0.5)){
@@ -167,6 +168,12 @@ final class MemoryGameState : ObservableObject {
             
             try? await Task.sleep(nanoseconds: UInt64(1_500_000_000))
             startGame()
+        }
+    }
+    
+    func evalutateHighScore () -> Void {
+        if totalScore > highScore {
+            UserDefaults.standard.set(self.totalScore, forKey: "MemoryGameHighScore")
         }
     }
     

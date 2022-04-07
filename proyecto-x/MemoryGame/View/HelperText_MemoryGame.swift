@@ -14,9 +14,7 @@ struct MemoryGameHelperText: View {
         if(state.flipLoading){
             Text("Observa los animales durante \(state.visualizationTimeSelected) segundos")
         } else {
-            if(state.remainingLives != 0) {
-                Text("Te quedan \(state.remainingLives) intentos")
-            }
+            EmptyView()
         }
     }
 }
