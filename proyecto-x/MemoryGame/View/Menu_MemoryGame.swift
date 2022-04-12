@@ -16,23 +16,9 @@ struct MemoryGameMenu: View {
         VStack {
             Group{
                 Text("Memory Game")
-                Spacer()
-                Text("Cantidad de cards")
-                    .fontWeight(.bold)
-                    .font(.system(.title))
-                    .padding()
-                    .customTextStyle()
-                
-                Picker("Cards amount", selection: $state.cardsAmountSelected) {
-                    Text("2 cards").tag(2)
-                    Text("8 cards").tag(8)
-                    Text("10 cards").tag(10)
-                    Text("12 cards").tag(12)
-                }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding()
                 
                 Spacer()
+                
                 Text("Elegí el modo de juego")
                     .fontWeight(.bold)
                     .font(.system(.title))
@@ -43,6 +29,23 @@ struct MemoryGameMenu: View {
                     Text("\(GameModeMemoryGame.classicMultiPlayer.rawValue)").tag(GameModeMemoryGame.classicMultiPlayer)
                     Text("\(GameModeMemoryGame.classicSinglePlayer.rawValue)").tag(GameModeMemoryGame.classicSinglePlayer)
                     Text("\(GameModeMemoryGame.sequential.rawValue)").tag(GameModeMemoryGame.sequential)
+                }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                
+                Spacer()
+
+                Text("Cantidad de cards")
+                    .fontWeight(.bold)
+                    .font(.system(.title))
+                    .padding()
+                    .customTextStyle()
+                
+                Picker("Cards amount", selection: $state.cardsAmountSelected) {
+                    ForEach((1...CardAmountOptions.count), id: \.self) {index in
+                        let cardAmount = CardAmountOptions[state.gameModeSelected]![index]!
+                        Text("\(cardAmount) cards").tag(cardAmount)
+                    }
                 }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding()

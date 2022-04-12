@@ -5,6 +5,10 @@ Memory game
 
 - Las cartas tienen que tener una animación que permita voltearlas. (Que sean pares)
 - Tenemos que tener una pantalla para seleccionar modo de juego, cantidad de cards y tiempo de muestra de criterio
+- TODO: La cantidad de cards varia dependiendo el modo de juego. Revisar bug
+- TODO: Chequear puntos en modo secuencial
+- TODO: Ver si podemos adaptar o cambiar el numero de columnas dependiendo el modo de juego
+
 - Modo de Juego:
     - Secuencial:
         - Un único jugador debe encontrar las cards en el orden especificado hasta encontrarlas todas o agotar sus vidas.
@@ -16,6 +20,7 @@ Memory game
         -Agregar opcion de elegir cantidad de vidas (2,4,6)
         -Persistir el high Score en la memoria local del dispositivo SOLO al cerrar la app o salir del juego .
     - Clasico 1 jugador:
+        -
         - TODO: Se deben encontrar de a pares hasta encontrarlas todas o hasta agotarse la cantidad de vidas (depende de la cantidad de cartas seleccionadas) ya que tiene una cantidad limitada (a elección).
         - TODO: Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido y se descuenta una vida.
         - TODO: Mostrar las cartas al iniciar la partida por la cantidad de segundos seleccionada por el usuario.
@@ -25,11 +30,11 @@ Memory game
         - TODO: El tiempo está limitado para cada turno (mostrarlo en la UI).
         - TODO: El jugador a iniciar la partida se selecciona al azar.
         
--TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran
+-TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego
 
-Para el Jueves 07/04/22
-Terminar la lógica faltante del modo secuencial.
+Para el martes 12/04/22
 Que zapi pueda jugar.
+Que alan arranque el curso de swift
 
 
 Desarrollar en el orden de los items de este readme.

@@ -26,3 +26,9 @@ let LivesAmountValuePoints : [Int : Int] = [
     4: 60,
     6: 30
 ]
+
+let CardAmountOptions : [GameModeMemoryGame : [Int : Int]] = [
+    .sequential : [ 1:6 , 2:9, 3:12 ],
+    .classicSinglePlayer : [ 1:6 , 2:12, 3:16 ],
+    .classicMultiPlayer : [ 1:6 , 2:12, 3:16 ],
+]
