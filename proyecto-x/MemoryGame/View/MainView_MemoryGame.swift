@@ -39,7 +39,7 @@ struct MemoryMainView: View {
                         VStack {
                             ZStack{
                                 LazyVGrid(columns: ColumnsByGameMode[state.gameModeSelected]!, spacing: 5) {
-                                    ForEach(0..<state.cardsAmountSelected) { index in
+                                    ForEach(0..<state.cardsAmountSelected, id: \.self) { index in
                                         MemoryGameCell(index: index, screenGeometry: screenGeometry)
                                     }
                                 }

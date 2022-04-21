@@ -27,7 +27,8 @@ let LivesAmountValuePoints : [Int : Int] = [
 ]
 
 let CardAmountOptions : [GameModeMemoryGame : [Int : Int]] = [
-    .sequential : [ 1:6 , 2:9, 3:12 ],
+    //TODO: Cambiar el 2 a 6
+    .sequential : [ 1:2 , 2:9, 3:12 ],
     .classicSinglePlayer : [ 1:8 , 2:12, 3:16 ],
     .classicMultiPlayer : [ 1:8 , 2:12, 3:16 ],
 ]

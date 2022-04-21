@@ -14,7 +14,7 @@ struct CorrectSequenceIndicator: View {
         VStack{
             Text("Da vuelta los animalitos en este orden:")
             HStack {
-                ForEach(0..<state.cardsAmountSelected) { index in
+                ForEach(0..<state.cardsAmountSelected, id: \.self) { index in
                     let id = state.cardsArrangement[index]
                     let element = state.playableCards.filter{ $0.id == id }.first
                     VStack{

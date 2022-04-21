@@ -23,27 +23,46 @@ struct MemoryGameCard {
 
 @MainActor
 final class MemoryGameState : ObservableObject {
-    @Published var loading : Bool = true
+    @Published var loading : Bool
     
-    @Published var gameModeSelected : GameModeMemoryGame = .sequential
-    @Published var cardsAmountSelected : Int = 2
-    @Published var visualizationTimeSelected : Int = 3
-    @Published var remainingLives : Int = 0
-    @Published var livesAmountSelected : Int = 4
-    @Published var totalScore : Int = 0
-    @Published var highScore : Int = UserDefaults.standard.integer(forKey: "MemoryGameHighScore")
-    @Published var gameStatus : GameStatusMemoryGame = GameStatusMemoryGame.inactive
+    @Published var gameModeSelected : GameModeMemoryGame
+    @Published var cardsAmountSelected : Int
+    @Published var visualizationTimeSelected : Int
+    @Published var remainingLives : Int
+    @Published var livesAmountSelected : Int
+    @Published var totalScore : Int
+    @Published var highScore : Int
+    @Published var gameStatus : GameStatusMemoryGame
 
-    @Published var playableCards : [MemoryGameCard] = []
-    @Published var cardsArrangement : [Int] = []
-    @Published var selectedArrangement : [Int] = []
+    @Published var playableCards : [MemoryGameCard]
+    @Published var cardsArrangement : [Int]
+    @Published var selectedArrangement : [Int]
     
-    @Published var disabled : Bool = true
+    @Published var disabled : Bool
     
-    @Published var flipLoading : Bool = true
+    @Published var flipLoading : Bool
     
-    let initialVisualizationDelay : UInt64 = 500_000_000
-    let mistakeVisualizationDelay : UInt64 = 1_500_000_000
+    let initialVisualizationDelay : UInt64
+    let mistakeVisualizationDelay : UInt64
+    
+    init(){
+        self.loading = true
+        self.gameModeSelected = .sequential
+        self.cardsAmountSelected = 2
+        self.visualizationTimeSelected = 3
+        self.remainingLives = 0
+        self.livesAmountSelected = 4
+        self.totalScore = 0
+        self.highScore = UserDefaults.standard.integer(forKey: "MemoryGameHighScore")
+        self.gameStatus = GameStatusMemoryGame.inactive
+        self.playableCards = []
+        self.cardsArrangement = []
+        self.selectedArrangement = []
+        self.disabled = true
+        self.flipLoading = true
+        self.mistakeVisualizationDelay = 1_500_000_000
+        self.initialVisualizationDelay = 500_000_000
+    }
     
     //TODO: Contemplate other game modes. Currently only "sequential"
     func generateGame(cardsAmount : Int) -> Void {
