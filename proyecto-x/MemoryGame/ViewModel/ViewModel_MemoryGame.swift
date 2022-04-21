@@ -187,9 +187,10 @@ final class MemoryGameState : ObservableObject {
     }
     
     func calculateScore () -> Int {
+        let cardPoints = CardAmountValuePoints[gameModeSelected]![cardsAmountSelected]!
         var score = 0
+        score += cardPoints
         score += pointsEarnedByCategory(category: visualizationTimeSelected, pointsBank: PrevisualizationTimeValuePoints)
-        score += pointsEarnedByCategory(category: cardsAmountSelected, pointsBank: CardAmountValuePoints)
         score += pointsEarnedByCategory(category: livesAmountSelected, pointsBank: LivesAmountValuePoints)
         score -= 5 * (livesAmountSelected - remainingLives)
         return score

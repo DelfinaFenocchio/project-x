@@ -13,12 +13,10 @@ let PrevisualizationTimeValuePoints : [Int : Int] = [
     8: 5
 ]
 
-let CardAmountValuePoints : [Int : Int] = [
-    //TODO: Reemplazar el número 2 por 6 en la siguiente línea
-    2: 5,
-    8: 10,
-    10: 15,
-    12: 20
+let CardAmountValuePoints : [GameModeMemoryGame : [Int:Int]] = [
+    .sequential: [6:5, 9:10, 12:20],
+    .classicSinglePlayer : [6:5, 12:10, 16:30],
+    .classicMultiPlayer : [6:5, 12:10, 16:30],
 ]
 
 let LivesAmountValuePoints : [Int : Int] = [

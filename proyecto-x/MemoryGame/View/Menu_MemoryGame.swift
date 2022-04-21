@@ -89,7 +89,9 @@ struct MemoryGameMenu: View {
                 }
             }
             
-        }.onChange(of: state.gameModeSelected) { _ in
-            state.cardsAmountSelected = 0        }
+        }.onChange(of: state.gameModeSelected) { newValue in
+            let cardAmount = CardAmountOptions[newValue]![1]!
+            state.cardsAmountSelected = cardAmount
+        }
     }
 }
