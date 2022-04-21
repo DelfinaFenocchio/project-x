@@ -45,7 +45,7 @@ final class MemoryGameState : ObservableObject {
     let initialVisualizationDelay : UInt64
     let mistakeVisualizationDelay : UInt64
     
-    init(){
+    init() {
         self.loading = true
         self.gameModeSelected = .sequential
         self.cardsAmountSelected = 2
