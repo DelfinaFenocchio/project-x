@@ -11,6 +11,10 @@ struct MemoryMainView: View {
     @EnvironmentObject var state : MemoryGameState
     @Environment(\.scenePhase) var scenePhase
     
+//    let columns = ColumnsByGameMode[state.gameModeSelected]! ?? ColumnsByGameMode[.sequential]!
+    
+    
+    
     var body: some View {
         GeometryReader { screenGeometry in
             ZStack {
@@ -24,14 +28,17 @@ struct MemoryMainView: View {
                     MemoryGameHelperText()
                     LivesIndicator_MemoryGame(remainingLives: state.remainingLives)
                     
+                        
                     Spacer()
                     if(!state.loading){
                         Spacer()
-                        CorrectSequenceIndicator()
-                        Spacer()
+                        if(state.gameModeSelected == .sequential){
+                            CorrectSequenceIndicator()
+                            Spacer()
+                        }
                         VStack {
                             ZStack{
-                                LazyVGrid(columns: state.columns, spacing: 5) {
+                                LazyVGrid(columns: ColumnsByGameMode[state.gameModeSelected]!, spacing: 5) {
                                     ForEach(0..<state.cardsAmountSelected) { index in
                                         MemoryGameCell(index: index, screenGeometry: screenGeometry)
                                     }

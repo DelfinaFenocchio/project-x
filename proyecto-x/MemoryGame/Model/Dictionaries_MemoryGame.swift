@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 let PrevisualizationTimeValuePoints : [Int : Int] = [
     3: 15,
@@ -27,6 +28,26 @@ let LivesAmountValuePoints : [Int : Int] = [
 
 let CardAmountOptions : [GameModeMemoryGame : [Int : Int]] = [
     .sequential : [ 1:6 , 2:9, 3:12 ],
-    .classicSinglePlayer : [ 1:6 , 2:12, 3:16 ],
-    .classicMultiPlayer : [ 1:6 , 2:12, 3:16 ],
+    .classicSinglePlayer : [ 1:8 , 2:12, 3:16 ],
+    .classicMultiPlayer : [ 1:8 , 2:12, 3:16 ],
+]
+
+let ColumnsByGameMode : [GameModeMemoryGame : [GridItem]] = [
+    .sequential: [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ],
+    .classicSinglePlayer: [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ],
+    .classicMultiPlayer: [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
 ]

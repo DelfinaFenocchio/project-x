@@ -202,8 +202,4 @@ final class MemoryGameState : ObservableObject {
         }
         return 0
     }
-    
-    let columns: [GridItem] = [GridItem(.flexible()),
-                               GridItem(.flexible()),
-                               GridItem(.flexible())]
 }
