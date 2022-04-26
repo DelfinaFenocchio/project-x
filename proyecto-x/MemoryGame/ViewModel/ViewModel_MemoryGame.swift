@@ -149,7 +149,7 @@ final class MemoryGameState : ObservableObject {
     func onGoBack () -> Void {
         gameStatus = GameStatusMemoryGame.inactive
         evalutateHighScore()
-        //cardsAmountSelected = 0
+        cardsAmountSelected = 0
         reset()
     }
     

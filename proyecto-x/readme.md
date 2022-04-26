@@ -32,9 +32,13 @@ Memory game
 
 -TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego
 
-Para el martes 26/04/22
+-TODOS temas tecnicos pendientes:
+-excepciones
+-protocolos
+-test unitarios con mocks
+
+Para el jueves 28/04/22
 Que todos podamos jugar sin errores raros
-Agregar enum para sacar los valores de delays del ViewModel y cualquier valor de duraciones para animaciones
 
 
 Desarrollar en el orden de los items de este readme.
