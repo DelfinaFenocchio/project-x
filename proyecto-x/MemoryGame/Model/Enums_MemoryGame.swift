@@ -34,3 +34,14 @@ enum GameStatusMemoryGame {
      case inactive
  }
 
+enum SecondsUInt64 : UInt64 {
+    case half = 500_000_000
+    case one = 1_000_000_000
+    case one_and_a_half = 1_500_000_000
+    case three_and_a_half = 3_500_000_000
+}
+
+enum SecondsFloat : Double {
+    case half = 0.5
+    case three_tenths = 0.3
+}

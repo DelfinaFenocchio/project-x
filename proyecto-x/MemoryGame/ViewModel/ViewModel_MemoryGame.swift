@@ -42,9 +42,6 @@ final class MemoryGameState : ObservableObject {
     
     @Published var flipLoading : Bool
     
-    let initialVisualizationDelay : UInt64
-    let mistakeVisualizationDelay : UInt64
-    
     init() {
         self.loading = true
         self.gameModeSelected = .sequential
@@ -60,8 +57,6 @@ final class MemoryGameState : ObservableObject {
         self.selectedArrangement = []
         self.disabled = true
         self.flipLoading = true
-        self.mistakeVisualizationDelay = 1_500_000_000
-        self.initialVisualizationDelay = 500_000_000
     }
     
     //TODO: Contemplate other game modes. Currently only "sequential"
@@ -82,9 +77,9 @@ final class MemoryGameState : ObservableObject {
     func startGame() -> Void {
         Task {
             remainingLives = livesAmountSelected
-            try? await Task.sleep(nanoseconds: initialVisualizationDelay)
+            try? await Task.sleep(nanoseconds: SecondsUInt64.half.rawValue)
             flipAllCards()
-            try? await Task.sleep(nanoseconds: UInt64(visualizationTimeSelected * 1_000_000_000))
+            try? await Task.sleep(nanoseconds: UInt64(visualizationTimeSelected) * SecondsUInt64.one.rawValue)
             flipAllCards()
             flipLoading.toggle()
             disabled = false
@@ -93,7 +88,7 @@ final class MemoryGameState : ObservableObject {
     }
     
     func flipAllCards (value : Bool? = nil) -> Void {
-            withAnimation(Animation.easeIn(duration: 0.3)){
+        withAnimation(Animation.easeIn(duration: SecondsFloat.three_tenths.rawValue)){
                 playableCards = playableCards.map { card in
                     var mutableCard = card
                     if let flipped = value {
@@ -114,9 +109,9 @@ final class MemoryGameState : ObservableObject {
 
     func handleMistake () -> Void {
         Task {
-            try? await Task.sleep(nanoseconds: mistakeVisualizationDelay)
+            try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
             flipAllCards(value: true)
-            try? await Task.sleep(nanoseconds: mistakeVisualizationDelay)
+            try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
             flipAllCards(value: false)
             selectedArrangement = []
             disabled = false
@@ -154,6 +149,7 @@ final class MemoryGameState : ObservableObject {
     func onGoBack () -> Void {
         gameStatus = GameStatusMemoryGame.inactive
         evalutateHighScore()
+        //cardsAmountSelected = 0
         reset()
     }
     
@@ -173,19 +169,19 @@ final class MemoryGameState : ObservableObject {
 //            UserDefaults.standard.set(self.totalScore, forKey: "MemoryGameHighScore")
 //        }
         Task {
-            try? await Task.sleep(nanoseconds: UInt64(1_000_000_000))
-            withAnimation(Animation.easeIn(duration: 0.5)){
+            try? await Task.sleep(nanoseconds: UInt64(SecondsUInt64.one.rawValue))
+            withAnimation(Animation.easeIn(duration: SecondsFloat.half.rawValue)){
                 gameStatus = GameStatusMemoryGame.victory
             }
-            try? await Task.sleep(nanoseconds: UInt64(3_500_000_000))
+            try? await Task.sleep(nanoseconds: UInt64(SecondsUInt64.three_and_a_half.rawValue))
             reset()
             generateGame(cardsAmount: cardsAmountSelected)
             loading.toggle()
-            withAnimation(Animation.easeIn(duration: 0.5)){
+            withAnimation(Animation.easeIn(duration: SecondsFloat.half.rawValue)){
                 gameStatus = GameStatusMemoryGame.active
             }
             
-            try? await Task.sleep(nanoseconds: UInt64(1_500_000_000))
+            try? await Task.sleep(nanoseconds: UInt64(SecondsUInt64.one_and_a_half.rawValue))
             startGame()
         }
     }
@@ -198,15 +194,18 @@ final class MemoryGameState : ObservableObject {
     
     func onDefeated () -> Void {
         Task {
-            try? await Task.sleep(nanoseconds: UInt64(1_000_000_000))
-            withAnimation(Animation.easeIn(duration: 0.5)){
+            try? await Task.sleep(nanoseconds: UInt64(SecondsUInt64.one.rawValue))
+            withAnimation(Animation.easeIn(duration: SecondsFloat.half.rawValue)){
                 gameStatus = GameStatusMemoryGame.defeated
             }
         }
     }
     
     func calculateScore () -> Int {
-        let cardPoints = CardAmountValuePoints[gameModeSelected]![cardsAmountSelected]!
+        guard let cardPoints = CardAmountValuePoints[gameModeSelected]?[cardsAmountSelected] else {
+            print("there is a nil value")
+            return 0
+        }
         var score = 0
         score += cardPoints
         score += pointsEarnedByCategory(category: visualizationTimeSelected, pointsBank: PrevisualizationTimeValuePoints)
