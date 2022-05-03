@@ -29,6 +29,7 @@ Memory game
 -TODOS para algún día:
 - (Modo secuencial) Corregir indicador de orden de cards cuando hay muchas cards, se amontona y se ve feo
 - Investigar cómo hacer un grid para no tener hardcodeadas las columnas según el modo de juego
+- Ver de no repetir los ids para el modo classic
 
 -TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego
 
