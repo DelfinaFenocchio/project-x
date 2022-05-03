@@ -19,6 +19,7 @@ struct MemoryGameCard {
     var id : Int
     var image : String
     var flipped : Bool = false
+    var parFounder : Bool = false
 }
 
 @MainActor
@@ -42,6 +43,14 @@ final class MemoryGameState : ObservableObject {
     
     @Published var flipLoading : Bool
     
+    //@Published var classicLastFlippedCardId : Int
+    
+    @Published var evaluatePair : Bool
+    
+    @Published var firstImageSelected : String
+
+    @Published var secondImageSelected : String
+    
     init() {
         self.loading = true
         self.gameModeSelected = .sequential
@@ -57,10 +66,25 @@ final class MemoryGameState : ObservableObject {
         self.selectedArrangement = []
         self.disabled = true
         self.flipLoading = true
+        self.evaluatePair = false
+        self.firstImageSelected = ""
+        self.secondImageSelected = ""
     }
     
     //TODO: Contemplate other game modes. Currently only "sequential"
-    func generateGame(cardsAmount : Int) -> Void {
+    
+    func generateGame (cardsAmount : Int) -> Void {
+        switch gameModeSelected {
+            case .classicSinglePlayer:
+            generateGame_classic(cardsAmount: cardsAmount)
+            case .classicMultiPlayer:
+            generateGame_classic(cardsAmount: cardsAmount)
+            case .sequential:
+            generateGame_sequential(cardsAmount: cardsAmount)
+            }
+    }
+    
+    func generateGame_sequential(cardsAmount : Int) -> Void {
         let randomImageIds = getRandomImageIds()
         
         var index : Int = 0
@@ -70,6 +94,24 @@ final class MemoryGameState : ObservableObject {
             playableCards.append(MemoryGameCard(id: index, image: randomImageIds[index]))
 
             index += 1
+        }
+        playableCards.shuffle()
+    }
+    
+    func generateGame_classic(cardsAmount : Int) -> Void {
+        let randomImageIds = getRandomImageIds()
+        
+        var index : Int = 0
+        while index < cardsAmount/2{
+            //cardsArrangement.append(index)
+
+            playableCards.append(MemoryGameCard(id: index, image: randomImageIds[index]))
+
+            index += 1
+        }
+        if gameModeSelected != .sequential {
+            let auxPlayableCards = playableCards
+            playableCards.append(contentsOf: auxPlayableCards)
         }
         playableCards.shuffle()
     }
@@ -104,6 +146,13 @@ final class MemoryGameState : ObservableObject {
     
     func flipCard (index : Int) -> Void {
         playableCards[index].flipped = true
+        if gameModeSelected != .sequential {
+            if !evaluatePair {
+                firstImageSelected = playableCards[index].image
+            } else {
+                secondImageSelected = playableCards[index].image
+            }
+        }
         selectedArrangement.append(playableCards[index].id)
     }
 
@@ -119,6 +168,17 @@ final class MemoryGameState : ObservableObject {
     }
 
     func evaluateFlip () -> Void {
+        switch gameModeSelected {
+            case .classicSinglePlayer:
+                evaluateFlip_classic()
+            case .classicMultiPlayer:
+                evaluateFlip_classic()
+            case .sequential:
+                evaluateFlip_sequential()
+            }
+    }
+    
+    func evaluateFlip_sequential () -> Void {
         let lastFlip = selectedArrangement.count == cardsAmountSelected
         
         var wrong = false
@@ -144,6 +204,52 @@ final class MemoryGameState : ObservableObject {
                 onVictory()
             }
         }
+    }
+    
+    func evaluateFlip_classic () -> Void {
+        
+        guard evaluatePair else {
+            evaluatePair = true
+            return
+        }
+        
+        if (firstImageSelected == secondImageSelected) {
+            print("Hay Match")
+        } else {
+            print("No hay match")
+        }
+        
+        evaluatePair = false
+        
+//        if classicLastFlippedCardId ? {
+//
+//        }
+  
+//        let lastFlip = selectedArrangement.count == cardsAmountSelected
+//
+//        var wrong = false
+//
+//        for (index, selectedCard) in selectedArrangement.enumerated() {
+//            if (cardsArrangement[index] != selectedCard) {
+//                wrong = true
+//                break;
+//            }
+//        }
+//
+//        if (wrong) {
+//            disabled = true
+//            remainingLives -= 1
+//            if(remainingLives != 0){
+//               handleMistake()
+//            }
+//            else {
+//                onDefeated()
+//            }
+//        } else {
+//            if (lastFlip) {
+//                onVictory()
+//            }
+//        }
     }
     
     func onGoBack () -> Void {
