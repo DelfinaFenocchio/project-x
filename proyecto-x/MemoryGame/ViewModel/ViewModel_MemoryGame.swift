@@ -19,7 +19,7 @@ struct MemoryGameCard {
     var id : Int
     var image : String
     var flipped : Bool = false
-    var parFounder : Bool = false
+    var pairFounded : Bool = false
 }
 
 @MainActor
@@ -43,12 +43,8 @@ final class MemoryGameState : ObservableObject {
     
     @Published var flipLoading : Bool
     
-    //@Published var classicLastFlippedCardId : Int
-    
     @Published var evaluatePair : Bool
-    
     @Published var firstImageSelected : String
-
     @Published var secondImageSelected : String
     
     init() {
@@ -133,10 +129,12 @@ final class MemoryGameState : ObservableObject {
         withAnimation(Animation.easeIn(duration: SecondsFloat.three_tenths.rawValue)){
                 playableCards = playableCards.map { card in
                     var mutableCard = card
-                    if let flipped = value {
-                        mutableCard.flipped = flipped
-                    } else {
-                        mutableCard.flipped.toggle()
+                    if !mutableCard.pairFounded {
+                        if let flipped = value {
+                            mutableCard.flipped = flipped
+                        } else {
+                            mutableCard.flipped.toggle()
+                        }
                     }
                     return mutableCard
                  }
@@ -163,6 +161,14 @@ final class MemoryGameState : ObservableObject {
             try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
             flipAllCards(value: false)
             selectedArrangement = []
+            disabled = false
+        }
+    }
+    
+    func handleMistake_classic () -> Void {
+        Task {
+            try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
+            flipAllCards(value: false)
             disabled = false
         }
     }
@@ -213,43 +219,38 @@ final class MemoryGameState : ObservableObject {
             return
         }
         
-        if (firstImageSelected == secondImageSelected) {
-            print("Hay Match")
-        } else {
-            print("No hay match")
-        }
+        let lastFlip = playableCards.allSatisfy{$0.flipped == true}
         
+        var wrong = false
+        
+        if (firstImageSelected == secondImageSelected) {
+            playableCards = playableCards.map{
+                var mutableCard = $0
+                if $0.image == firstImageSelected {
+                    mutableCard.pairFounded = true
+                }
+                return mutableCard
+            }
+        } else {
+            wrong = true
+        }
+    
         evaluatePair = false
         
-//        if classicLastFlippedCardId ? {
-//
-//        }
-  
-//        let lastFlip = selectedArrangement.count == cardsAmountSelected
-//
-//        var wrong = false
-//
-//        for (index, selectedCard) in selectedArrangement.enumerated() {
-//            if (cardsArrangement[index] != selectedCard) {
-//                wrong = true
-//                break;
-//            }
-//        }
-//
-//        if (wrong) {
-//            disabled = true
-//            remainingLives -= 1
-//            if(remainingLives != 0){
-//               handleMistake()
-//            }
-//            else {
-//                onDefeated()
-//            }
-//        } else {
-//            if (lastFlip) {
-//                onVictory()
-//            }
-//        }
+        if (wrong) {
+            disabled = true
+            remainingLives -= 1
+            if(remainingLives != 0){
+                handleMistake_classic()
+            }
+            else {
+                onDefeated()
+            }
+        } else {
+            if (lastFlip) {
+                onVictory()
+            }
+        }
     }
     
     func onGoBack () -> Void {
@@ -265,7 +266,7 @@ final class MemoryGameState : ObservableObject {
         playableCards = []
         cardsArrangement = []
         selectedArrangement = []
-    
+        evaluatePair = false
         disabled = true
     }
     

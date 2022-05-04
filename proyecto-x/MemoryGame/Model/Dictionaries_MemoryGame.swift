@@ -16,8 +16,8 @@ let PrevisualizationTimeValuePoints : [Int : Int] = [
 
 let CardAmountValuePoints : [GameModeMemoryGame : [Int:Int]] = [
     .sequential: [6:5, 9:10, 12:20],
-    .classicSinglePlayer : [6:5, 12:10, 16:30],
-    .classicMultiPlayer : [6:5, 12:10, 16:30],
+    .classicSinglePlayer : [8:5, 12:10, 16:30],
+    .classicMultiPlayer : [8:5, 12:10, 16:30],
 ]
 
 let LivesAmountValuePoints : [Int : Int] = [

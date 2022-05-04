@@ -17,9 +17,9 @@ Memory game
         -Agregar opcion de elegir cantidad de vidas (2,4,6)
         -Persistir el high Score en la memoria local del dispositivo SOLO al cerrar la app o salir del juego .
     - Clasico 1 jugador:
-        - TODO: Se deben encontrar de a pares hasta encontrarlas todas o hasta agotarse la cantidad de vidas (depende de la cantidad de cartas seleccionadas) ya que tiene una cantidad limitada (a elección).
-        - TODO: Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido y se descuenta una vida.
-        - TODO: Mostrar las cartas al iniciar la partida por la cantidad de segundos seleccionada por el usuario.
+        - Se deben encontrar de a pares hasta encontrarlas todas o hasta agotarse la cantidad de vidas (depende de la cantidad de cartas seleccionadas) ya que tiene una cantidad limitada (a elección).
+        - Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido y se descuenta una vida.
+        - Mostrar las cartas al iniciar la partida por la cantidad de segundos seleccionada por el usuario.
     - Clasico 2 jugadores: 
         - TODO: Se deben encontrar de a pares hasta encontrarlas todas, en caso de error el turno pasa al próximo jugador.
         - TODO: Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido.
