@@ -21,6 +21,12 @@ Memory game
         - Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido y se descuenta una vida.
         - Mostrar las cartas al iniciar la partida por la cantidad de segundos seleccionada por el usuario.
     - Clasico 2 jugadores: 
+        - Agregar la lógica para el cambio de turnos.
+        - Mantener el estado de cuantas parejas ha encontrado cada jugador.
+        - TODO: Agregar un indicador visual para conocer a quien le toca jugar.
+        - TODO: Agregar la UI con el ganador.
+        - TODO: Sacar la lógica de las vidas.
+        - TODO: Ocultar la opcion de cantidad de vidas del menú.
         - TODO: Se deben encontrar de a pares hasta encontrarlas todas, en caso de error el turno pasa al próximo jugador.
         - TODO: Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido.
         - TODO: El tiempo está limitado para cada turno (mostrarlo en la UI).
@@ -30,6 +36,7 @@ Memory game
 - (Modo secuencial) Corregir indicador de orden de cards cuando hay muchas cards, se amontona y se ve feo
 - Investigar cómo hacer un grid para no tener hardcodeadas las columnas según el modo de juego
 - Ver de no repetir los ids para el modo classic
+- Agregar feedback visual, auditivo y kinestesico durante eventos importantes.
 
 -TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego
 
@@ -43,3 +50,5 @@ Que todos podamos jugar sin errores raros
 
 
 Desarrollar en el orden de los items de este readme.
+
+NOTA IMPORTANTE: Modificar la lógica de evaluación del puntaje en multiplayer por sobrecarga de operadores.

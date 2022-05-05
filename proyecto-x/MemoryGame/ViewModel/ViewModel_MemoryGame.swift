@@ -19,7 +19,12 @@ struct MemoryGameCard {
     var id : Int
     var image : String
     var flipped : Bool = false
-    var pairFounded : Bool = false
+    var pairFound : Bool = false
+}
+
+struct PlayerMemoryGame {
+    var score: Int
+    var winner: Bool
 }
 
 @MainActor
@@ -47,6 +52,10 @@ final class MemoryGameState : ObservableObject {
     @Published var firstImageSelected : String
     @Published var secondImageSelected : String
     
+    // Multiplayer properties
+    @Published var playerOneTurn : Bool
+    @Published var playersData : [String: PlayerMemoryGame]
+    
     init() {
         self.loading = true
         self.gameModeSelected = .sequential
@@ -65,6 +74,8 @@ final class MemoryGameState : ObservableObject {
         self.evaluatePair = false
         self.firstImageSelected = ""
         self.secondImageSelected = ""
+        self.playerOneTurn = true
+        self.playersData = ["First" : PlayerMemoryGame(score: 0, winner: false), "Second" : PlayerMemoryGame(score: 0, winner: false)]
     }
     
     //TODO: Contemplate other game modes. Currently only "sequential"
@@ -96,6 +107,7 @@ final class MemoryGameState : ObservableObject {
     
     func generateGame_classic(cardsAmount : Int) -> Void {
         let randomImageIds = getRandomImageIds()
+        let auxPlayableCards : [MemoryGameCard]
         
         var index : Int = 0
         while index < cardsAmount/2{
@@ -105,10 +117,8 @@ final class MemoryGameState : ObservableObject {
 
             index += 1
         }
-        if gameModeSelected != .sequential {
-            let auxPlayableCards = playableCards
-            playableCards.append(contentsOf: auxPlayableCards)
-        }
+        auxPlayableCards = playableCards
+        playableCards.append(contentsOf: auxPlayableCards)
         playableCards.shuffle()
     }
     
@@ -129,7 +139,7 @@ final class MemoryGameState : ObservableObject {
         withAnimation(Animation.easeIn(duration: SecondsFloat.three_tenths.rawValue)){
                 playableCards = playableCards.map { card in
                     var mutableCard = card
-                    if !mutableCard.pairFounded {
+                    if !mutableCard.pairFound {
                         if let flipped = value {
                             mutableCard.flipped = flipped
                         } else {
@@ -176,12 +186,49 @@ final class MemoryGameState : ObservableObject {
     func evaluateFlip () -> Void {
         switch gameModeSelected {
             case .classicSinglePlayer:
-                evaluateFlip_classic()
+                evaluateFlip_classic_singlePlayer()
             case .classicMultiPlayer:
-                evaluateFlip_classic()
+                evaluateFlip_classic_multiplayer()
             case .sequential:
                 evaluateFlip_sequential()
             }
+    }
+    
+    func evaluateFlip_classic_multiplayer() -> Void {
+        guard evaluatePair else {
+            evaluatePair = true
+            return
+        }
+        
+        let lastFlip = playableCards.allSatisfy{$0.flipped == true}
+        
+        var wrong = false
+        
+        if (firstImageSelected == secondImageSelected) {
+            playableCards = playableCards.map{
+                var mutableCard = $0
+                if $0.image == firstImageSelected {
+                    mutableCard.pairFound = true
+                }
+                return mutableCard
+            }
+        } else {
+            wrong = true
+        }
+    
+        evaluatePair = false
+        
+        if (wrong) {
+            disabled = true
+            self.playerOneTurn.toggle()
+            handleMistake_classic()
+        } else {
+            self.playersData[self.playerOneTurn ? "First" : "Second"]!.score += 1
+            if (lastFlip) {
+                onVictory_Multiplayer()
+                gameStatus = GameStatusMemoryGame.finished
+            }
+        }
     }
     
     func evaluateFlip_sequential () -> Void {
@@ -212,7 +259,7 @@ final class MemoryGameState : ObservableObject {
         }
     }
     
-    func evaluateFlip_classic () -> Void {
+    func evaluateFlip_classic_singlePlayer () -> Void {
         
         guard evaluatePair else {
             evaluatePair = true
@@ -227,7 +274,7 @@ final class MemoryGameState : ObservableObject {
             playableCards = playableCards.map{
                 var mutableCard = $0
                 if $0.image == firstImageSelected {
-                    mutableCard.pairFounded = true
+                    mutableCard.pairFound = true
                 }
                 return mutableCard
             }
@@ -249,6 +296,16 @@ final class MemoryGameState : ObservableObject {
         } else {
             if (lastFlip) {
                 onVictory()
+            }
+        }
+    }
+    
+    func onVictory_Multiplayer() -> Void {
+        if(playersData["First"]!.score > playersData["Second"]!.score){
+            playersData["First"]!.winner = true
+        }else{
+            if(playersData["First"]!.score < playersData["Second"]!.score){
+                playersData["Second"]!.winner = true
             }
         }
     }

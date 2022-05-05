@@ -32,6 +32,7 @@ enum GameStatusMemoryGame {
      case victory
      case defeated
      case inactive
+     case finished
  }
 
 enum SecondsUInt64 : UInt64 {
