@@ -26,7 +26,12 @@ struct MemoryMainView: View {
                     Spacer()
 
                     MemoryGameHelperText()
-                    LivesIndicator_MemoryGame(remainingLives: state.remainingLives)
+                    if (state.gameModeSelected == GameModeMemoryGame.classicMultiPlayer) {
+                        Text("Turno de: \(state.playerOneTurn ? "jugador uno" : "jugador dos")")
+                    }
+                    else {
+                        LivesIndicator_MemoryGame(remainingLives: state.remainingLives)
+                    }
                     
                         
                     Spacer()
@@ -50,7 +55,7 @@ struct MemoryMainView: View {
                     }
                     
                 }
-                if(state.gameStatus == .victory || state.gameStatus == .defeated){
+                if(state.gameStatus == .victory || state.gameStatus == .defeated || state.gameStatus == .finished){
                     MemoryGameResultModal(screenGeometry: screenGeometry)
                         .zIndex(1)
                         .transition(.move(edge: .bottom))

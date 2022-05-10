@@ -23,14 +23,15 @@ Memory game
     - Clasico 2 jugadores: 
         - Agregar la lógica para el cambio de turnos.
         - Mantener el estado de cuantas parejas ha encontrado cada jugador.
-        - TODO: Agregar un indicador visual para conocer a quien le toca jugar.
-        - TODO: Agregar la UI con el ganador.
-        - TODO: Sacar la lógica de las vidas.
-        - TODO: Ocultar la opcion de cantidad de vidas del menú.
-        - TODO: Se deben encontrar de a pares hasta encontrarlas todas, en caso de error el turno pasa al próximo jugador.
-        - TODO: Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido.
+        - Agregar un indicador visual para conocer a quien le toca jugar.
+        - Agregar la UI con el ganador.
+        - Sacar la lógica de las vidas.
+        - Se deben encontrar de a pares hasta encontrarlas todas, en caso de error el turno pasa al próximo jugador.
+        - Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido.
         - TODO: El tiempo está limitado para cada turno (mostrarlo en la UI).
         - TODO: El jugador a iniciar la partida se selecciona al azar.
+        - TODO: Mejorar la UI del modal (puntuacion de ambos)
+        - TODO: Ocultar la opcion de cantidad de vidas del menú.
         
 -TODOS para algún día:
 - (Modo secuencial) Corregir indicador de orden de cards cuando hay muchas cards, se amontona y se ve feo
@@ -51,4 +52,3 @@ Que todos podamos jugar sin errores raros
 
 Desarrollar en el orden de los items de este readme.
 
-NOTA IMPORTANTE: Modificar la lógica de evaluación del puntaje en multiplayer por sobrecarga de operadores.

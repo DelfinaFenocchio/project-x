@@ -29,24 +29,34 @@ struct MemoryGameResultModal: View {
                        .ignoresSafeArea()
 
                    VStack {
-                       if (state.gameStatus == GameStatusMemoryGame.victory) {
-                           Text("Ganaste!")
-
-                           Text("Puntuacion: \(state.totalScore)")
-                           
-                           Text("Próximo juego comienza en: \(Int(remainingTime + 1))")
-                       }
-                       else {
-                            if (state.gameStatus == GameStatusMemoryGame.defeated) {
-                               Text("Perdiste")
+                       if (state.gameModeSelected == GameModeMemoryGame.classicMultiPlayer){
+                           if (state.playersData["First"]!.winner || state.playersData["Second"]!.winner) {
+                               Text("Ganó: \(state.playersData["Second"]!.winner ? "segundo jugador" : "primer jugador")")
+                           } else {
+                               Text("Empataron")
+                           }
+                           Button(action: { self.presentationMode.wrappedValue.dismiss() })
+                           { Text("Volver al Menu") }
+                       } else {
+                           if (state.gameStatus == GameStatusMemoryGame.victory) {
+                               Text("Ganaste!")
 
                                Text("Puntuacion: \(state.totalScore)")
                                
-                               Button(action: { self.presentationMode.wrappedValue.dismiss() })
-                               { Text("Volver al Menu") }
+                               Text("Próximo juego comienza en: \(Int(remainingTime + 1))")
                            }
                            else {
-                               EmptyView()
+                                if (state.gameStatus == GameStatusMemoryGame.defeated) {
+                                   Text("Perdiste")
+
+                                   Text("Puntuacion: \(state.totalScore)")
+                                   
+                                   Button(action: { self.presentationMode.wrappedValue.dismiss() })
+                                   { Text("Volver al Menu") }
+                               }
+                               else {
+                                   EmptyView()
+                               }
                            }
                        }
 

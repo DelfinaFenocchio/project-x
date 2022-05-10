@@ -27,6 +27,18 @@ struct PlayerMemoryGame {
     var winner: Bool
 }
 
+func == (left: PlayerMemoryGame, right: PlayerMemoryGame) -> Bool {
+    return left.score == right.score
+}
+
+func > (left: PlayerMemoryGame, right: PlayerMemoryGame) -> Bool {
+    return left.score > right.score
+}
+
+func < (left: PlayerMemoryGame, right: PlayerMemoryGame) -> Bool {
+    return left.score < right.score
+}
+
 @MainActor
 final class MemoryGameState : ObservableObject {
     @Published var loading : Bool
@@ -227,6 +239,7 @@ final class MemoryGameState : ObservableObject {
             if (lastFlip) {
                 onVictory_Multiplayer()
                 gameStatus = GameStatusMemoryGame.finished
+                
             }
         }
     }
@@ -300,12 +313,17 @@ final class MemoryGameState : ObservableObject {
         }
     }
     
+    
     func onVictory_Multiplayer() -> Void {
-        if(playersData["First"]!.score > playersData["Second"]!.score){
-            playersData["First"]!.winner = true
-        }else{
-            if(playersData["First"]!.score < playersData["Second"]!.score){
-                playersData["Second"]!.winner = true
+        var firstPlayer = playersData["First"]!
+        var secondPlayer = playersData["Second"]!
+        if ((firstPlayer > secondPlayer) || (firstPlayer < secondPlayer)) {
+            if(firstPlayer > secondPlayer){
+                firstPlayer.winner = true
+            }else{
+                if((firstPlayer < secondPlayer)){
+                    secondPlayer.winner = true
+                }
             }
         }
     }
@@ -325,6 +343,9 @@ final class MemoryGameState : ObservableObject {
         selectedArrangement = []
         evaluatePair = false
         disabled = true
+        playerOneTurn = true
+        playersData["First"]!.winner = false
+        playersData["Second"]!.winner = false
     }
     
     func onVictory () -> Void {
