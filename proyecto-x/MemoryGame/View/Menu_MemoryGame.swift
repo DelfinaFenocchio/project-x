@@ -69,19 +69,20 @@ struct MemoryGameMenu: View {
                     .padding()
                     
                     Spacer()
-                    Text("Cantidad de vidas")
-                        .fontWeight(.bold)
-                        .font(.system(.title))
+                    if state.gameModeSelected != GameModeMemoryGame.classicMultiPlayer{
+                        Text("Cantidad de vidas")
+                            .fontWeight(.bold)
+                            .font(.system(.title))
+                            .padding()
+                            .customTextStyle()
+                        Picker("Cantidad de vidas", selection: $state.livesAmountSelected) {
+                            Text("2").tag(2)
+                            Text("4").tag(4)
+                            Text("6").tag(6)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
                         .padding()
-                        .customTextStyle()
-                    Picker("Cantidad de vidas", selection: $state.livesAmountSelected) {
-                        Text("2").tag(2)
-                        Text("4").tag(4)
-                        Text("6").tag(6)
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding()
-                    
                     NavigationLink(destination: MemoryMainView().environmentObject(state)) {
                         Text("Comenzar juego")
                             .customButtonStyle()

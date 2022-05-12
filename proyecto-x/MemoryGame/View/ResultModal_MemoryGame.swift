@@ -30,6 +30,7 @@ struct MemoryGameResultModal: View {
 
                    VStack {
                        if (state.gameModeSelected == GameModeMemoryGame.classicMultiPlayer){
+                           Text("Jugador 1 : \(state.playersData["First"]!.score) Jugador 2 : \(state.playersData["Second"]!.score)")
                            if (state.playersData["First"]!.winner || state.playersData["Second"]!.winner) {
                                Text("Ganó: \(state.playersData["Second"]!.winner ? "segundo jugador" : "primer jugador")")
                            } else {

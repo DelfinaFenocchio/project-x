@@ -315,14 +315,14 @@ final class MemoryGameState : ObservableObject {
     
     
     func onVictory_Multiplayer() -> Void {
-        var firstPlayer = playersData["First"]!
-        var secondPlayer = playersData["Second"]!
+        let firstPlayer = playersData["First"]!
+        let secondPlayer = playersData["Second"]!
         if ((firstPlayer > secondPlayer) || (firstPlayer < secondPlayer)) {
             if(firstPlayer > secondPlayer){
-                firstPlayer.winner = true
+                playersData["First"]!.winner = true
             }else{
                 if((firstPlayer < secondPlayer)){
-                    secondPlayer.winner = true
+                    playersData["Second"]!.winner = true
                 }
             }
         }
@@ -346,6 +346,8 @@ final class MemoryGameState : ObservableObject {
         playerOneTurn = true
         playersData["First"]!.winner = false
         playersData["Second"]!.winner = false
+        playersData["First"]!.score = 0
+        playersData["Second"]!.score = 0
     }
     
     func onVictory () -> Void {
