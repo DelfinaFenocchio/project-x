@@ -267,7 +267,12 @@ final class MemoryGameState : ObservableObject {
             }
         } else {
             if (lastFlip) {
-                onVictory()
+                do {
+                    try onVictory()
+                } catch {
+                    print("Ocurrio un error inesperado \(error)")
+                }
+                
             }
         }
     }
@@ -308,7 +313,11 @@ final class MemoryGameState : ObservableObject {
             }
         } else {
             if (lastFlip) {
-                onVictory()
+                do {
+                    try onVictory()
+                } catch  {
+                    print("Ocurrio un error inesperado \(error)")
+                }
             }
         }
     }
@@ -350,7 +359,7 @@ final class MemoryGameState : ObservableObject {
         playersData["Second"]!.score = 0
     }
     
-    func onVictory () -> Void {
+    func onVictory () throws -> Void {
         totalScore += calculateScore()
 //        if totalScore > highScore {
 //            UserDefaults.standard.set(self.totalScore, forKey: "MemoryGameHighScore")
