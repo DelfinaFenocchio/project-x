@@ -28,10 +28,13 @@ Memory game
         - Sacar la lógica de las vidas.
         - Se deben encontrar de a pares hasta encontrarlas todas, en caso de error el turno pasa al próximo jugador.
         - Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido.
-        - TODO: El tiempo está limitado para cada turno (mostrarlo en la UI).
+        - Ocultar la opcion de cantidad de vidas del menú.
+        - WIP: El tiempo está limitado para cada turno (mostrarlo en la UI).
+            - Cada turno dura X segundos (TODO: definir cuánto), sin importar si el jugador descubre pares durante ese tiempo. DONE
+            - El turno termina cuando el jugador erra, o pasa la cantidad de tiempo. DONE
+            - TODO: Al terminar el turno, la card que esté volteada sin su par, se esconde de nuevo.
         - TODO: El jugador a iniciar la partida se selecciona al azar.
         - TODO: Mejorar la UI del modal (puntuacion de ambos)
-        - TODO: Ocultar la opcion de cantidad de vidas del menú.
         
 -TODOS para algún día:
 - (Modo secuencial) Corregir indicador de orden de cards cuando hay muchas cards, se amontona y se ve feo

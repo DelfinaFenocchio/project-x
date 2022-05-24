@@ -23,11 +23,13 @@ struct MemoryMainView: View {
                     Text("Score Actual: \(state.totalScore)")
                     Text("High Score: \(state.highScore)")
 
+
                     Spacer()
 
                     MemoryGameHelperText()
                     if (state.gameModeSelected == GameModeMemoryGame.classicMultiPlayer) {
                         Text("Turno de: \(state.playerOneTurn ? "jugador uno" : "jugador dos")")
+                        Text("Tiempo: \(state.turnTimeRemaining)")
                     }
                     else {
                         LivesIndicator_MemoryGame(remainingLives: state.remainingLives)
@@ -65,6 +67,7 @@ struct MemoryMainView: View {
                 state.generateGame(cardsAmount: state.cardsAmountSelected)
                 state.startGame()
                 state.loading.toggle()
+                
             })
             .onDisappear(perform: {
                 state.onGoBack()
@@ -72,6 +75,16 @@ struct MemoryMainView: View {
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .background {
                     state.evalutateHighScore()
+                }
+            }
+            .onReceive(state.turnTimer) { time in
+                //TODO: disable timer when game is not active
+                guard (!state.disabled) else { return }
+                
+                if state.turnTimeRemaining > 0 {
+                    state.turnTimeRemaining -= 1
+                } else {
+                    state.handleMultiplayerTurnEnd()
                 }
             }
 

@@ -82,7 +82,21 @@ struct MemoryGameMenu: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .padding()
+                    } else {
+                        Text("Duración de turno")
+                            .fontWeight(.bold)
+                            .font(.system(.title))
+                            .padding()
+                            .customTextStyle()
+                        Picker("Duración de turno", selection: $state.turnDuration) {
+                            Text("5").tag(5)
+                            Text("10").tag(10)
+                            Text("15").tag(15)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding()
                     }
+                    
                     NavigationLink(destination: MemoryMainView().environmentObject(state)) {
                         Text("Comenzar juego")
                             .customButtonStyle()

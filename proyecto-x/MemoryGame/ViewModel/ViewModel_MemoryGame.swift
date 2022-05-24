@@ -68,6 +68,11 @@ final class MemoryGameState : ObservableObject {
     @Published var playerOneTurn : Bool
     @Published var playersData : [String: PlayerMemoryGame]
     
+    @Published var turnDuration : Int
+    
+    @Published var turnTimeRemaining : Int
+    let turnTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     init() {
         self.loading = true
         self.gameModeSelected = .sequential
@@ -88,9 +93,13 @@ final class MemoryGameState : ObservableObject {
         self.secondImageSelected = ""
         self.playerOneTurn = true
         self.playersData = ["First" : PlayerMemoryGame(score: 0, winner: false), "Second" : PlayerMemoryGame(score: 0, winner: false)]
+        self.turnDuration = 0
+        self.turnTimeRemaining = 0
     }
     
     //TODO: Contemplate other game modes. Currently only "sequential"
+    
+    
     
     func generateGame (cardsAmount : Int) -> Void {
         switch gameModeSelected {
@@ -137,6 +146,7 @@ final class MemoryGameState : ObservableObject {
     func startGame() -> Void {
         Task {
             remainingLives = livesAmountSelected
+            turnTimeRemaining = turnDuration
             try? await Task.sleep(nanoseconds: SecondsUInt64.half.rawValue)
             flipAllCards()
             try? await Task.sleep(nanoseconds: UInt64(visualizationTimeSelected) * SecondsUInt64.one.rawValue)
@@ -232,7 +242,7 @@ final class MemoryGameState : ObservableObject {
         
         if (wrong) {
             disabled = true
-            self.playerOneTurn.toggle()
+            handleMultiplayerTurnEnd()
             handleMistake_classic()
         } else {
             self.playersData[self.playerOneTurn ? "First" : "Second"]!.score += 1
@@ -320,6 +330,12 @@ final class MemoryGameState : ObservableObject {
                 }
             }
         }
+    }
+    
+    func handleMultiplayerTurnEnd() -> Void {
+        playerOneTurn.toggle()
+        turnTimeRemaining = turnDuration
+        //TODO: Flip all non-paired cards
     }
     
     
