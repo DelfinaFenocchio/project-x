@@ -144,6 +144,7 @@ final class MemoryGameState : ObservableObject {
     }
     
     func startGame() -> Void {
+        disabled = true
         Task {
             remainingLives = livesAmountSelected
             turnTimeRemaining = turnDuration
@@ -333,9 +334,10 @@ final class MemoryGameState : ObservableObject {
     }
     
     func handleMultiplayerTurnEnd() -> Void {
-        playerOneTurn.toggle()
         turnTimeRemaining = turnDuration
-        //TODO: Flip all non-paired cards
+        evaluatePair = false
+        playerOneTurn.toggle()
+        flipAllCards(value: false)
     }
     
     

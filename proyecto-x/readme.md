@@ -35,6 +35,8 @@ Memory game
             - TODO: Al terminar el turno, la card que esté volteada sin su par, se esconde de nuevo.
         - TODO: El jugador a iniciar la partida se selecciona al azar.
         - TODO: Mejorar la UI del modal (puntuacion de ambos)
+        - TODO: El score y el high score tienen sentido en este modo?
+        - TODO: Bug tiempo de previsualizacion (ask rodo)
         
 -TODOS para algún día:
 - (Modo secuencial) Corregir indicador de orden de cards cuando hay muchas cards, se amontona y se ve feo

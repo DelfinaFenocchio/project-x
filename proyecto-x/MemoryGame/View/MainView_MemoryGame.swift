@@ -63,6 +63,7 @@ struct MemoryMainView: View {
                         .transition(.move(edge: .bottom))
                 }
             }
+            //TODO: BUG PREVISUALIZACION .navigationBarBackButtonHidden(state.disabled)
             .onAppear(perform: {
                 state.generateGame(cardsAmount: state.cardsAmountSelected)
                 state.startGame()
@@ -79,7 +80,7 @@ struct MemoryMainView: View {
             }
             .onReceive(state.turnTimer) { time in
                 //TODO: disable timer when game is not active
-                guard (!state.disabled) else { return }
+                guard (!state.disabled && state.gameModeSelected == .classicMultiPlayer) else { return }
                 
                 if state.turnTimeRemaining > 0 {
                     state.turnTimeRemaining -= 1
