@@ -91,7 +91,7 @@ final class MemoryGameState : ObservableObject {
         self.evaluatePair = false
         self.firstImageSelected = ""
         self.secondImageSelected = ""
-        self.playerOneTurn = true
+        self.playerOneTurn = Bool.random()
         self.playersData = ["First" : PlayerMemoryGame(score: 0, winner: false), "Second" : PlayerMemoryGame(score: 0, winner: false)]
         self.turnDuration = 0
         self.turnTimeRemaining = 0
@@ -334,12 +334,16 @@ final class MemoryGameState : ObservableObject {
     }
     
     func handleMultiplayerTurnEnd() -> Void {
-        turnTimeRemaining = turnDuration
-        evaluatePair = false
-        playerOneTurn.toggle()
-        flipAllCards(value: false)
+        disabled = true
+        Task {
+            try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
+            turnTimeRemaining = turnDuration
+            evaluatePair = false
+            playerOneTurn.toggle()
+            flipAllCards(value: false)
+            disabled = false
+        }
     }
-    
     
     func onVictory_Multiplayer() -> Void {
         let firstPlayer = playersData["First"]!
@@ -358,7 +362,7 @@ final class MemoryGameState : ObservableObject {
     func onGoBack () -> Void {
         gameStatus = GameStatusMemoryGame.inactive
         evalutateHighScore()
-        cardsAmountSelected = 0
+        cardsAmountSelected = 2
         reset()
     }
     
@@ -370,7 +374,7 @@ final class MemoryGameState : ObservableObject {
         selectedArrangement = []
         evaluatePair = false
         disabled = true
-        playerOneTurn = true
+        playerOneTurn = Bool.random()
         playersData["First"]!.winner = false
         playersData["Second"]!.winner = false
         playersData["First"]!.score = 0

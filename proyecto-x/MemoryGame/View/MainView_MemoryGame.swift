@@ -20,8 +20,11 @@ struct MemoryMainView: View {
             ZStack {
                 VStack{
                     Text("Jugando: \(state.gameModeSelected.rawValue)")
-                    Text("Score Actual: \(state.totalScore)")
-                    Text("High Score: \(state.highScore)")
+                    
+                    if (state.gameModeSelected != GameModeMemoryGame.classicMultiPlayer) {
+                        Text("Score Actual: \(state.totalScore)")
+                        Text("High Score: \(state.highScore)")
+                    }
 
 
                     Spacer()
@@ -63,7 +66,7 @@ struct MemoryMainView: View {
                         .transition(.move(edge: .bottom))
                 }
             }
-            //TODO: BUG PREVISUALIZACION .navigationBarBackButtonHidden(state.disabled)
+            //.navigationBarBackButtonHidden()
             .onAppear(perform: {
                 state.generateGame(cardsAmount: state.cardsAmountSelected)
                 state.startGame()
