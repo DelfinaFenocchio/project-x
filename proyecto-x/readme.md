@@ -32,12 +32,14 @@ Memory game
         - WIP: El tiempo está limitado para cada turno (mostrarlo en la UI).
             - Cada turno dura X segundos (TODO: definir cuánto), sin importar si el jugador descubre pares durante ese tiempo. DONE
             - El turno termina cuando el jugador erra, o pasa la cantidad de tiempo. DONE
-            - TODO: Al terminar el turno, la card que esté volteada sin su par, se esconde de nuevo.
-        - TODO: El jugador a iniciar la partida se selecciona al azar.
+            - Al terminar el turno, la card que esté volteada sin su par, se esconde de nuevo.
+        - El jugador a iniciar la partida se selecciona al azar.
         - TODO: Mejorar la UI del modal (puntuacion de ambos)
-        - TODO: El score y el high score tienen sentido en este modo?
-        - TODO: Bug tiempo de previsualizacion (ask rodo)
-        
+        - TODO: Mejorar la indicación visual del cambio de turno
+        - TODO: investigar como cancelar las task al hacer back
+ 
+-TODO configurar un modulo nativo para poder integrarlo a un proyecto de react native 
+
 -TODOS para algún día:
 - (Modo secuencial) Corregir indicador de orden de cards cuando hay muchas cards, se amontona y se ve feo
 - Investigar cómo hacer un grid para no tener hardcodeadas las columnas según el modo de juego
@@ -47,11 +49,14 @@ Memory game
 -TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego
 
 -TODOS temas tecnicos pendientes:
--excepciones
 -protocolos
--test unitarios con mocks
+-mocks para test unitarios
+-subíndices
+-lazy / computed properties
 
-Para el jueves 28/04/22
+Para el jueves 02/06/22
+- investigar como hacer mocks para el test asíncrono
+
 Que todos podamos jugar sin errores raros
 
 
