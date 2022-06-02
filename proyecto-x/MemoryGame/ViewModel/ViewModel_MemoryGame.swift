@@ -72,6 +72,7 @@ final class MemoryGameState : ObservableObject {
     
     @Published var turnTimeRemaining : Int
     let turnTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    var tasksArray : [Task<(), Never>]
     
     init() {
         self.loading = true
@@ -95,6 +96,7 @@ final class MemoryGameState : ObservableObject {
         self.playersData = ["First" : PlayerMemoryGame(score: 0, winner: false), "Second" : PlayerMemoryGame(score: 0, winner: false)]
         self.turnDuration = 0
         self.turnTimeRemaining = 0
+        self.tasksArray = []
     }
     
     //TODO: Contemplate other game modes. Currently only "sequential"
@@ -145,7 +147,7 @@ final class MemoryGameState : ObservableObject {
     
     func startGame() -> Void {
         disabled = true
-        Task {
+        startTask { [self] in
             remainingLives = livesAmountSelected
             turnTimeRemaining = turnDuration
             try? await Task.sleep(nanoseconds: SecondsUInt64.half.rawValue)
@@ -155,6 +157,20 @@ final class MemoryGameState : ObservableObject {
             flipLoading.toggle()
             disabled = false
             gameStatus = .active
+        }
+        
+    }
+    
+    func startTask(_ action: @escaping () async -> Void) {
+        let newTask = Task {
+            await action()
+        }
+        tasksArray.append(newTask)
+    }
+    
+    func cancelAllTasks() -> Void {
+        for (_, task) in tasksArray.enumerated() {
+            task.cancel()
         }
     }
     
@@ -188,7 +204,7 @@ final class MemoryGameState : ObservableObject {
     }
 
     func handleMistake () -> Void {
-        Task {
+        startTask { [self] in
             try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
             flipAllCards(value: true)
             try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
@@ -199,7 +215,7 @@ final class MemoryGameState : ObservableObject {
     }
     
     func handleMistake_classic () -> Void {
-        Task {
+        startTask { [self] in
             try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
             flipAllCards(value: false)
             disabled = false
@@ -249,8 +265,6 @@ final class MemoryGameState : ObservableObject {
             self.playersData[self.playerOneTurn ? "First" : "Second"]!.score += 1
             if (lastFlip) {
                 onVictory_Multiplayer()
-                gameStatus = GameStatusMemoryGame.finished
-                
             }
         }
     }
@@ -335,7 +349,7 @@ final class MemoryGameState : ObservableObject {
     
     func handleMultiplayerTurnEnd() -> Void {
         disabled = true
-        Task {
+        startTask { [self] in
             try? await Task.sleep(nanoseconds: SecondsUInt64.one_and_a_half.rawValue)
             turnTimeRemaining = turnDuration
             evaluatePair = false
@@ -346,15 +360,21 @@ final class MemoryGameState : ObservableObject {
     }
     
     func onVictory_Multiplayer() -> Void {
-        let firstPlayer = playersData["First"]!
-        let secondPlayer = playersData["Second"]!
-        if ((firstPlayer > secondPlayer) || (firstPlayer < secondPlayer)) {
-            if(firstPlayer > secondPlayer){
-                playersData["First"]!.winner = true
-            }else{
-                if((firstPlayer < secondPlayer)){
-                    playersData["Second"]!.winner = true
+        startTask { [self] in
+            let firstPlayer = playersData["First"]!
+            let secondPlayer = playersData["Second"]!
+            try? await Task.sleep(nanoseconds: SecondsUInt64.one.rawValue)
+            withAnimation(Animation.easeIn(duration: SecondsFloat.half.rawValue)){
+                if ((firstPlayer > secondPlayer) || (firstPlayer < secondPlayer)) {
+                    if(firstPlayer > secondPlayer){
+                        playersData["First"]!.winner = true
+                    }else{
+                        if((firstPlayer < secondPlayer)){
+                            playersData["Second"]!.winner = true
+                        }
+                    }
                 }
+                gameStatus = GameStatusMemoryGame.finished
             }
         }
     }
@@ -364,6 +384,7 @@ final class MemoryGameState : ObservableObject {
         evalutateHighScore()
         cardsAmountSelected = 2
         reset()
+        cancelAllTasks()
     }
     
     func reset () -> Void {
@@ -386,7 +407,7 @@ final class MemoryGameState : ObservableObject {
 //        if totalScore > highScore {
 //            UserDefaults.standard.set(self.totalScore, forKey: "MemoryGameHighScore")
 //        }
-        Task {
+        startTask { [self] in
             try? await Task.sleep(nanoseconds: UInt64(SecondsUInt64.one.rawValue))
             withAnimation(Animation.easeIn(duration: SecondsFloat.half.rawValue)){
                 gameStatus = GameStatusMemoryGame.victory
@@ -411,7 +432,7 @@ final class MemoryGameState : ObservableObject {
     }
     
     func onDefeated () -> Void {
-        Task {
+        startTask { [self] in
             try? await Task.sleep(nanoseconds: UInt64(SecondsUInt64.one.rawValue))
             withAnimation(Animation.easeIn(duration: SecondsFloat.half.rawValue)){
                 gameStatus = GameStatusMemoryGame.defeated
@@ -421,7 +442,7 @@ final class MemoryGameState : ObservableObject {
     
     func calculateScore () -> Int {
         guard let cardPoints = CardAmountValuePoints[gameModeSelected]?[cardsAmountSelected] else {
-            print("there is a nil value")
+            print("esto pasa porque estamos en modo desarrollo con 2 cards")
             return 0
         }
         var score = 0
