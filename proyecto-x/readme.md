@@ -29,16 +29,21 @@ Memory game
         - Se deben encontrar de a pares hasta encontrarlas todas, en caso de error el turno pasa al próximo jugador.
         - Las parejas encontradas no se reinician al cometer un error, en este caso se vuelven a esconder las ultimas 2 cartas que representan el error cometido.
         - Ocultar la opcion de cantidad de vidas del menú.
-        - WIP: El tiempo está limitado para cada turno (mostrarlo en la UI).
-            - Cada turno dura X segundos (TODO: definir cuánto), sin importar si el jugador descubre pares durante ese tiempo. DONE
-            - El turno termina cuando el jugador erra, o pasa la cantidad de tiempo. DONE
-            - Al terminar el turno, la card que esté volteada sin su par, se esconde de nuevo.
         - El jugador a iniciar la partida se selecciona al azar.
+        - investigar como cancelar las task al hacer back.
+        - El tiempo está limitado para cada turno (mostrarlo en la UI).
+            - Cada turno dura X segundos, sin importar si el jugador descubre pares durante ese tiempo.
+            - El turno termina cuando el jugador erra, o pasa la cantidad de tiempo.
+            - Al terminar el turno, la card que esté volteada sin su par, se esconde de nuevo.
         - TODO: Mejorar la UI del modal (puntuacion de ambos)
         - TODO: Mejorar la indicación visual del cambio de turno
-        - TODO: investigar como cancelar las task al hacer back
- 
--TODO configurar un modulo nativo para poder integrarlo a un proyecto de react native 
+
+- TODOS temas tecnicos pendientes:
+    - protocolos
+    - mocks para test unitarios
+    - subíndices
+    - lazy / computed properties
+    - Configurar un modulo nativo para poder integrarlo a un proyecto de react native 
 
 -TODOS para algún día:
 - (Modo secuencial) Corregir indicador de orden de cards cuando hay muchas cards, se amontona y se ve feo
@@ -46,19 +51,9 @@ Memory game
 - Ver de no repetir los ids para el modo classic
 - Agregar feedback visual, auditivo y kinestesico durante eventos importantes.
 
--TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego
+- TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego.
 
--TODOS temas tecnicos pendientes:
--protocolos
--mocks para test unitarios
--subíndices
--lazy / computed properties
-
-Para el jueves 02/06/22
+Para el jueves 09/06/22
 - investigar como hacer mocks para el test asíncrono
 
-Que todos podamos jugar sin errores raros
-
-
 Desarrollar en el orden de los items de este readme.
-
