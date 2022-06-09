@@ -65,10 +65,17 @@ struct BEComunication: View {
     
     @available(iOS 15.0.0, *)
     func loadData() async {
+        //Implicitly Unwrapped Optional (do not try at home!)
+//        let url : URL!
+//        url = URL(string: "https://images.unsplash.com/photo-1555679427-1f6dfcce943b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODAxNzN8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MDk1MjM&ixlib=rb-1.2.1&q=80&w=400")
+        
+        //A safer approach is a guard statement:
         guard let url = URL(string: "https://images.unsplash.com/photo-1555679427-1f6dfcce943b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODAxNzN8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MDk1MjM&ixlib=rb-1.2.1&q=80&w=400") else {
             print("Invalid URL")
             return
         }
+        
+
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
