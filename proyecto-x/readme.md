@@ -35,8 +35,11 @@ Memory game
             - Cada turno dura X segundos, sin importar si el jugador descubre pares durante ese tiempo.
             - El turno termina cuando el jugador erra, o pasa la cantidad de tiempo.
             - Al terminar el turno, la card que esté volteada sin su par, se esconde de nuevo.
-        - TODO: Mejorar la UI del modal (puntuacion de ambos)
         - TODO: Mejorar la indicación visual del cambio de turno
+            - Agregar input para los nombres de cada jugadores, con default "Jugador Uno" o "Jugador Dos"
+            - Agregar animación/es o colores
+        - TODO: Indicar cuál jugador levantó cada par mediante el color
+        - TODO: Mejorar la UI del modal (puntuacion de ambos)
 
 - TODOS temas tecnicos pendientes:
     - protocolos
@@ -53,7 +56,7 @@ Memory game
 
 - TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego.
 
-Para el jueves 09/06/22
+Para el martes 14/06/22
 - investigar como hacer mocks para el test asíncrono
 
 Desarrollar en el orden de los items de este readme.

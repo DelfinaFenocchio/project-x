@@ -30,13 +30,6 @@ struct MemoryMainView: View {
                     Spacer()
 
                     MemoryGameHelperText()
-                    if (state.gameModeSelected == GameModeMemoryGame.classicMultiPlayer) {
-                        Text("Turno de: \(state.playerOneTurn ? "jugador uno" : "jugador dos")")
-                        Text("Tiempo: \(state.turnTimeRemaining)")
-                    }
-                    else {
-                        LivesIndicator_MemoryGame(remainingLives: state.remainingLives)
-                    }
                     
                         
                     Spacer()
