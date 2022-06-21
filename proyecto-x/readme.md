@@ -40,13 +40,17 @@ Memory game
             - Agregar animación/es o colores
         - TODO: Indicar cuál jugador levantó cada par mediante el color
         - TODO: Mejorar la UI del modal (puntuacion de ambos)
+        - TODO: Menu principal Vertical (revisar Textos)
+        - TODO: Mejorar el paso turno(2seg) y la visual del Timer 
+        - TODO: Elegir paleta de colores (menu y opciones)
+        - TODO: Menu de cada juego, Easy,Medium,Hard (opciones preseteadas) y opcion de Customize
 
-- TODOS temas tecnicos pendientes:
-    - protocolos
-    - mocks para test unitarios
-    - subíndices
-    - lazy / computed properties
-    - Configurar un modulo nativo para poder integrarlo a un proyecto de react native 
+- TODOS temas tecnicos pendientes: 
+    - protocolos (Delfi)
+    - mocks para test unitarios (Alan)
+    - subíndices (Rodo)
+    - lazy / computed properties (Zapi)
+    - Configurar un modulo nativo para poder integrarlo a un proyecto de react native (Lisba)
 
 -TODOS para algún día:
 - (Modo secuencial) Corregir indicador de orden de cards cuando hay muchas cards, se amontona y se ve feo
