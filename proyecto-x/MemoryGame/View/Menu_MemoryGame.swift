@@ -12,6 +12,11 @@ import SwiftUI
 struct MemoryGameMenu: View {
     @StateObject var state : MemoryGameState = MemoryGameState()
     
+    @State var playerOneName : String = ""
+    @State var playerTwoName : String = ""
+//    state.playersData["First"]?.name = playerOneName
+//    state.playersData["Second"]?.name = playerTwoName
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack {
@@ -97,10 +102,25 @@ struct MemoryGameMenu: View {
                         .padding()
                     }
                     
+                    if(state.gameModeSelected == .classicMultiPlayer){
+                        Text("Ingresa el nombre de ambos jugadores")
+                            .fontWeight(.bold)
+                            .font(.system(.title))
+                            .padding()
+                            .customTextStyle()
+                        TextField("Jugador 1", text: $playerOneName)
+                        TextField("Jugador 2", text: $playerTwoName)
+                    }
+
                     NavigationLink(destination: MemoryMainView().environmentObject(state)) {
                         Text("Comenzar juego")
                             .customButtonStyle()
+                        //TODO: Disable button when settings are not selected
                     }.disabled(state.cardsAmountSelected == 0)
+                        .simultaneousGesture(TapGesture().onEnded{
+                            state.playersData["First"]?.name = playerOneName
+                            state.playersData["Second"]?.name = playerTwoName
+                        })
                 }
             }
             

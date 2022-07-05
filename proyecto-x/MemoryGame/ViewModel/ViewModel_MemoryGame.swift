@@ -25,6 +25,7 @@ struct MemoryGameCard {
 struct PlayerMemoryGame {
     var score: Int
     var winner: Bool
+    var name: String
 }
 
 func == (left: PlayerMemoryGame, right: PlayerMemoryGame) -> Bool {
@@ -74,6 +75,9 @@ final class MemoryGameState : ObservableObject {
     let turnTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var tasksArray : [Task<(), Never>]
     
+    @Published var playerOneName : String = "Jugador 1"
+    @Published var playerTwoName : String = "Jugador 2"
+    
     init() {
         self.loading = true
         self.gameModeSelected = .sequential
@@ -93,14 +97,11 @@ final class MemoryGameState : ObservableObject {
         self.firstImageSelected = ""
         self.secondImageSelected = ""
         self.playerOneTurn = Bool.random()
-        self.playersData = ["First" : PlayerMemoryGame(score: 0, winner: false), "Second" : PlayerMemoryGame(score: 0, winner: false)]
-        self.turnDuration = 0
+        self.playersData = ["First" : PlayerMemoryGame(score: 0, winner: false, name: "Jugador 1"), "Second" : PlayerMemoryGame(score: 0, winner: false, name: "Jugador 2")]
+        self.turnDuration = 5
         self.turnTimeRemaining = 0
         self.tasksArray = []
     }
-    
-    //TODO: Contemplate other game modes. Currently only "sequential"
-    
     
     
     func generateGame (cardsAmount : Int) -> Void {

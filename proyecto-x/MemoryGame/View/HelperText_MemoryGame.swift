@@ -16,7 +16,7 @@ struct MemoryGameHelperText: View {
         } else {
             if (state.gameModeSelected == GameModeMemoryGame.classicMultiPlayer) {
                 Text("Turno de:")
-                Text("\(state.playerOneTurn ? "jugador uno" : "jugador dos")")
+                Text(state.playersData[state.playerOneTurn ? "First" : "Second"]!.name)
                     .font(.system(size: 30))
                 
                 Spacer()

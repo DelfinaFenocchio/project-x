@@ -37,7 +37,8 @@ Memory game
             - Al terminar el turno, la card que esté volteada sin su par, se esconde de nuevo.
         - TODO: Mejorar la indicación visual del cambio de turno
             - Agregar input para los nombres de cada jugadores, con default "Jugador Uno" o "Jugador Dos"
-            - Agregar animación/es o colores
+            - TODO: Agregar animación/es o colores
+        - TODO: Agregar validaciones necesarias al formulario del menú para evitar bugs
         - TODO: Indicar cuál jugador levantó cada par mediante el color
         - TODO: Mejorar la UI del modal (puntuacion de ambos)
         - TODO: Menu principal Vertical (revisar Textos)
@@ -48,8 +49,6 @@ Memory game
 - TODOS temas tecnicos pendientes: 
     - protocolos (Delfi)
     - mocks para test unitarios (Alan)
-    - subíndices (Rodo)
-    - lazy / computed properties (Zapi)
     - Configurar un modulo nativo para poder integrarlo a un proyecto de react native (Lisba)
 
 -TODOS para algún día:
@@ -60,7 +59,8 @@ Memory game
 
 - TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego.
 
-Para el martes 14/06/22
+Para el jueves 07/07/22
 - investigar como hacer mocks para el test asíncrono
+- protocolos
 
 Desarrollar en el orden de los items de este readme.
