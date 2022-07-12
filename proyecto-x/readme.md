@@ -38,7 +38,7 @@ Memory game
         - TODO: Mejorar la indicación visual del cambio de turno
             - Agregar input para los nombres de cada jugadores, con default "Jugador Uno" o "Jugador Dos"
             - TODO: Agregar animación/es o colores
-        - TODO: Agregar validaciones necesarias al formulario del menú para evitar bugs
+        - Agregar validaciones necesarias al formulario del menú para evitar bugs
         - TODO: Indicar cuál jugador levantó cada par mediante el color
         - TODO: Mejorar la UI del modal (puntuacion de ambos)
         - TODO: Menu principal Vertical (revisar Textos)
@@ -59,8 +59,8 @@ Memory game
 
 - TODO FINAL: Agregar TODAS las mejoras visuales, con probable ayuda de Fran, que haya alguna explicacion de los modos de juego.
 
-Para el jueves 07/07/22
+Para el jueves 14/07/22
+- investigar framework combine para entender el "Just" que utilizamos en el onReceive de los textfield de nombre de jugador para limitar los caracteres
 - investigar como hacer mocks para el test asíncrono
-- protocolos
 
 Desarrollar en el orden de los items de este readme.
