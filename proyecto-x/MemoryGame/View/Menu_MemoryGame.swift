@@ -6,16 +6,21 @@
 //
 
 import SwiftUI
-
-
+import Combine
 
 struct MemoryGameMenu: View {
     @StateObject var state : MemoryGameState = MemoryGameState()
     
-    @State var playerOneName : String = ""
-    @State var playerTwoName : String = ""
-//    state.playersData["First"]?.name = playerOneName
-//    state.playersData["Second"]?.name = playerTwoName
+    @State var playerOneName : String = "Jugador 1"
+    @State var playerTwoName : String = "Jugador 2"
+    
+    var textInputLimit = 10
+    
+    func onChangePlayerName(_ playerName : inout String) {
+           if playerName.count > textInputLimit {
+               playerName =  String(playerName.prefix(textInputLimit))
+           }
+       }
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
@@ -109,7 +114,14 @@ struct MemoryGameMenu: View {
                             .padding()
                             .customTextStyle()
                         TextField("Jugador 1", text: $playerOneName)
+                            .disableAutocorrection(true)
+                            .onReceive(Just(playerOneName)) { _ in onChangePlayerName(&playerOneName) }
+                           
+                            
                         TextField("Jugador 2", text: $playerTwoName)
+                            .disableAutocorrection(true)
+                            .onReceive(Just(playerTwoName)) { _ in onChangePlayerName(&playerTwoName) }
+                        
                     }
 
                     NavigationLink(destination: MemoryMainView().environmentObject(state)) {
@@ -118,8 +130,8 @@ struct MemoryGameMenu: View {
                         //TODO: Disable button when settings are not selected
                     }.disabled(state.cardsAmountSelected == 0)
                         .simultaneousGesture(TapGesture().onEnded{
-                            state.playersData["First"]?.name = playerOneName
-                            state.playersData["Second"]?.name = playerTwoName
+                            state.playersData["First"]?.name = playerOneName.count > 0 ? playerOneName : "Jugador 1"
+                            state.playersData["Second"]?.name = playerTwoName.count > 0 ? playerTwoName : "Jugador 2"
                         })
                 }
             }

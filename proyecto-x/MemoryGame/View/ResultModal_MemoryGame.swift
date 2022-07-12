@@ -13,7 +13,6 @@ struct MemoryGameResultModal: View {
     
     @State var remainingTime : Double = 3.5
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
     let screenGeometry : GeometryProxy
        
        var body: some View {
@@ -30,9 +29,11 @@ struct MemoryGameResultModal: View {
 
                    VStack {
                        if (state.gameModeSelected == GameModeMemoryGame.classicMultiPlayer){
-                           Text("Jugador 1 : \(state.playersData["First"]!.score) Jugador 2 : \(state.playersData["Second"]!.score)")
-                           if (state.playersData["First"]!.winner || state.playersData["Second"]!.winner) {
-                               Text("Ganó: \(state.playersData["Second"]!.winner ? "segundo jugador" : "primer jugador")")
+                           let playerOne = state.playersData["First"]!
+                           let playerTwo = state.playersData["Second"]!
+                           Text("\(playerOne.name): \(playerOne.score) \(playerTwo.name): \(playerTwo.score)")
+                           if (playerOne.winner || playerTwo.winner) {
+                               Text("Ganó: \(playerTwo.winner ? playerTwo.name : playerOne.name)")
                            } else {
                                Text("Empataron")
                            }
